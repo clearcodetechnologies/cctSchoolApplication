@@ -1,0 +1,20 @@
+/*		color theme , align	, padding margin	 */
+/* text color */
+.text-white{  color:white; }
+.text-light-yellow{  color:#ffd15d; }
+.text-light-blue{      color: #dedede; }
+.text-light-red{  color:#ff5b62; }
+.text-green{  color:#008b07; }
+
+.bg-black{  background-color: #252525;}
+.bg-light-green{  background-color:#b1ebb4; }
+.bg-light-yellow{  background-color:#fbedcc; }
+.bg-light-bluish{  background-color:#d2f2f6; }
+
+/*	padding		*/
+.padd-r5{	padding-right: 5px;	}
+.padd-l5{	padding-left: 5px;	}
+.padd-rl5{	padding-left: 5px; padding-right: 5px;	}
+.padd-rl10{	padding-left: 10px; padding-right: 10px;	}
+.no-padd-r{	padding-right: 0px;	}
+.no-padd-l{	padding-left: 0px;	}

@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Text;
+using System.Data;
+using System.Configuration;
+
+/// <summary>
+/// Summary description for GetImage
+/// </summary>
+public class GetImage : IHttpHandler
+{
+
+    public void ProcessRequest(HttpContext context)
+    {
+        string imageid = context.Request.QueryString["ImgID"];
+
+        var Dt = SelectWithStoredProcedure(imageid);
+        if (Dt.Tables[0].Rows.Count > 0)
+        {
+            context.Response.BinaryWrite((Byte[])Dt.Tables[0].Rows[0][0]);
+        }
+        context.Response.End();
+    }
+    string ConnectionString = ConfigurationManager.ConnectionStrings["esmsSKP"].ConnectionString;
+    public DataSet SelectWithStoredProcedure(string imageid)
+    {
+        DataSet ds = new DataSet();
+        using (var sqlConnection = new SqlConnection(ConnectionString))
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlDataAdapter sda = new SqlDataAdapter("SELECT image FROM Files where id=" + imageid, conn))
+                {
+                    sda.Fill(ds);
+                }
+            }
+        }
+        return ds;
+    }
+
+    public bool IsReusable
+    {
+        get
+        {
+            return false;
+        }
+    }
+}
