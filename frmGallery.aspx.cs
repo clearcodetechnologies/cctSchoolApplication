@@ -19,6 +19,9 @@ public partial class frmGallery : DBUtility
     DataSet ds;
     SqlCommand cmd;
     DataSet dsObj = new DataSet();
+    string filepath = ConfigurationManager.AppSettings["ImageLink"];
+    string fileUploadPath = ConfigurationManager.AppSettings["ImageUploadPath"];
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
@@ -50,7 +53,7 @@ public partial class frmGallery : DBUtility
     }
     protected void filldata()
     {
-        string query1 = "Select *From tblGallaryEventMaster";
+        string query1 = "Select *From tblGallaryEventMaster where intactive_flg=1";
         bool st = sBindDropDownList(ddlCategory, query1, "EventName", "Id");
 
 
@@ -88,7 +91,7 @@ public partial class frmGallery : DBUtility
                             //FileUpload1.SaveAs("C:/inetpub/wwwroot/Rajasthan/TraffordSchool/TraffordSchool/image/" + filename);
                             //D:\Application Live\NPST\Uttarakhand\SKPSchool\SKPSchool\image
                             //FileUpload1.SaveAs("D:/Application Live/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/image/" + filename);
-                           FileUpload1.SaveAs("E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/" + filename);
+                            FileUpload1.SaveAs(fileUploadPath + filename);
                             HttpPostedFile uploadfile = fileCollectionUpload[i];
                             string strPage1FileName = Path.GetFileName(uploadfile.FileName).ToString();
                             string File1Ext = System.IO.Path.GetExtension(uploadfile.FileName);
@@ -100,8 +103,9 @@ public partial class frmGallery : DBUtility
                             //cmd.Parameters.AddWithValue("@Path", "http://eserveshiksha.co.in/TraffordSchoolApi/image/" + strPage1FileName);
                             //cmd.Parameters.AddWithValue("@Path", "http://eserveshiksha.co.in/SKPSchoolApi/image/" + strPage1FileName);
                             
-                            //cmd.Parameters.AddWithValue("@Path", "http://e-smarts.com/SKPAPI/IMAGE/" + strPage1FileName);
-                            cmd.Parameters.AddWithValue("@Path", "http://192.168.1.150/SKPSchoolAPI/IMAGE/" + strPage1FileName);
+                            //cmd.Parameters.AddWithValue("@Path", "http://VClassrooms.com/SKPAPI/IMAGE/" + strPage1FileName);
+
+                            cmd.Parameters.AddWithValue("@Path", filepath + strPage1FileName);
                             cmd.Parameters.AddWithValue("@EventDescription", txtEvent.Text);
                             cmd.Parameters.AddWithValue("@Uploadedfrom", SqlDbType.VarChar).Value = "web";
                             cmd.Parameters.AddWithValue("@Filetype", SqlDbType.VarChar).Value = "gallery";
@@ -116,6 +120,7 @@ public partial class frmGallery : DBUtility
                             gvImages.DataSource = ds;
                             gvImages.DataBind();
 
+                            MessageBox("Image Uploaded Successfully..");
 
                         }
                     }
@@ -138,12 +143,15 @@ public partial class frmGallery : DBUtility
                             string strStudent_id = Convert.ToString(dsObj.Tables[0].Rows[i]["intstudent_id"]);
                             string strFcmTokan = Convert.ToString(dsObj.Tables[0].Rows[i]["FCMToken"]);
 
-                            var applicationID = "AIzaSyCHfQSjFsEybdNRibLORHTMVVp6CKoI5TQ"; // PbojmyrmspdqkZ0pINni7DyqvhY2
+                           // var applicationID = "AIzaSyCHfQSjFsEybdNRibLORHTMVVp6CKoI5TQ"; // PbojmyrmspdqkZ0pINni7DyqvhY2
+
+                            var applicationID = ConfigurationManager.AppSettings["ApplicationID"];
 
                             string message = "New Image added in Gallery";
                             string title = "Gallery";
-                            var SENDER_ID = "574926706382";
+                           // var SENDER_ID = "574926706382";
                             // 73064704159
+                            var SENDER_ID = ConfigurationManager.AppSettings["SENDER_ID"];
                             var value = message.Trim();
                             WebRequest tRequest;
                             tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
@@ -292,7 +300,7 @@ public partial class frmGallery : DBUtility
             if (sExecuteQuery(strQry1) != -1)
             {
                 //var filePath = HttpContext.Current.Server.MapPath("C:/inetpub/wwwroot/Rajasthan/TraffordSchool/TraffordSchool/image/" + Convert.ToString(Session["Name"]));
-                var filePath = HttpContext.Current.Server.MapPath("D:/Application Live/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/image/" + Convert.ToString(Session["Name"]));
+                var filePath = HttpContext.Current.Server.MapPath("E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image/" + Convert.ToString(Session["Name"]));
                 //FileUpload1.SaveAs("D:/Application Live/NPST/Uttarakhand/SKPSchool/SKPSchool/image/" + filename);
                 if (File.Exists(filePath))
                 {

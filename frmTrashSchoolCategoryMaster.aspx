@@ -15,7 +15,7 @@
             <li class="active">Category Master</li>
         </ol>
     </div>
-     <div style="padding: 5px 0 0 0">
+     <div style="padding: 5px 0 0 15px">
         <center>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>

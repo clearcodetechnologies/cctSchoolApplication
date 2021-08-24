@@ -255,7 +255,7 @@
            
             <div class="sepreater"></div>
           </div>
-          <p class="about-des">Efficacious India Limited has been incorporated in the year 2012. The company is committed to innovative products and solutions that can improve management efficacy and tracking for school going children by efficient use of technology and service aspect.</p>
+          <p class="about-des">vclassrooms India Limited has been incorporated in the year 2012. The company is committed to innovative products and solutions that can improve management efficacy and tracking for school going children by efficient use of technology and service aspect.</p>
             <p class="about-des"> The company is backed by team of highly professionals from IT Security and Education Sector who understand the requirement of the sector and have invariably researched products that can cater to the needs of the education sector.</p>
             
               <h1 class="about-heading">OUR TEAM</h1>
@@ -264,12 +264,12 @@
           <div style="width: 100%;color: #000;height: auto;padding: 2%;float: left; margin-bottom:15px; background: #fff;font-size: 16px;
 text-align: justify;"><p style="color: #000;
 line-height: 23px;
-font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed; margin-right:15px;" align="left" src="images/team/kamal-Agrawal.png"><strong>Kamal Agrawal</strong> is the CMD of Efficacious Group. He has over 15 years of post-qualification experience in the field of Accounts, Finance, Costing and Budgeting. A veteran in Finance field, he has done his CA, CS, CWA and Diploma in IFRS from ACCA London. He has been associated and worked closely with various IT companies during his tenure and in the process developed an acumen to do some innovative research/experiment in this field. In order to provide a platform to transform his vision into tangible reality has created Efficacious.</p></div>
+font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed; margin-right:15px;" align="left" src="images/team/kamal-Agrawal.png"><strong>Kamal Agrawal</strong> is the CMD of vclassrooms Group. He has over 15 years of post-qualification experience in the field of Accounts, Finance, Costing and Budgeting. A veteran in Finance field, he has done his CA, CS, CWA and Diploma in IFRS from ACCA London. He has been associated and worked closely with various IT companies during his tenure and in the process developed an acumen to do some innovative research/experiment in this field. In order to provide a platform to transform his vision into tangible reality has created vclassrooms.</p></div>
 
   <div style="width: 100%;color: #000;height: auto;padding: 2%;float: left; margin-bottom:15px; background: #fff;font-size: 16px;
 text-align: justify;"><p style="color: #000;
 line-height: 23px;
-font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed; margin-right:15px;" align="left" src="images/team/Mukund-Gupta.png"><strong>Mukund Gupta</strong> is the Advisor of Efficacious India Limited. An alumnus of Mumbai University from where he received his Master's Degree in Information Management and went on to get a Diploma in Software Engineering & Embedded Systems. Mr. Gupta has been a source of inspiration and motivation to all those whom he comes across and considering his stupendous contributions and amazing achievements, he was propelled to the position of Executive Director of Micro Technologies (India) Ltd prior to joining EIL. Mr. Gupta is responsible for the overall Technological development of the Company for innovative products.</p></div>
+font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed; margin-right:15px;" align="left" src="images/team/Mukund-Gupta.png"><strong>Mukund Gupta</strong> is the Advisor of vclassrooms India Limited. An alumnus of Mumbai University from where he received his Master's Degree in Information Management and went on to get a Diploma in Software Engineering & Embedded Systems. Mr. Gupta has been a source of inspiration and motivation to all those whom he comes across and considering his stupendous contributions and amazing achievements, he was propelled to the position of Executive Director of Micro Technologies (India) Ltd prior to joining EIL. Mr. Gupta is responsible for the overall Technological development of the Company for innovative products.</p></div>
 
 
  <div style="width: 100%;color: #000;height: auto;padding: 2%;float: left; margin-bottom:15px; background: #fff;font-size: 16px;
@@ -280,7 +280,7 @@ font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed;
  <div style="width: 100%;color: #000;height: auto;padding: 2%;float: left; margin-bottom:15px; background: #fff;font-size: 16px;
 text-align: justify;"><p style="color: #000;
 line-height: 23px;
-font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed; margin-right:15px;" align="left" src="images/team/Ajay-Prajati.png"><strong>Ajay Prajapati</strong> heads the development & implementation team at Efficacious. Mr. Ajay has more than 6 years of domain experience in IT and software development. He is adept at building and managing a motivated team by setting and maintaining high standards for individual and team performance. He is also known for nurturing effective teams and cross-functional relationships. He is endowed with excellent creative instincts, deep understanding of technology and strong project management and analytical skills. Mr. Ajay is responsible for new developments in software technology. He is handling various development activities like planning, scheduling, coding and implementing the project. His vast experience includes developing and executing strategies for new products, skill enhancement and employability that extends from increasing the profitability of existing products to developing a variety of new products for the Company.</p></div>          
+font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed; margin-right:15px;" align="left" src="images/team/Ajay-Prajati.png"><strong>Ajay Prajapati</strong> heads the development & implementation team at vclassrooms. Mr. Ajay has more than 6 years of domain experience in IT and software development. He is adept at building and managing a motivated team by setting and maintaining high standards for individual and team performance. He is also known for nurturing effective teams and cross-functional relationships. He is endowed with excellent creative instincts, deep understanding of technology and strong project management and analytical skills. Mr. Ajay is responsible for new developments in software technology. He is handling various development activities like planning, scheduling, coding and implementing the project. His vast experience includes developing and executing strategies for new products, skill enhancement and employability that extends from increasing the profitability of existing products to developing a variety of new products for the Company.</p></div>          
           
          
          <div style="width:90%; height:auto; padding:2%; float:left;"></div>
@@ -314,12 +314,12 @@ font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed;
             </div>
             <div class="services-text">With ever expanding Education Sector & the increase in crimes against school going children in school premises and in school buses which has been on the rise now a days, so for a better & secured management has always been felt from years for the Child's Safety. </div>
             
-             <div class="services-text">E-SMARTs is a signature product of Efficacious India Limited (EIL), embarking on this issue aiming completely to revolutionize the concept of Educational sector with Simple, Safe & Secured Management to provide robust Child Security.  The company is committed to create distinctive products and solutions that can make a substantial difference and make an impact in the existing Educational Sector by providing Smart Security and Tracking Solutions for Children.</div>
+             <div class="services-text">VClassrooms is a signature product of vclassrooms India Limited (EIL), embarking on this issue aiming completely to revolutionize the concept of Educational sector with Simple, Safe & Secured Management to provide robust Child Security.  The company is committed to create distinctive products and solutions that can make a substantial difference and make an impact in the existing Educational Sector by providing Smart Security and Tracking Solutions for Children.</div>
              
              
-              <div class="services-text">We are the pioneers to build Security and Tracking features in Educational sector with E-Smarts, a Simple, Safe & Secured Management Software tool. We have a strong team of professionals with immense expertise of more than two decades in IT Security & Education field and we understand the need of the hour of the Educational sector. We envisioned the education sector for the future and exchanged different approaches towards the education management and security solutions to make it a reality.</div>
+              <div class="services-text">We are the pioneers to build Security and Tracking features in Educational sector with VClassrooms, a Simple, Safe & Secured Management Software tool. We have a strong team of professionals with immense expertise of more than two decades in IT Security & Education field and we understand the need of the hour of the Educational sector. We envisioned the education sector for the future and exchanged different approaches towards the education management and security solutions to make it a reality.</div>
               
-               <div class="services-text">E-SMARTs has been designed in such a way that it can be used in Schools, Colleges, Coaching Institutes & Universities operating from Single or Multiple premises/location covering wider geographies. Based on actual site condition our Business Development Team can assess the exact requirement and provide the most competitive proposal both in terms of cost and effectiveness.</div>
+               <div class="services-text">VClassrooms has been designed in such a way that it can be used in Schools, Colleges, Coaching Institutes & Universities operating from Single or Multiple premises/location covering wider geographies. Based on actual site condition our Business Development Team can assess the exact requirement and provide the most competitive proposal both in terms of cost and effectiveness.</div>
             <div class="w-row">
               <div class="w-col w-col-13 services-column">
                 <div class="service-icon">
@@ -465,14 +465,14 @@ font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed;
                                         Landline: +9122 -27816136/37
                                     </p>
                                     <p class="contact-para" style="color: #000;">
-                                        Website: <a style="color: brown; text-decoration: none;" href="http://www.efficacious.co.in"
-                                            title="Efficacious" target="_blank">www.efficacious.co.in</a>
+                                        Website: <a style="color: brown; text-decoration: none;" href="http://www.vclassrooms.in"
+                                            title="vclassrooms" target="_blank">www.vclassrooms.in</a>
                                     </p>
                                     <p class="contact-para" style="color: #000;">
-                                        Email: <a style="color: brown; text-decoration: none;" href="mailto:sales@efficacious.co.in">
-                                            sales@efficacious.co.in</a> | <a style="color: brown; text-decoration: none;" href="mailto:enquiry@efficacious.co.in">
-                                                enquiry@efficacious.co.in</a> | <a style="color: brown; text-decoration: none;" href="mailto:info@efficacious.co.in">
-                                                    info@efficacious.co.in</a>
+                                        Email: <a style="color: brown; text-decoration: none;" href="mailto:sales@vclassrooms.in">
+                                            sales@vclassrooms.in</a> | <a style="color: brown; text-decoration: none;" href="mailto:enquiry@vclassrooms.in">
+                                                enquiry@vclassrooms.in</a> | <a style="color: brown; text-decoration: none;" href="mailto:info@vclassrooms.in">
+                                                    info@vclassrooms.in</a>
                                     </p>
                                     <div style="border-bottom: 4px double rgba(255, 255, 255, 0.53); margin: 20px 0;">
                                     </div>
@@ -488,15 +488,15 @@ font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed;
                                         Landline: +971-43124867/68
                                     </p>
                                     <p class="contact-para" style="color: #000;">
-                                        Website: <a style="color: brown; text-decoration: none;" href="http://www.efficacioustech.com"
-                                            title="Efficacioustech" target="_blank">www.efficacioustech.com </a>
+                                        Website: <a style="color: brown; text-decoration: none;" href="http://www.vclassroomstech.com"
+                                            title="vclassroomstech" target="_blank">www.vclassroomstech.com </a>
                                     </p>
                                     <p class="contact-para" style="color: #000;">
-                                        Email: <a style="color: brown; text-decoration: none;" href="mailto:sales@efficacioustech.co.in">
-                                            sales@efficacioustech.co.in</a> | <a style="color: brown; text-decoration: none;"
-                                                href="mailto:enquiry@efficacioustech.co.in">enquiry@efficacioustech.co.in</a>
-                                        | <a style="color: brown; text-decoration: none;" href="mailto:info@efficacioustech.co.in">
-                                            info@efficacioustech.co.in</a>
+                                        Email: <a style="color: brown; text-decoration: none;" href="mailto:sales@vclassroomstech.co.in">
+                                            sales@vclassroomstech.co.in</a> | <a style="color: brown; text-decoration: none;"
+                                                href="mailto:enquiry@vclassroomstech.co.in">enquiry@vclassroomstech.co.in</a>
+                                        | <a style="color: brown; text-decoration: none;" href="mailto:info@vclassroomstech.co.in">
+                                            info@vclassroomstech.co.in</a>
                                     </p>
                                 </div>
                             </div>
@@ -651,7 +651,7 @@ font-size: 16px;"><img width="150" height="150" style="border:1px solid #ededed;
           </div>-->
                     <div>
                         <p class="copyright-area" style="color: #424242; font-size: 12px;">
-                            ©2014 . All Rights Reserved by Efficacious India Limited
+                            ©2014 . All Rights Reserved by vclassrooms India Limited
                         </p>
                     </div>
                 </div>

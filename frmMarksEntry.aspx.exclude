@@ -60,9 +60,9 @@
         .groupOfTexbox
         {
         }
-        .efficacious select{ width:61% !important;}
+        .vclassrooms select{ width:61% !important;}
         .mGrid th{text-align="center !important"} 
-        .efficacious span{ font-size:13px !important;}
+        .vclassrooms span{ font-size:13px !important;}
     </style>
     <style type="text/css">
     .watermarked
@@ -89,7 +89,7 @@
                     Width="100%">
                     <asp:TabPanel runat="server" ID="tb3" HeaderText="View Details">
                         <ContentTemplate>
-                            <div class="efficacious">
+                            <div class="vclassrooms">
                                 <table width="100%">
                                     <tr>
                                         <td align="center">
@@ -176,7 +176,7 @@
                         <ContentTemplate>
                             <center>
                                 <br />
-                                <div class="efficacious">
+                                <div class="vclassrooms">
                                     <table width="60%">
                                         <tr>
                                             <td align="left">
@@ -375,11 +375,11 @@
                                     <table width="28%">
                                         <tr>
                                             <td width="50%" align="right">
-                                                <asp:Button ID="btnSubmit1" runat="server" CssClass="efficacious_send" Text="Submit"
+                                                <asp:Button ID="btnSubmit1" runat="server" CssClass="vclassrooms_send" Text="Submit"
                                                     Visible="False" OnClick="btnSubmit1_Click" />
                                             </td>
                                             <td width="50%" align="right">
-                                                <asp:Button ID="btnClear1" CssClass="efficacious_send" runat="server" Text="Clear"
+                                                <asp:Button ID="btnClear1" CssClass="vclassrooms_send" runat="server" Text="Clear"
                                                     Visible="False" OnClick="btnClear1_Click" />
                                             </td>
                                         </tr>
@@ -392,7 +392,7 @@
                         <ContentTemplate>
                             <center>
                                 <br />
-                                <div class="efficacious">
+                                <div class="vclassrooms">
                                     <table width="50%">
                                         <tr>
                                             <td align="left">
@@ -449,16 +449,16 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <div id="divTable" class="efficacious" runat="server">
+                                    <div id="divTable" class="vclassrooms" runat="server">
                                     </div>
                                     <table width="28%">
                                         <tr>
                                             <td width="50%" align="right">
-                                                <asp:Button ID="btnSubmit" runat="server" CssClass="efficacious_send" Text="Submit"
+                                                <asp:Button ID="btnSubmit" runat="server" CssClass="vclassrooms_send" Text="Submit"
                                                     Visible="False" />
                                             </td>
                                             <td width="50%" align="right">
-                                                <asp:Button ID="btnClear" CssClass="efficacious_send" runat="server" Text="Clear"
+                                                <asp:Button ID="btnClear" CssClass="vclassrooms_send" runat="server" Text="Clear"
                                                     Visible="False" />
                                             </td>
                                         </tr>

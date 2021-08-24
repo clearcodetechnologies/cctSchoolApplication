@@ -187,7 +187,9 @@ public partial class frmSubject_Entry :DBUtility
                 Button1.Text = "Update";
                 hid1.Value = Convert.ToString(dsObj.Tables[0].Rows[0]["intSubject_id"]);
                 Standard_id.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intstandard_id"]);
-                text1.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchSubjectName"]).Trim();           
+                text1.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchSubjectName"]).Trim();
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
             TabContainer1.ActiveTabIndex = 1;
             Button1.Visible = true;

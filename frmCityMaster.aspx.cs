@@ -183,14 +183,12 @@ public partial class frmCityMaster : DBUtility
             {
                 txtPINCode.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intPincode"]);
                 txtCity.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchCity"]);
-                DdlCountryName.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intCountry_id"]);
-                
+                DdlCountryName.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intCountry_id"]);                
                 DdlStateName.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intState_id"]);
-               
-
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
-                
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

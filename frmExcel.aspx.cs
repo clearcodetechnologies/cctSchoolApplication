@@ -16,9 +16,16 @@ public partial class FrmExcel : System.Web.UI.Page
     DataSet dsstudentdeatails;
     DataSet dsteacherdetails;
     DataSet dsregistrationform;
+    DataSet dsOnlinepaymentReport;
+    DataSet dsOutstandingReport;
+
+    DataSet ds = null;
+    DataSet ds2 = null;
+    DataSet ds3 = null;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        dsOutstandingReport = (DataSet)Session["outstandingReportTable"];
         dsdetails = (DataSet)Session["outstandingTable"];
         dsotherreport = (DataSet)Session["otherreport"];
         dsdetails1 = (DataSet)Session["Excel"];
@@ -27,6 +34,13 @@ public partial class FrmExcel : System.Web.UI.Page
         dsstudentdeatails = (DataSet)Session["StudentDetails"];
         dsteacherdetails = (DataSet)Session["TeacherExcel"];
         dsregistrationform = (DataSet)Session["Excel"];
+
+        dsOnlinepaymentReport = (DataSet)Session["OnlinepaymentReport"];
+
+        ds = (DataSet)Session["BookDetailsTable"];
+        ds2 = (DataSet)Session["BookHistoryDetailsTable"];
+        ds3 = (DataSet)Session["BookDetailsReportTable"];
+
         ExportToExcel();
     }
     public override void VerifyRenderingInServerForm(Control control)
@@ -292,7 +306,196 @@ public partial class FrmExcel : System.Web.UI.Page
                 }
             }
 
+            if (ds2 != null)
+            {
+                try
+                {
+                    Session["BookHistoryDetailsTableDummy"] = Session["BookHistoryDetailsTable"];
+                    Session["BookHistoryDetailsTable"] = null;
+                    grdBookHistory.DataSource = ds2;
+                    grdBookHistory.DataBind();
 
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+
+                    string FileName = "BookHistory" + DateTime.Now + ".xls";
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+                    Response.Charset = "";
+                    Response.ContentType = "application/vnd.ms-excel";
+                    StringWriter strwritter;
+                    strwritter = new StringWriter();
+                    HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    // GridView.GridLines = GridLines.Both;
+                    // GridView.HeaderStyle.Font.Bold = true;
+                    grdBookHistory.RenderControl(htmltextwrtter);
+                    Response.Write(strwritter.ToString());
+                    //Response.Output.Write(strwritter.ToString());
+                    HttpContext.Current.Response.Flush();
+                    System.Web.HttpContext.Current.Response.End();
+                    // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+                }
+                catch (Exception ex)
+                {
+                    //LogException(ex);
+                    HttpContext.Current.RewritePath("frmBookHistoryReport.aspx");
+                }
+            }
+            if (ds3 != null)
+            {
+                try
+                {
+                    Session["BookDetailsReportTableDummy"] = Session["BookDetailsReportTable"];
+                    Session["BookDetailsReportTable"] = null;
+                    grdBookDetailsReport.DataSource = ds3;
+                    grdBookDetailsReport.DataBind();
+
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+
+                    string FileName = "BookDetailsReport" + DateTime.Now + ".xls";
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+                    Response.Charset = "";
+                    Response.ContentType = "application/vnd.ms-excel";
+                    StringWriter strwritter;
+                    strwritter = new StringWriter();
+                    HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    // GridView.GridLines = GridLines.Both;
+                    // GridView.HeaderStyle.Font.Bold = true;
+                    grdBookDetailsReport.RenderControl(htmltextwrtter);
+                    Response.Write(strwritter.ToString());
+                    //Response.Output.Write(strwritter.ToString());
+                    HttpContext.Current.Response.Flush();
+                    System.Web.HttpContext.Current.Response.End();
+                    // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+                }
+                catch (Exception ex)
+                {
+                    //LogException(ex);
+                    HttpContext.Current.RewritePath("frmBookHistoryReport.aspx");
+                }
+            }
+
+            if (ds != null)
+            {
+                try
+                {
+                    Session["BookDetailsTableDummy"] = Session["BookDetailsTable"];
+                    Session["BookDetailsTable"] = null;
+                    GridView4.DataSource = ds;
+                    GridView4.DataBind();
+
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+
+                    string FileName = "BookDetails" + DateTime.Now + ".xls";
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+                    Response.Charset = "";
+                    Response.ContentType = "application/vnd.ms-excel";
+                    StringWriter strwritter;
+                    strwritter = new StringWriter();
+                    HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    // GridView.GridLines = GridLines.Both;
+                    // GridView.HeaderStyle.Font.Bold = true;
+                    GridView4.RenderControl(htmltextwrtter);
+                    Response.Write(strwritter.ToString());
+                    //Response.Output.Write(strwritter.ToString());
+                    HttpContext.Current.Response.Flush();
+                    System.Web.HttpContext.Current.Response.End();
+                    // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+                }
+                catch (Exception ex)
+                {
+                    //LogException(ex);
+                    HttpContext.Current.RewritePath("frmBookDetails.aspx");
+                }
+            }
+            if (dsOnlinepaymentReport != null)
+            {
+                try
+                {
+                    GridView5.DataSource = dsOnlinepaymentReport;
+                    GridView5.DataBind();
+
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+
+                    string FileName = "OnlinePaymentReport" + DateTime.Now + ".xls";
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+                    Response.Charset = "";
+                    Response.ContentType = "application/vnd.ms-excel";
+                    StringWriter strwritter;
+                    strwritter = new StringWriter();
+                    HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                    // GridView.GridLines = GridLines.Both;
+                    // GridView.HeaderStyle.Font.Bold = true;
+                    GridView5.RenderControl(htmltextwrtter);
+                    Response.Write(strwritter.ToString());
+                    //Response.Output.Write(strwritter.ToString());
+                    HttpContext.Current.Response.Flush();
+                    System.Web.HttpContext.Current.Response.End();
+                    // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+                }
+                catch (Exception ex)
+                {
+                    //LogException(ex);
+                    HttpContext.Current.RewritePath("frmOnlinePaymentReport.aspx");
+                }
+            }
+            
+
+                if (dsOutstandingReport != null)
+                {
+                    try
+                    {
+                        GridView6.DataSource = dsOutstandingReport;
+                        GridView6.DataBind();
+
+                        Response.Clear();
+                        Response.Buffer = true;
+                        Response.ClearContent();
+                        Response.ClearHeaders();
+
+                        string FileName = "OutstandingReport" + DateTime.Now + ".xls";
+                        Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+                        Response.Charset = "";
+                        Response.ContentType = "application/vnd.ms-excel";
+                        StringWriter strwritter;
+                        strwritter = new StringWriter();
+                        HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+                        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                        // GridView.GridLines = GridLines.Both;
+                        // GridView.HeaderStyle.Font.Bold = true;
+                        GridView6.RenderControl(htmltextwrtter);
+                        Response.Write(strwritter.ToString());
+                        //Response.Output.Write(strwritter.ToString());
+                        HttpContext.Current.Response.Flush();
+                        System.Web.HttpContext.Current.Response.End();
+                        // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+                    }
+                    catch (Exception ex)
+                    {
+                        //LogException(ex);
+                        HttpContext.Current.RewritePath("frmOutstandingReport.aspx");
+                    }
+                }
+          
         }
         catch  
         {
@@ -340,5 +543,85 @@ public partial class FrmExcel : System.Web.UI.Page
     protected void grvDetail_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
     }
+
+    public void ExportToExcelForBookHistory()
+    {
+        try
+        {
+            Session["BookHistoryDetailsTableDummy"] = Session["BookHistoryDetailsTable"];
+            Session["BookHistoryDetailsTable"] = null;
+            grdBookHistory.DataSource = ds2;
+            grdBookHistory.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            string FileName = "BookHistory" + DateTime.Now + ".xls";
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            StringWriter strwritter;
+            strwritter = new StringWriter();
+            HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            // GridView.GridLines = GridLines.Both;
+            // GridView.HeaderStyle.Font.Bold = true;
+            grdBookHistory.RenderControl(htmltextwrtter);
+            Response.Write(strwritter.ToString());
+            //Response.Output.Write(strwritter.ToString());
+            HttpContext.Current.Response.Flush();
+            System.Web.HttpContext.Current.Response.End();
+            // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+        }
+        catch (Exception ex)
+        {
+            //LogException(ex);
+            HttpContext.Current.RewritePath("frmBookHistoryReport.aspx");
+        }
+    }
+
+    public void ExportToExcelForBookDetailsReport()
+    {
+        try
+        {
+            Session["BookDetailsReportTableDummy"] = Session["BookDetailsReportTable"];
+            Session["BookDetailsReportTable"] = null;
+            grdBookDetailsReport.DataSource = ds3;
+            grdBookDetailsReport.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            string FileName = "BookDetailsReport" + DateTime.Now + ".xls";
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            StringWriter strwritter;
+            strwritter = new StringWriter();
+            HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            // GridView.GridLines = GridLines.Both;
+            // GridView.HeaderStyle.Font.Bold = true;
+            grdBookDetailsReport.RenderControl(htmltextwrtter);
+            Response.Write(strwritter.ToString());
+            //Response.Output.Write(strwritter.ToString());
+            HttpContext.Current.Response.Flush();
+            System.Web.HttpContext.Current.Response.End();
+            // HttpContext.Current.ApplicationInstance.CompleteRequest();    
+        }
+        catch (Exception ex)
+        {
+            //LogException(ex);
+            HttpContext.Current.RewritePath("frmBookHistoryReport.aspx");
+        }
+    }
+
+   
 
 }

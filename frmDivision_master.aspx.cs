@@ -46,6 +46,8 @@ public partial class frmDivision_master : DBUtility
                // drpRoom.Text = Convert.ToString(dsObjNew.Tables[0].Rows[0]["intRoomNo"]);
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

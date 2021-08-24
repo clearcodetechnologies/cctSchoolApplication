@@ -22,10 +22,10 @@ public partial class frmStudentAttendance : DBUtility
             if (!IsPostBack)
             {
                 ImgPdf.Visible = false;
-                //ImgDoc.Visible = false;
-               // ImgXls.Visible = false;
+                ImgDoc.Visible = false;
+                ImgXls.Visible = false;
                 GetData();
-                
+                FillYear();
                 FillSTD();
                 ddlMonth1.SelectedValue = Convert.ToString(DateTime.Now.Month);
                 ddlMonth1_SelectedIndexChanged(null, null);
@@ -169,7 +169,7 @@ public partial class frmStudentAttendance : DBUtility
                 ddlYear1.Items.Remove(ddlYear1.Items[i].Value);
                 ddlYear2.Items.Remove(ddlYear2.Items[i].Value);
             }
-            for (int i = 2015; i <= DateTime.Now.Year; i++)
+            for (int i = 2021; i <= DateTime.Now.Year; i++)
             {
                 ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
                 ddlYear1.Items.Add(new ListItem(i.ToString(), i.ToString()));
@@ -617,13 +617,15 @@ public partial class frmStudentAttendance : DBUtility
         //    {
         //        lnkbtn.ForeColor = System.Drawing.Color.Red;
         //    }
-           
+
         //}
-        
 
 
-        //try
-        //{
+
+        try
+        {
+
+            int NoOfDays=0;
 
         if (ddlMonth.SelectedValue == "1" || ddlMonth.SelectedValue == "3" || ddlMonth.SelectedValue == "5" || ddlMonth.SelectedValue == "7" || ddlMonth.SelectedValue == "8" || ddlMonth.SelectedValue == "10" || ddlMonth.SelectedValue == "12")
         {
@@ -631,12 +633,16 @@ public partial class frmStudentAttendance : DBUtility
             grdattendance.Columns[31].Visible = true;
             grdattendance.Columns[30].Visible = true;
             grdattendance.Columns[29].Visible = true;
+            
+            NoOfDays=31;
         }
         else if (ddlMonth.SelectedValue == "4" || ddlMonth.SelectedValue == "6" || ddlMonth.SelectedValue == "9" || ddlMonth.SelectedValue == "11")
         {
             grdattendance.Columns[31].Visible = false;
             grdattendance.Columns[30].Visible = true;
             grdattendance.Columns[29].Visible = true;
+
+             NoOfDays=30;
         }
         else if (ddlMonth.SelectedValue == "2")
         {
@@ -645,1022 +651,1118 @@ public partial class frmStudentAttendance : DBUtility
                 DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
                 grdattendance.Columns[31].Visible = false;
                 grdattendance.Columns[30].Visible = false;
+
+                 NoOfDays=29;
             }
             catch
             {
                 grdattendance.Columns[29].Visible = false;
                 grdattendance.Columns[31].Visible = false;
                 grdattendance.Columns[30].Visible = false;
+
+                 NoOfDays=28;
             }
 
         }
 
-        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        LinkButton[] lnkbtn = new LinkButton[NoOfDays];
+        for (int i = 1; i <= NoOfDays; i++ )
+        {
+            string Number = i.ToString().Length == 1 ? "0" + Convert.ToString(i) : Convert.ToString(i);
+
+            lnkbtn[i - 1] = new LinkButton()
+            {
+                Text = string.Format("lnkbtn{0}", Number)
+            };
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                LinkButton lnkbttn = (LinkButton)e.Row.FindControl(lnkbtn[i - 1].Text);
+
+
+                if (lnkbttn.Text == "A")
+                {
+                    lnkbttn.Text = "A";
+                    lnkbttn.ForeColor = System.Drawing.Color.Red;
+                    lnkbttn.ToolTip = "Absent";
+                }
+                else if (lnkbttn.Text == "P")
+                {
+
+                    lnkbttn.ForeColor = System.Drawing.Color.Green;
+                    lnkbttn.ToolTip = "Present";
+
+                }
+                else
+                {
+                    DateTime dayDate = Convert.ToDateTime(i + "/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+                    if (dayDate.DayOfWeek.ToString() == "Sunday")
+                    {
+                        lnkbttn.Text = "S";
+                        lnkbttn.ForeColor = System.Drawing.Color.Blue;
+                        lnkbttn.ToolTip = "Sunday";
+                    }
+
+                    if (lnkbttn.Text == "L")
+                    {
+                        lnkbttn.ForeColor = System.Drawing.Color.DarkGreen;
+                        lnkbttn.ToolTip = "Late";
+                    }
+                }
+
+            }
+        }
+
+        //if (e.Row.RowType == DataControlRowType.DataRow)
+        //{
+        //    LinkButton lnkbtn01 = (LinkButton)e.Row.FindControl("lnkbtn01");
+
+
+        //    if (lnkbtn01.Text == "A")
         //    {
-        //        LinkButton lnkbtn01 = (LinkButton)e.Row.FindControl("lnkbtn01");
+        //        lnkbtn01.Text = "A";
+        //        lnkbtn01.ForeColor = System.Drawing.Color.Red;
+        //        lnkbtn01.ToolTip = "Absent";
+        //    }
+        //    else if (lnkbtn01.Text == "P")
+        //    {
 
+        //        lnkbtn01.ForeColor = System.Drawing.Color.Green;
+        //        lnkbtn01.ToolTip = "Present";
 
-        //        if (lnkbtn01.Text == "A")
-        //        {
-        //            lnkbtn01.Text = "A";
-        //            lnkbtn01.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn01.ToolTip = "Absent";
-
-        //            DateTime dayDate = Convert.ToDateTime("01/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn01.Text = "S";
-        //                lnkbtn01.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn01.ToolTip = "Sunday";
-        //            }
-
-        //        }
-        //        else if (lnkbtn01.Text == "P")
-        //        {
-
-        //            lnkbtn01.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn01.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn01.Text == "L")
-        //            {
-        //                lnkbtn01.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn01.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn02 = (LinkButton)e.Row.FindControl("lnkbtn02");
-        //        if (lnkbtn02.Text == "A")
-        //        {
-        //            lnkbtn02.Text = "A";
-        //            lnkbtn02.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn02.ToolTip = "Absent";
-
-        //            DateTime dayDate = Convert.ToDateTime("02/" + ddlMonth.Text.Trim() +"/"+ ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn02.Text = "S";
-        //                lnkbtn02.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn02.ToolTip = "Sunday";
-        //            }
-
-        //        }
-        //        else if (lnkbtn02.Text == "P")
-        //        {
-
-        //            lnkbtn02.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn02.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn02.Text == "L")
-        //            {
-        //                lnkbtn02.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn02.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn03 = (LinkButton)e.Row.FindControl("lnkbtn03");
-        //        if (lnkbtn03.Text == "A")
-        //        {
-        //            lnkbtn03.Text = "A";
-        //            lnkbtn03.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn03.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("03/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn03.Text = "S";
-        //                lnkbtn03.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn03.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn03.Text == "P")
-        //        {
-
-        //            lnkbtn03.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn03.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn03.Text == "L")
-        //            {
-        //                lnkbtn03.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn03.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn04 = (LinkButton)e.Row.FindControl("lnkbtn04");
-        //        if (lnkbtn04.Text == "A")
-        //        {
-        //            lnkbtn04.Text = "A";
-        //            lnkbtn04.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn04.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("04/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn04.Text = "S";
-        //                lnkbtn04.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn04.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn04.Text == "P")
-        //        {
-
-        //            lnkbtn04.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn04.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn04.Text == "L")
-        //            {
-        //                lnkbtn04.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn04.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn05 = (LinkButton)e.Row.FindControl("lnkbtn05");
-        //        if (lnkbtn05.Text == "A")
-        //        {
-        //            lnkbtn05.Text = "A";
-        //            lnkbtn05.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn05.ToolTip = "Sunday";
-        //            DateTime dayDate = Convert.ToDateTime( "05/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn05.Text = "S";
-        //                lnkbtn05.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn05.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn05.Text == "P")
-        //        {
-        //            if (lnkbtn05.Text == "P")
-        //            {
-        //                lnkbtn05.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn05.ToolTip = "Present";
-        //            }
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn05.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn05.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn06 = (LinkButton)e.Row.FindControl("lnkbtn06");
-        //        if (lnkbtn06.Text == "A")
-        //        {
-        //            lnkbtn06.Text = "A";
-        //            lnkbtn06.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn06.ToolTip = "Absent";
-
-        //            DateTime dayDate = Convert.ToDateTime( "06/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn06.Text = "S";
-        //                lnkbtn06.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn06.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn06.Text == "P")
-        //        {
-        //            if (lnkbtn06.Text == "P")
-        //            {
-        //                lnkbtn06.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn06.ToolTip = "Present";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn06.Text == "L")
-        //            {
-        //                lnkbtn06.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn06.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn07 = (LinkButton)e.Row.FindControl("lnkbtn07");
-        //        if (lnkbtn07.Text == "A")
-        //        {
-        //            lnkbtn07.Text = "A";
-        //            lnkbtn07.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn07.ToolTip = "Present";
-        //            DateTime dayDate = Convert.ToDateTime("07/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn07.Text = "S";
-        //                lnkbtn07.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn07.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn07.Text == "P")
-        //        {
-
-        //            lnkbtn07.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn07.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn07.Text == "L")
-        //            {
-        //                lnkbtn07.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn07.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn08 = (LinkButton)e.Row.FindControl("lnkbtn08");
-        //        if (lnkbtn08.Text == "A")
-        //        {
-        //            lnkbtn08.Text = "A";
-        //            lnkbtn08.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn08.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("08/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn08.Text = "S";
-        //                lnkbtn08.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn08.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn08.Text == "P")
-        //        {
-
-        //            lnkbtn08.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn08.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn08.Text == "L")
-        //            {
-        //                lnkbtn08.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn08.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn09 = (LinkButton)e.Row.FindControl("lnkbtn09");
-        //        if (lnkbtn09.Text == "A")
-        //        {
-        //            lnkbtn09.Text = "A";
-        //            lnkbtn09.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn09.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("09/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn09.Text = "S";
-        //                lnkbtn09.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn09.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn09.Text == "P")
-        //        {
-
-        //            lnkbtn09.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn09.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn09.Text == "L")
-        //            {
-        //                lnkbtn09.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn09.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn10 = (LinkButton)e.Row.FindControl("lnkbtn10");
-        //        if (lnkbtn10.Text == "A")
-        //        {
-        //            lnkbtn10.Text = "A";
-        //            lnkbtn10.ForeColor = System.Drawing.Color.Red;
-        //            DateTime dayDate = Convert.ToDateTime("10/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-        //            lnkbtn10.ToolTip = "Absent";
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn10.Text = "S";
-        //                lnkbtn10.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn10.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn10.Text == "P")
-        //        {
-
-        //            lnkbtn10.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn10.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn10.Text == "L")
-        //            {
-        //                lnkbtn10.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn10.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn11 = (LinkButton)e.Row.FindControl("lnkbtn11");
-        //        if (lnkbtn11.Text == "A")
-        //        {
-        //            lnkbtn11.Text = "A";
-        //            lnkbtn11.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn11.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("11/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn11.Text = "S";
-        //                lnkbtn11.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn11.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn11.Text == "P")
-        //        {
-
-        //            lnkbtn11.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn11.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn11.Text == "L")
-        //            {
-        //                lnkbtn11.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn11.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn12 = (LinkButton)e.Row.FindControl("lnkbtn12");
-        //        if (lnkbtn12.Text == "A")
-        //        {
-        //            lnkbtn12.Text = "A";
-        //            lnkbtn12.ForeColor = System.Drawing.Color.Red;
-        //            DateTime dayDate = Convert.ToDateTime("12/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-        //            lnkbtn12.ToolTip = "Absent";
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn12.Text = "S";
-        //                lnkbtn12.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn12.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn12.Text == "P")
-        //        {
-
-        //            lnkbtn12.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn12.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-        //            if (lnkbtn12.Text == "L")
-        //            {
-        //                lnkbtn12.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn12.ToolTip = "Late";
-        //            }
-        //        }
-        //        LinkButton lnkbtn13 = (LinkButton)e.Row.FindControl("lnkbtn13");
-        //        if (lnkbtn13.Text == "A")
-        //        {
-        //            lnkbtn13.Text = "A";
-        //            lnkbtn13.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn13.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("13/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn13.Text = "S";
-        //                lnkbtn13.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn13.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn13.Text == "P")
-        //        {
-
-        //            lnkbtn13.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn13.ToolTip = "Present";
-
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn13.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn13.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn14 = (LinkButton)e.Row.FindControl("lnkbtn14");
-        //        if (lnkbtn14.Text == "A")
-        //        {
-        //            lnkbtn14.Text = "A";
-        //            lnkbtn14.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn14.ToolTip = "Absent";
-        //           // DateTime dayDate = Convert.ToDateTime(Convert.ToDateTime("" + ddlMonth.Text.Trim() + "/14/" + ddlYear.Text.Trim() + "").ToString("MM/dd/yyyy"));
-        //            DateTime dayDate = Convert.ToDateTime("14/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn14.Text = "S";
-        //                lnkbtn14.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn14.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn14.Text == "P")
-        //        {
-
-        //            lnkbtn14.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn14.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn14.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn14.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn15 = (LinkButton)e.Row.FindControl("lnkbtn15");
-        //        if (lnkbtn15.Text == "A")
-        //        {
-        //            lnkbtn15.Text = "A";
-        //            lnkbtn15.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn15.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("15/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() );
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn15.Text = "S";
-        //                lnkbtn15.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn15.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn15.Text == "P")
-        //        {
-
-        //            lnkbtn15.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn15.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn15.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn15.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn16 = (LinkButton)e.Row.FindControl("lnkbtn16");
-        //        if (lnkbtn16.Text == "A")
-        //        {
-        //            lnkbtn16.Text = "A";
-        //            lnkbtn16.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn16.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("16/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn16.Text = "S";
-        //                lnkbtn16.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn16.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn16.Text == "P")
-        //        {
-
-        //            lnkbtn16.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn16.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn16.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn16.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn17 = (LinkButton)e.Row.FindControl("lnkbtn17");
-        //        if (lnkbtn17.Text == "A")
-        //        {
-        //            lnkbtn17.Text = "A";
-        //            lnkbtn17.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn17.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("17/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn17.Text = "S";
-        //                lnkbtn17.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn17.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn17.Text == "P")
-        //        {
-
-        //            lnkbtn17.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn17.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn17.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn17.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn18 = (LinkButton)e.Row.FindControl("lnkbtn18");
-        //        if (lnkbtn18.Text == "A")
-        //        {
-        //            lnkbtn18.Text = "A";
-        //            lnkbtn18.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn18.ToolTip = "Present";
-        //            DateTime dayDate = Convert.ToDateTime("18/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn18.Text = "S";
-        //                lnkbtn18.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn18.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn01.Text == "P")
-        //        {
-
-        //            lnkbtn18.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn18.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn18.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn18.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn19 = (LinkButton)e.Row.FindControl("lnkbtn19");
-        //        if (lnkbtn19.Text == "A")
-        //        {
-        //            lnkbtn19.Text = "A";
-        //            lnkbtn19.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn19.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("19/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn19.Text = "S";
-        //                lnkbtn19.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn19.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn19.Text == "P")
-        //        {
-
-        //            lnkbtn19.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn19.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn19.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn19.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn20 = (LinkButton)e.Row.FindControl("lnkbtn20");
-        //        if (lnkbtn20.Text == "A")
-        //        {
-        //            lnkbtn20.Text = "A";
-        //            lnkbtn20.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn20.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("20/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn20.Text = "S";
-        //                lnkbtn20.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn20.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn20.Text == "P")
-        //        {
-
-        //            lnkbtn20.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn20.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn20.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn20.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn21 = (LinkButton)e.Row.FindControl("lnkbtn21");
-        //        if (lnkbtn21.Text == "A")
-        //        {
-        //            lnkbtn21.Text = "A";
-        //            lnkbtn21.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn21.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("21/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn21.Text = "S";
-        //                lnkbtn21.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn21.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn21.Text == "P")
-        //        {
-
-        //            lnkbtn21.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn21.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn21.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn21.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn22 = (LinkButton)e.Row.FindControl("lnkbtn22");
-        //        if (lnkbtn22.Text == "A")
-        //        {
-        //            lnkbtn22.Text = "A";
-        //            lnkbtn22.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn22.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("22/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn22.Text = "S";
-        //                lnkbtn22.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn22.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn22.Text == "P")
-        //        {
-
-        //            lnkbtn22.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn22.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn22.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn22.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn23 = (LinkButton)e.Row.FindControl("lnkbtn23");
-        //        if (lnkbtn23.Text == "A")
-        //        {
-        //            lnkbtn23.Text = "A";
-        //            lnkbtn23.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn23.ToolTip = "Absent";
-
-        //            DateTime dayDate = Convert.ToDateTime("23/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn23.Text = "S";
-        //                lnkbtn23.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn23.ToolTip = "Sunday";
-
-        //            }
-        //        }
-        //        else if (lnkbtn23.Text == "P")
-        //        {
-
-        //            lnkbtn23.ForeColor = System.Drawing.Color.Green;
-
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn23.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn23.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn24 = (LinkButton)e.Row.FindControl("lnkbtn24");
-        //        if (lnkbtn24.Text == "A")
-        //        {
-        //            lnkbtn24.Text = "A";
-        //            lnkbtn24.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn24.ToolTip = "Absent";
-
-        //            DateTime dayDate = Convert.ToDateTime("24/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn24.Text = "S";
-        //                lnkbtn24.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn24.ToolTip = "Sunday";
-
-        //            }
-        //        }
-        //        else if (lnkbtn24.Text == "P")
-        //        {
-
-        //            lnkbtn24.ForeColor = System.Drawing.Color.Green;
+        //    }
+        //    else
+        //    {
+        //        DateTime dayDate = Convert.ToDateTime("01/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
 
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn24.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn24.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn25 = (LinkButton)e.Row.FindControl("lnkbtn25");
-        //        if (lnkbtn25.Text == "A")
-        //        {
-        //            lnkbtn25.Text = "A";
-        //            lnkbtn25.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn25.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("25/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn25.Text = "S";
-        //                lnkbtn25.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn25.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn25.Text == "P")
-        //        {
-
-        //            lnkbtn25.ForeColor = System.Drawing.Color.Green;
-
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn25.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn25.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn26 = (LinkButton)e.Row.FindControl("lnkbtn26");
-        //        if (lnkbtn26.Text == "A")
-        //        {
-        //            lnkbtn26.Text = "A";
-        //            lnkbtn26.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn26.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("26/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn26.Text = "S";
-        //                lnkbtn26.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn26.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn26.Text == "P")
-        //        {
-
-        //            lnkbtn26.ForeColor = System.Drawing.Color.Green;
-
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn26.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn26.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn27 = (LinkButton)e.Row.FindControl("lnkbtn27");
-        //        if (lnkbtn27.Text == "A")
-        //        {
-        //            lnkbtn27.Text = "A";
-        //            lnkbtn27.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn27.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("27/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn27.Text = "S";
-        //                lnkbtn27.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn27.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn27.Text == "P")
-        //        {
-
-        //            lnkbtn27.ForeColor = System.Drawing.Color.Green;
-
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn27.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn27.ToolTip = "Late";
-
-        //        }
-        //        LinkButton lnkbtn28 = (LinkButton)e.Row.FindControl("lnkbtn28");
-        //        if (lnkbtn28.Text == "A")
-        //        {
-        //            lnkbtn28.Text = "A";
-        //            lnkbtn28.ForeColor = System.Drawing.Color.Red;
-        //            lnkbtn28.ToolTip = "Absent";
-        //            DateTime dayDate = Convert.ToDateTime("28/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //            if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //            {
-        //                lnkbtn28.Text = "S";
-        //                lnkbtn28.ForeColor = System.Drawing.Color.Blue;
-        //                lnkbtn28.ToolTip = "Sunday";
-        //            }
-        //        }
-        //        else if (lnkbtn28.Text == "P")
+        //        if (dayDate.DayOfWeek.ToString() == "Sunday")
         //        {
-
-        //            lnkbtn28.ForeColor = System.Drawing.Color.Green;
-        //            lnkbtn28.ToolTip = "Present";
-        //        }
-        //        else
-        //        {
-
-        //            lnkbtn28.ForeColor = System.Drawing.Color.DarkGreen;
-        //            lnkbtn28.ToolTip = "Late";
-
-        //        }
-
-        //        if (ddlMonth.SelectedValue == "2")
-        //        {
-        //            try
-        //            {
-        //                DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-
-        //                LinkButton lnkbtn29 = (LinkButton)e.Row.FindControl("lnkbtn29");
-        //                if (lnkbtn29.Text == "A")
-        //                {
-        //                    lnkbtn29.Text = "A";
-        //                    lnkbtn29.ForeColor = System.Drawing.Color.Red;
-        //                    lnkbtn29.ToolTip = "Absent";
-        //                     dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //                    if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //                    {
-        //                        lnkbtn29.Text = "S";
-        //                        lnkbtn29.ForeColor = System.Drawing.Color.Blue;
-        //                        lnkbtn29.ToolTip = "Sunday";
-        //                    }
-        //                }
-        //                else if (lnkbtn29.Text == "P")
-        //                {
-
-        //                    lnkbtn29.ForeColor = System.Drawing.Color.Green;
-        //                    lnkbtn29.ToolTip = "Present";
-        //                }
-        //                else
-        //                {
-
-        //                    lnkbtn29.ForeColor = System.Drawing.Color.DarkGreen;
-        //                    lnkbtn29.ToolTip = "Late";
-
-        //                }
-
-        //            }
-        //            catch
-        //            {
-
-        //            }
-                    
-        //        }
-        //        if (ddlMonth.SelectedValue == "4" || ddlMonth.SelectedValue == "6" || ddlMonth.SelectedValue == "9" || ddlMonth.SelectedValue == "11")
-        //        {
-
-        //            LinkButton lnkbtn29 = (LinkButton)e.Row.FindControl("lnkbtn29");
-        //            if (lnkbtn29.Text == "A")
-        //            {
-        //                lnkbtn29.Text = "A";
-        //                lnkbtn29.ForeColor = System.Drawing.Color.Red;
-        //                lnkbtn29.ToolTip = "Absent";
-        //                DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //                if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //                {
-        //                    lnkbtn29.Text = "S";
-        //                    lnkbtn29.ForeColor = System.Drawing.Color.Blue;
-        //                    lnkbtn29.ToolTip = "Sunday";
-        //                }
-        //            }
-        //            else if (lnkbtn29.Text == "P")
-        //            {
-
-        //                lnkbtn29.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn29.ToolTip = "Present";
-        //            }
-        //            else
-        //            {
-
-        //                lnkbtn29.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn29.ToolTip = "Late";
-
-        //            }
-
-
-        //            LinkButton lnkbtn30 = (LinkButton)e.Row.FindControl("lnkbtn30");
-        //            if (lnkbtn30.Text == "A")
-        //            {
-        //                lnkbtn30.Text = "A";
-        //                lnkbtn30.ForeColor = System.Drawing.Color.Red;
-        //                lnkbtn30.ToolTip = "Sunday";
-        //                DateTime dayDate = Convert.ToDateTime("30/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //                if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //                {
-        //                    lnkbtn30.Text = "S";
-        //                    lnkbtn30.ForeColor = System.Drawing.Color.Blue;
-        //                    lnkbtn30.ToolTip = "Sunday";
-        //                }
-        //            }
-        //            else if (lnkbtn30.Text == "P")
-        //            {
-
-        //                lnkbtn30.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn30.ToolTip = "Present";
-        //            }
-        //            else
-        //            {
-
-        //                lnkbtn30.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn30.ToolTip = "Late";
-
-        //            }
+        //            lnkbtn01.Text = "S";
+        //            lnkbtn01.ForeColor = System.Drawing.Color.Blue;
+        //            lnkbtn01.ToolTip = "Sunday";
         //        }
-                 
 
-        //        if (ddlMonth.Text == "1" || ddlMonth.Text == "3" || ddlMonth.Text == "5" || ddlMonth.Text == "7" || ddlMonth.Text == "8" || ddlMonth.Text == "10" || ddlMonth.Text == "12")
+        //        if (lnkbtn01.Text == "L")
         //        {
-
-        //            LinkButton lnkbtn29 = (LinkButton)e.Row.FindControl("lnkbtn29");
-        //            if (lnkbtn29.Text == "A")
-        //            {
-        //                lnkbtn29.Text = "A";
-        //                lnkbtn29.ForeColor = System.Drawing.Color.Red;
-        //                lnkbtn29.ToolTip = "Absent";
-        //                DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //                if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //                {
-        //                    lnkbtn29.Text = "S";
-        //                    lnkbtn29.ForeColor = System.Drawing.Color.Blue;
-        //                    lnkbtn29.ToolTip = "Sunday";
-        //                }
-        //            }
-        //            else if (lnkbtn29.Text == "P")
-        //            {
-
-        //                lnkbtn29.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn29.ToolTip = "Present";
-        //            }
-        //            else
-        //            {
-
-        //                lnkbtn29.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn29.ToolTip = "Late";
-
-        //            }
-
-        //            LinkButton lnkbtn30 = (LinkButton)e.Row.FindControl("lnkbtn30");
-        //            if (lnkbtn30.Text == "A")
-        //            {
-        //                lnkbtn30.Text = "A";
-        //                lnkbtn30.ForeColor = System.Drawing.Color.Red;
-        //                lnkbtn30.ToolTip = "Sunday";
-        //                DateTime dayDate = Convert.ToDateTime("30/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //                if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //                {
-        //                    lnkbtn30.Text = "S";
-        //                    lnkbtn30.ForeColor = System.Drawing.Color.Blue;
-        //                    lnkbtn30.ToolTip = "Sunday";
-        //                }
-        //            }
-        //            else if (lnkbtn30.Text == "P")
-        //            {
-
-        //                lnkbtn30.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn30.ToolTip = "Present";
-        //            }
-        //            else
-        //            {
-
-        //                lnkbtn30.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn30.ToolTip = "Late";
-
-        //            }
-
-        //            LinkButton lnkbtn31 = (LinkButton)e.Row.FindControl("lnkbtn31");
-        //            if (lnkbtn31.Text == "A")
-        //            {
-        //                lnkbtn31.Text = "A";
-        //                lnkbtn31.ForeColor = System.Drawing.Color.Red;
-        //                lnkbtn31.ToolTip = "Absent";
-        //                DateTime dayDate = Convert.ToDateTime("31/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
-        //                if (dayDate.DayOfWeek.ToString() == "Sunday")
-        //                {
-        //                    lnkbtn31.Text = "S";
-        //                    lnkbtn31.ForeColor = System.Drawing.Color.Blue;
-        //                    lnkbtn31.ToolTip = "Sunday";
-        //                }
-        //            }
-        //            else if (lnkbtn31.Text == "P")
-        //            {
-
-        //                lnkbtn31.ForeColor = System.Drawing.Color.Green;
-        //                lnkbtn31.ToolTip = "Present";
-        //            }
-        //            else
-        //            {
-
-        //                lnkbtn31.ForeColor = System.Drawing.Color.DarkGreen;
-        //                lnkbtn31.ToolTip = "Late";
-
-        //            }
+        //            lnkbtn01.ForeColor = System.Drawing.Color.DarkGreen;
+        //            lnkbtn01.ToolTip = "Late";
         //        }
         //    }
-        //}
-        //catch (Exception)
-        //{
+        
+            //    LinkButton lnkbtn02 = (LinkButton)e.Row.FindControl("lnkbtn02");
+            //    if (lnkbtn02.Text == "A")
+            //    {
+            //        lnkbtn02.Text = "A";
+            //        lnkbtn02.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn02.ToolTip = "Absent";
+
+                    
+            //    }
+            //    else if (lnkbtn02.Text == "P")
+            //    {
+
+            //        lnkbtn02.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn02.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("02/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn02.Text = "S";
+            //            lnkbtn02.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn02.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn02.Text == "L")
+            //        {
+            //            lnkbtn02.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn02.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn03 = (LinkButton)e.Row.FindControl("lnkbtn03");
+            //    if (lnkbtn03.Text == "A")
+            //    {
+            //        lnkbtn03.Text = "A";
+            //        lnkbtn03.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn03.ToolTip = "Absent";
+                    
+            //    }
+            //    else if (lnkbtn03.Text == "P")
+            //    {
+
+            //        lnkbtn03.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn03.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("03/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn03.Text = "S";
+            //            lnkbtn03.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn03.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn03.Text == "L")
+            //        {
+            //            lnkbtn03.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn03.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn04 = (LinkButton)e.Row.FindControl("lnkbtn04");
+            //    if (lnkbtn04.Text == "A")
+            //    {
+            //        lnkbtn04.Text = "A";
+            //        lnkbtn04.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn04.ToolTip = "Absent";
+                    
+            //    }
+            //    else if (lnkbtn04.Text == "P")
+            //    {
+
+            //        lnkbtn04.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn04.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("04/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn04.Text = "S";
+            //            lnkbtn04.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn04.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn04.Text == "L")
+            //        {
+            //            lnkbtn04.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn04.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn05 = (LinkButton)e.Row.FindControl("lnkbtn05");
+            //    if (lnkbtn05.Text == "A")
+            //    {
+            //        lnkbtn05.Text = "A";
+            //        lnkbtn05.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn05.ToolTip = "Sunday";
+                    
+            //    }
+            //    else if (lnkbtn05.Text == "P")
+            //    {
+            //        if (lnkbtn05.Text == "P")
+            //        {
+            //            lnkbtn05.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn05.ToolTip = "Present";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("05/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn05.Text = "S";
+            //            lnkbtn05.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn05.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn05.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn05.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn06 = (LinkButton)e.Row.FindControl("lnkbtn06");
+            //    if (lnkbtn06.Text == "A")
+            //    {
+            //        lnkbtn06.Text = "A";
+            //        lnkbtn06.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn06.ToolTip = "Absent";
+
+                    
+            //    }
+            //    else if (lnkbtn06.Text == "P")
+            //    {
+            //        if (lnkbtn06.Text == "P")
+            //        {
+            //            lnkbtn06.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn06.ToolTip = "Present";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("06/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn06.Text = "S";
+            //            lnkbtn06.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn06.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn06.Text == "L")
+            //        {
+            //            lnkbtn06.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn06.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn07 = (LinkButton)e.Row.FindControl("lnkbtn07");
+            //    if (lnkbtn07.Text == "A")
+            //    {
+            //        lnkbtn07.Text = "A";
+            //        lnkbtn07.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn07.ToolTip = "Present";
+                    
+            //    }
+            //    else if (lnkbtn07.Text == "P")
+            //    {
+
+            //        lnkbtn07.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn07.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("07/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn07.Text = "S";
+            //            lnkbtn07.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn07.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn07.Text == "L")
+            //        {
+            //            lnkbtn07.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn07.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn08 = (LinkButton)e.Row.FindControl("lnkbtn08");
+            //    if (lnkbtn08.Text == "A")
+            //    {
+            //        lnkbtn08.Text = "A";
+            //        lnkbtn08.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn08.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn08.Text == "P")
+            //    {
+
+            //        lnkbtn08.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn08.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("08/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn08.Text = "S";
+            //            lnkbtn08.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn08.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn08.Text == "L")
+            //        {
+            //            lnkbtn08.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn08.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn09 = (LinkButton)e.Row.FindControl("lnkbtn09");
+            //    if (lnkbtn09.Text == "A")
+            //    {
+            //        lnkbtn09.Text = "A";
+            //        lnkbtn09.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn09.ToolTip = "Absent";
+                  
+            //    }
+            //    else if (lnkbtn09.Text == "P")
+            //    {
+
+            //        lnkbtn09.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn09.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("09/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn09.Text = "S";
+            //            lnkbtn09.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn09.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn09.Text == "L")
+            //        {
+            //            lnkbtn09.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn09.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn10 = (LinkButton)e.Row.FindControl("lnkbtn10");
+            //    if (lnkbtn10.Text == "A")
+            //    {
+            //        lnkbtn10.Text = "A";
+            //        lnkbtn10.ForeColor = System.Drawing.Color.Red;
+                   
+            //        lnkbtn10.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn10.Text == "P")
+            //    {
+
+            //        lnkbtn10.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn10.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("10/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn10.Text = "S";
+            //            lnkbtn10.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn10.ToolTip = "Sunday";
+            //        }
+            //        if (lnkbtn10.Text == "L")
+            //        {
+            //            lnkbtn10.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn10.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn11 = (LinkButton)e.Row.FindControl("lnkbtn11");
+            //    if (lnkbtn11.Text == "A")
+            //    {
+            //        lnkbtn11.Text = "A";
+            //        lnkbtn11.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn11.ToolTip = "Absent";
+                    
+            //    }
+            //    else if (lnkbtn11.Text == "P")
+            //    {
+
+            //        lnkbtn11.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn11.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("11/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn11.Text = "S";
+            //            lnkbtn11.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn11.ToolTip = "Sunday";
+            //        }
+
+            //        if (lnkbtn11.Text == "L")
+            //        {
+            //            lnkbtn11.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn11.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn12 = (LinkButton)e.Row.FindControl("lnkbtn12");
+            //    if (lnkbtn12.Text == "A")
+            //    {
+            //        lnkbtn12.Text = "A";
+            //        lnkbtn12.ForeColor = System.Drawing.Color.Red;
+                   
+            //    }
+            //    else if (lnkbtn12.Text == "P")
+            //    {
+
+            //        lnkbtn12.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn12.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("12/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+            //        lnkbtn12.ToolTip = "Absent";
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn12.Text = "S";
+            //            lnkbtn12.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn12.ToolTip = "Sunday";
+            //        }
+            //        if (lnkbtn12.Text == "L")
+            //        {
+            //            lnkbtn12.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn12.ToolTip = "Late";
+            //        }
+            //    }
+            //    LinkButton lnkbtn13 = (LinkButton)e.Row.FindControl("lnkbtn13");
+            //    if (lnkbtn13.Text == "A")
+            //    {
+            //        lnkbtn13.Text = "A";
+            //        lnkbtn13.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn13.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn13.Text == "P")
+            //    {
+
+            //        lnkbtn13.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn13.ToolTip = "Present";
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("13/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim() + "");
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn13.Text = "S";
+            //            lnkbtn13.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn13.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn13.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn13.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn14 = (LinkButton)e.Row.FindControl("lnkbtn14");
+            //    if (lnkbtn14.Text == "A")
+            //    {
+            //        lnkbtn14.Text = "A";
+            //        lnkbtn14.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn14.ToolTip = "Absent";
+            //       // DateTime dayDate = Convert.ToDateTime(Convert.ToDateTime("" + ddlMonth.Text.Trim() + "/14/" + ddlYear.Text.Trim() + "").ToString("MM/dd/yyyy"));
+                   
+            //    }
+            //    else if (lnkbtn14.Text == "P")
+            //    {
+
+            //        lnkbtn14.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn14.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("14/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn14.Text = "S";
+            //            lnkbtn14.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn14.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn14.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn14.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn15 = (LinkButton)e.Row.FindControl("lnkbtn15");
+            //    if (lnkbtn15.Text == "A")
+            //    {
+            //        lnkbtn15.Text = "A";
+            //        lnkbtn15.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn15.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn15.Text == "P")
+            //    {
+
+            //        lnkbtn15.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn15.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("15/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn15.Text = "S";
+            //            lnkbtn15.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn15.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn15.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn15.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn16 = (LinkButton)e.Row.FindControl("lnkbtn16");
+            //    if (lnkbtn16.Text == "A")
+            //    {
+            //        lnkbtn16.Text = "A";
+            //        lnkbtn16.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn16.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn16.Text == "P")
+            //    {
+
+            //        lnkbtn16.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn16.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("16/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn16.Text = "S";
+            //            lnkbtn16.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn16.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn16.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn16.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn17 = (LinkButton)e.Row.FindControl("lnkbtn17");
+            //    if (lnkbtn17.Text == "A")
+            //    {
+            //        lnkbtn17.Text = "A";
+            //        lnkbtn17.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn17.ToolTip = "Absent";
+                    
+            //    }
+            //    else if (lnkbtn17.Text == "P")
+            //    {
+
+            //        lnkbtn17.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn17.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+
+            //        DateTime dayDate = Convert.ToDateTime("17/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn17.Text = "S";
+            //            lnkbtn17.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn17.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn17.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn17.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn18 = (LinkButton)e.Row.FindControl("lnkbtn18");
+            //    if (lnkbtn18.Text == "A")
+            //    {
+            //        lnkbtn18.Text = "A";
+            //        lnkbtn18.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn18.ToolTip = "Present";
+                    
+            //    }
+            //    else if (lnkbtn01.Text == "P")
+            //    {
+
+            //        lnkbtn18.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn18.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("18/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn18.Text = "S";
+            //            lnkbtn18.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn18.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn18.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn18.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn19 = (LinkButton)e.Row.FindControl("lnkbtn19");
+            //    if (lnkbtn19.Text == "A")
+            //    {
+            //        lnkbtn19.Text = "A";
+            //        lnkbtn19.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn19.ToolTip = "Absent";
+                  
+            //    }
+            //    else if (lnkbtn19.Text == "P")
+            //    {
+
+            //        lnkbtn19.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn19.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("19/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn19.Text = "S";
+            //            lnkbtn19.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn19.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn19.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn19.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn20 = (LinkButton)e.Row.FindControl("lnkbtn20");
+            //    if (lnkbtn20.Text == "A")
+            //    {
+            //        lnkbtn20.Text = "A";
+            //        lnkbtn20.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn20.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn20.Text == "P")
+            //    {
+
+            //        lnkbtn20.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn20.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("20/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn20.Text = "S";
+            //            lnkbtn20.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn20.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn20.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn20.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn21 = (LinkButton)e.Row.FindControl("lnkbtn21");
+            //    if (lnkbtn21.Text == "A")
+            //    {
+            //        lnkbtn21.Text = "A";
+            //        lnkbtn21.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn21.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn21.Text == "P")
+            //    {
+
+            //        lnkbtn21.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn21.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("21/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn21.Text = "S";
+            //            lnkbtn21.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn21.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn21.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn21.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn22 = (LinkButton)e.Row.FindControl("lnkbtn22");
+            //    if (lnkbtn22.Text == "A")
+            //    {
+            //        lnkbtn22.Text = "A";
+            //        lnkbtn22.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn22.ToolTip = "Absent";
+                  
+            //    }
+            //    else if (lnkbtn22.Text == "P")
+            //    {
+
+            //        lnkbtn22.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn22.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("22/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn22.Text = "S";
+            //            lnkbtn22.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn22.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn22.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn22.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn23 = (LinkButton)e.Row.FindControl("lnkbtn23");
+            //    if (lnkbtn23.Text == "A")
+            //    {
+            //        lnkbtn23.Text = "A";
+            //        lnkbtn23.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn23.ToolTip = "Absent";
+
+                    
+            //    }
+            //    else if (lnkbtn23.Text == "P")
+            //    {
+
+            //        lnkbtn23.ForeColor = System.Drawing.Color.Green;
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("23/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn23.Text = "S";
+            //            lnkbtn23.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn23.ToolTip = "Sunday";
+
+            //        }
+
+            //        lnkbtn23.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn23.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn24 = (LinkButton)e.Row.FindControl("lnkbtn24");
+            //    if (lnkbtn24.Text == "A")
+            //    {
+            //        lnkbtn24.Text = "A";
+            //        lnkbtn24.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn24.ToolTip = "Absent";
+
+                  
+            //    }
+            //    else if (lnkbtn24.Text == "P")
+            //    {
+
+            //        lnkbtn24.ForeColor = System.Drawing.Color.Green;
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("24/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn24.Text = "S";
+            //            lnkbtn24.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn24.ToolTip = "Sunday";
+
+            //        }
+
+            //        lnkbtn24.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn24.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn25 = (LinkButton)e.Row.FindControl("lnkbtn25");
+            //    if (lnkbtn25.Text == "A")
+            //    {
+            //        lnkbtn25.Text = "A";
+            //        lnkbtn25.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn25.ToolTip = "Absent";
+                  
+            //    }
+            //    else if (lnkbtn25.Text == "P")
+            //    {
+
+            //        lnkbtn25.ForeColor = System.Drawing.Color.Green;
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("25/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn25.Text = "S";
+            //            lnkbtn25.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn25.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn25.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn25.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn26 = (LinkButton)e.Row.FindControl("lnkbtn26");
+            //    if (lnkbtn26.Text == "A")
+            //    {
+            //        lnkbtn26.Text = "A";
+            //        lnkbtn26.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn26.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn26.Text == "P")
+            //    {
+
+            //        lnkbtn26.ForeColor = System.Drawing.Color.Green;
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("26/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn26.Text = "S";
+            //            lnkbtn26.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn26.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn26.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn26.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn27 = (LinkButton)e.Row.FindControl("lnkbtn27");
+            //    if (lnkbtn27.Text == "A")
+            //    {
+            //        lnkbtn27.Text = "A";
+            //        lnkbtn27.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn27.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn27.Text == "P")
+            //    {
+
+            //        lnkbtn27.ForeColor = System.Drawing.Color.Green;
+
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("27/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn27.Text = "S";
+            //            lnkbtn27.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn27.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn27.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn27.ToolTip = "Late";
+
+            //    }
+            //    LinkButton lnkbtn28 = (LinkButton)e.Row.FindControl("lnkbtn28");
+            //    if (lnkbtn28.Text == "A")
+            //    {
+            //        lnkbtn28.Text = "A";
+            //        lnkbtn28.ForeColor = System.Drawing.Color.Red;
+            //        lnkbtn28.ToolTip = "Absent";
+                   
+            //    }
+            //    else if (lnkbtn28.Text == "P")
+            //    {
+
+            //        lnkbtn28.ForeColor = System.Drawing.Color.Green;
+            //        lnkbtn28.ToolTip = "Present";
+            //    }
+            //    else
+            //    {
+            //        DateTime dayDate = Convert.ToDateTime("28/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //        if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //        {
+            //            lnkbtn28.Text = "S";
+            //            lnkbtn28.ForeColor = System.Drawing.Color.Blue;
+            //            lnkbtn28.ToolTip = "Sunday";
+            //        }
+
+            //        lnkbtn28.ForeColor = System.Drawing.Color.DarkGreen;
+            //        lnkbtn28.ToolTip = "Late";
+
+            //    }
+
+            //    if (ddlMonth.SelectedValue == "2")
+            //    {
+            //        try
+            //        {
+            //            DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+
+            //            LinkButton lnkbtn29 = (LinkButton)e.Row.FindControl("lnkbtn29");
+            //            if (lnkbtn29.Text == "A")
+            //            {
+            //                lnkbtn29.Text = "A";
+            //                lnkbtn29.ForeColor = System.Drawing.Color.Red;
+            //                lnkbtn29.ToolTip = "Absent";
+
+            //            }
+            //            else if (lnkbtn29.Text == "P")
+            //            {
+
+            //                lnkbtn29.ForeColor = System.Drawing.Color.Green;
+            //                lnkbtn29.ToolTip = "Present";
+            //            }
+            //            else
+            //            {
+            //                dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //                if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //                {
+            //                    lnkbtn29.Text = "S";
+            //                    lnkbtn29.ForeColor = System.Drawing.Color.Blue;
+            //                    lnkbtn29.ToolTip = "Sunday";
+            //                }
+
+            //                lnkbtn29.ForeColor = System.Drawing.Color.DarkGreen;
+            //                lnkbtn29.ToolTip = "Late";
+
+            //            }
+
+            //        }
+            //        catch
+            //        {
+
+            //        }
+                    
+            //    }
+            //    if (ddlMonth.SelectedValue == "4" || ddlMonth.SelectedValue == "6" || ddlMonth.SelectedValue == "9" || ddlMonth.SelectedValue == "11")
+            //    {
+
+            //        LinkButton lnkbtn29 = (LinkButton)e.Row.FindControl("lnkbtn29");
+            //        if (lnkbtn29.Text == "A")
+            //        {
+            //            lnkbtn29.Text = "A";
+            //            lnkbtn29.ForeColor = System.Drawing.Color.Red;
+            //            lnkbtn29.ToolTip = "Absent";
+                       
+            //        }
+            //        else if (lnkbtn29.Text == "P")
+            //        {
+
+            //            lnkbtn29.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn29.ToolTip = "Present";
+            //        }
+            //        else
+            //        {
+            //            DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //            if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //            {
+            //                lnkbtn29.Text = "S";
+            //                lnkbtn29.ForeColor = System.Drawing.Color.Blue;
+            //                lnkbtn29.ToolTip = "Sunday";
+            //            }
+
+            //            lnkbtn29.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn29.ToolTip = "Late";
+
+            //        }
+
+
+            //        LinkButton lnkbtn30 = (LinkButton)e.Row.FindControl("lnkbtn30");
+            //        if (lnkbtn30.Text == "A")
+            //        {
+            //            lnkbtn30.Text = "A";
+            //            lnkbtn30.ForeColor = System.Drawing.Color.Red;
+            //            lnkbtn30.ToolTip = "Sunday";
+                       
+            //        }
+            //        else if (lnkbtn30.Text == "P")
+            //        {
+
+            //            lnkbtn30.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn30.ToolTip = "Present";
+            //        }
+            //        else
+            //        {
+            //            DateTime dayDate = Convert.ToDateTime("30/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //            if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //            {
+            //                lnkbtn30.Text = "S";
+            //                lnkbtn30.ForeColor = System.Drawing.Color.Blue;
+            //                lnkbtn30.ToolTip = "Sunday";
+            //            }
+
+            //            lnkbtn30.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn30.ToolTip = "Late";
+
+            //        }
+            //    }
+                 
+
+            //    if (ddlMonth.Text == "1" || ddlMonth.Text == "3" || ddlMonth.Text == "5" || ddlMonth.Text == "7" || ddlMonth.Text == "8" || ddlMonth.Text == "10" || ddlMonth.Text == "12")
+            //    {
+
+            //        LinkButton lnkbtn29 = (LinkButton)e.Row.FindControl("lnkbtn29");
+            //        if (lnkbtn29.Text == "A")
+            //        {
+            //            lnkbtn29.Text = "A";
+            //            lnkbtn29.ForeColor = System.Drawing.Color.Red;
+            //            lnkbtn29.ToolTip = "Absent";
+                      
+            //        }
+            //        else if (lnkbtn29.Text == "P")
+            //        {
+
+            //            lnkbtn29.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn29.ToolTip = "Present";
+            //        }
+            //        else
+            //        {
+            //            DateTime dayDate = Convert.ToDateTime("29/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //            if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //            {
+            //                lnkbtn29.Text = "S";
+            //                lnkbtn29.ForeColor = System.Drawing.Color.Blue;
+            //                lnkbtn29.ToolTip = "Sunday";
+            //            }
+
+            //            lnkbtn29.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn29.ToolTip = "Late";
+
+            //        }
+
+            //        LinkButton lnkbtn30 = (LinkButton)e.Row.FindControl("lnkbtn30");
+            //        if (lnkbtn30.Text == "A")
+            //        {
+            //            lnkbtn30.Text = "A";
+            //            lnkbtn30.ForeColor = System.Drawing.Color.Red;
+            //            lnkbtn30.ToolTip = "Sunday";
+                       
+            //        }
+            //        else if (lnkbtn30.Text == "P")
+            //        {
+
+            //            lnkbtn30.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn30.ToolTip = "Present";
+            //        }
+            //        else
+            //        {
+            //            DateTime dayDate = Convert.ToDateTime("30/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //            if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //            {
+            //                lnkbtn30.Text = "S";
+            //                lnkbtn30.ForeColor = System.Drawing.Color.Blue;
+            //                lnkbtn30.ToolTip = "Sunday";
+            //            }
+
+            //            lnkbtn30.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn30.ToolTip = "Late";
+
+            //        }
+
+            //        LinkButton lnkbtn31 = (LinkButton)e.Row.FindControl("lnkbtn31");
+            //        if (lnkbtn31.Text == "A")
+            //        {
+            //            lnkbtn31.Text = "A";
+            //            lnkbtn31.ForeColor = System.Drawing.Color.Red;
+            //            lnkbtn31.ToolTip = "Absent";
+                       
+            //        }
+            //        else if (lnkbtn31.Text == "P")
+            //        {
+
+            //            lnkbtn31.ForeColor = System.Drawing.Color.Green;
+            //            lnkbtn31.ToolTip = "Present";
+            //        }
+            //        else
+            //        {
+            //            DateTime dayDate = Convert.ToDateTime("31/" + ddlMonth.Text.Trim() + "/" + ddlYear.Text.Trim());
+            //            if (dayDate.DayOfWeek.ToString() == "Sunday")
+            //            {
+            //                lnkbtn31.Text = "S";
+            //                lnkbtn31.ForeColor = System.Drawing.Color.Blue;
+            //                lnkbtn31.ToolTip = "Sunday";
+            //            }
+
+            //            lnkbtn31.ForeColor = System.Drawing.Color.DarkGreen;
+            //            lnkbtn31.ToolTip = "Late";
+
+            //        }
+            //    }
+            //}
+        }
+        catch (Exception)
+        {
             
-        //    throw;
-        //}
+            throw;
+        }
        
     }
 

@@ -34,7 +34,7 @@ public partial class frmAttendanceMark : DBUtility
         if (!IsPostBack)
         {
             txtDate.Text = Convert.ToString(DateTime.Now.ToString("dd/MM/yyyy")).Replace("-","/");
-            strDate = Convert.ToDateTime(txtDate.Text).ToString("MM/dd/yyyy").Replace("-", "/");
+            //strDate = Convert.ToDateTime(txtDate.Text).ToString("MM/dd/yyyy").Replace("-", "/");
             fillStandard();
         }
     }
@@ -76,8 +76,9 @@ public partial class frmAttendanceMark : DBUtility
         {
 
             strDate = Convert.ToDateTime(txtDate.Text).ToString("MM/dd/yyyy").Replace("-", "/");
-            GridViewRow row = (sender as DropDownList).NamingContainer as GridViewRow;
-            strQry = "usp_MarkAttendance @command='BackDate',@intstanderd_id='" + drpStandard.SelectedValue.Trim() + "',@intdivision_id='" + drpDivision.SelectedValue.Trim() + "',@intschool_id='" + Convert.ToString(Session["School_id"]) + "',@dtDate='" + Convert.ToString(strDate) + "',@intAcademicYear_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+            //GridViewRow row = (sender as DropDownList).NamingContainer as GridViewRow;
+            //strQry = "usp_MarkAttendance @command='BackDate',@intstanderd_id='" + drpStandard.SelectedValue.Trim() + "',@intdivision_id='" + drpDivision.SelectedValue.Trim() + "',@intschool_id='" + Convert.ToString(Session["School_id"]) + "',@dtDate='" + Convert.ToString(strDate) + "',@intAcademicYear_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+            strQry = "usp_MarkAttendance @command='BackDate',@intstanderd_id='" + drpStandard.SelectedValue.Trim() + "',@intdivision_id='" + drpDivision.SelectedValue.Trim() + "',@intschool_id='1',@dtDate='" + Convert.ToString(strDate) + "',@intAcademicYear_id='1'";
             dsObj = sGetDataset(strQry);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
@@ -97,7 +98,7 @@ public partial class frmAttendanceMark : DBUtility
                 grdMarkAttendance.DataBind();
             }
         }
-        catch
+        catch(Exception ex)
         {
         }
 
@@ -368,7 +369,7 @@ public partial class frmAttendanceMark : DBUtility
                         string msgParent = "Your Child : " + strStudentName + " is absent as on " + strDate + " in School, Thank you.";
                         POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobileNo + "&message=" + msgParent.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                         //POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
-                        //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                        //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
                         //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobileNo + "&sender=EFFICA&message=" + msgParent + "&format=json&custom=1,2&flash=0", "");
                         //POST("http://103.231.41.62/HttpPush/SendMessage.aspx?user=effica&pwd=effica&sender=ESMART&mobile=91" + strMobileNo.Trim() + "&msg=Your child " + strStudentName.Trim() + " is absent today in school&alert=1", "");
                         strQry = "Messaging_SP @type='Insert',@uesr_type='" + Convert.ToString(Session["strUserType"]) + "',@student_id=0,@mobile='" + strMobileNo.Trim() + "',@msgCount='" + 1 + "',@message='" + msgParent.Trim() + "',@InsertedBy='" + Session["User_Id"] + "',@insertIP='" + GetSystemIP() + "'";
@@ -428,7 +429,7 @@ public partial class frmAttendanceMark : DBUtility
                     string strMobileNo = Convert.ToString(dsObj.Tables[0].Rows[i]["intMobileNo"]);
                     //strMobileNo = "9831109717";
                     string msgParent = "" + str + " these Students are absent as on " + strDate + ". for Class " + drpStandard.SelectedItem.Text.Trim() + "";
-                    //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                    //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
                     POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
                     //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobileNo + "&sender=EFFICA&message=" + msgParent + "&format=json&custom=1,2&flash=0", "");
                     //strname = strname.Trim(",".ToCharArray());

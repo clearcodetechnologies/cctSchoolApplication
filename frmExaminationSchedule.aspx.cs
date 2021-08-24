@@ -162,8 +162,8 @@ public partial class frmExaminationSchedule : DBUtility
             drpAdmStandard.Visible = false;
         }
 
-        strQry = "usp_Examination @command='selectExam',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
-        boolFillExam = sBindDropDownList(drpSelExam, strQry, "vchExamination_name", "intExam_id");
+      //  strQry = "usp_Examination @command='selectExam',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
+      //  boolFillExam = sBindDropDownList(drpSelExam, strQry, "vchExamination_name", "intExam_id");
 
         strQry = "usp_Examination @command='selectExam',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
         boolFillExam = sBindDropDownList(drpExam, strQry, "vchExamination_name", "intExam_id");
@@ -393,6 +393,9 @@ public partial class frmExaminationSchedule : DBUtility
             txtFromTime.Text = Convert.ToDateTime(dsObj.Tables[0].Rows[0]["dtExamination_FromTime"]).ToString("HH:mm tt");
             txtToDt.Text = Convert.ToDateTime(dsObj.Tables[0].Rows[0]["dtExamination_ToTime"]).ToString("HH:mm tt");
             btnSubmit.Text = "Update";
+
+            string script = "funcswitchtab()";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
         }
     }
     protected void grdExamination_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -428,7 +431,9 @@ public partial class frmExaminationSchedule : DBUtility
 
     protected void drpAdmStandard_SelectedIndexChanged(object sender, EventArgs e)
     {
-        drpSelExam.ClearSelection();
+        //drpSelExam.ClearSelection();
+        strQry = "usp_Examination @command='selectExamStandard',@intstandard_id='" + drpAdmStandard.SelectedValue + "',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
+        boolFillExam = sBindDropDownList(drpSelExam, strQry, "vchExamination_name", "intExam_id");
     }
     protected void drpExamType_SelectedIndexChanged(object sender, EventArgs e)
     {

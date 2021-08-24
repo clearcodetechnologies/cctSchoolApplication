@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
  <style>
-        .efficacious_send
+        .vclassrooms_send
         {
             width: 100% !important;
             background: #3498db;
@@ -64,7 +64,7 @@
                                     ActiveTabIndex="1">
                                     <asp:TabPanel HeaderText="g" ID="tab" runat="server">
                                         <HeaderTemplate>
-                                            Detail
+                                            Details
                                         </HeaderTemplate>
                                         <ContentTemplate>
                                             <center>
@@ -100,7 +100,7 @@
                                     </asp:TabPanel>
                                     <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                                         <HeaderTemplate>
-                                            New Entry
+                                            Entry
                                         </HeaderTemplate>
                                         <ContentTemplate>
                                             
@@ -140,12 +140,12 @@
                                                             <table width="100%">
                                                                 <tr>
                                                                     <td align="left" >
-                                                                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="efficacious_send"
+                                                                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="vclassrooms_send"
                                                                             OnClick="btnSubmit_Click" OnClientClick="return ConfirmInsertUpdate();" />
                                                                     </td>
                                                                     <td align="left" style="padding-left:10px">
                                                                         <asp:Button ID="btnClear" runat="server" OnClick="btnClear_Click" Style="padding-left: 10px"
-                                                                            CssClass="efficacious_send" Text="Clear" CausesValidation="False" />
+                                                                            CssClass="vclassrooms_send" Text="Clear" CausesValidation="False" />
                                                                     </td>
                                                                 </tr>
                                                             </table>                                                            

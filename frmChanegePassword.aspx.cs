@@ -12,6 +12,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
 using System.Collections.Generic;
+using System.Net;
+using System.Text;
+using System.IO;
 
 public partial class frmChanegePassword: DBUtility
 {
@@ -152,8 +155,13 @@ public partial class frmChanegePassword: DBUtility
                      int x = sExecuteQuery(strQry);
                      if (x != 0)
                      {
+                         strQry = "select vchFCMToken as vchFCMToken from tblAdmin_Master where  intActive_flg=1 and intAdmin_id='" + Convert.ToString(Session["User_id"]) + "'";
+                         dsObj = sGetDataset(strQry);
+                         string FCMToken = Convert.ToString(dsObj.Tables[0].Rows[0]["vchFCMToken"]);
+                         PushNotification(FCMToken);
                          MessageBox("Password Changed Successfully ");
                          Clear();
+                         Response.Redirect("Login.aspx");
                      }
                      else
                      {
@@ -176,4 +184,44 @@ public partial class frmChanegePassword: DBUtility
     //{
     //    Clear();
     //}
+
+    protected void PushNotification(string FCMToken)
+    {
+        try
+        {
+                                string regId = FCMToken;
+                                var applicationID = "AAAAsZmGccI:APA91bGY0FQ8sl-575lKQjVf_GXQu2be7wJWLtg-2xm1388njpynAEGGSXWg_5qCA9ZrhWSUROEulyC7qP3ekWFVI5mytNtuMY0RywCXWuowP3spI91XjaGZ5gM6VPsXkBOafMVWOdJ4"; // PbojmyrmspdqkZ0pINni7DyqvhY2
+
+                                string title = "Password";
+                                string message = "The password is changed successfully....";
+                                var SENDER_ID = "762784936386";
+                                var value = message.Trim();
+                                WebRequest tRequest;
+                                tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                                tRequest.Method = "post";
+                                tRequest.ContentType = " application/x-www-form-urlencoded;charset=UTF-8";
+                                tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+                                tRequest.Headers.Add(string.Format("Sender: id={0}", SENDER_ID));
+                                string postData = "collapse_key=score_update&time_to_live=108&delay_while_idle=1&data.message="
+                                    + value + "&data.time=" + System.DateTime.Now.ToString() + "&registration_id=" + regId + "&data.title=" + title + "";
+                                Console.WriteLine(postData);
+                                Byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+                                tRequest.ContentLength = byteArray.Length;
+                                Stream dataStream = tRequest.GetRequestStream();
+                                dataStream.Write(byteArray, 0, byteArray.Length);
+                                dataStream.Close();
+                                WebResponse tResponse = tRequest.GetResponse();
+                                dataStream = tResponse.GetResponseStream();
+                                StreamReader tReader = new StreamReader(dataStream);
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                //txtResponse.Text = sResponseFromServer; //printing response from GCM server.
+                                //txtStream.Text = postData.ToString().Trim();
+                                tReader.Close();
+                                dataStream.Close();
+                                tResponse.Close();
+        }
+        catch (Exception ex)
+        {
+        }
+    }
 }

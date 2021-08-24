@@ -132,6 +132,9 @@ public partial class frmBloodGroupMaster : DBUtility
               
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
             }
         }
         catch

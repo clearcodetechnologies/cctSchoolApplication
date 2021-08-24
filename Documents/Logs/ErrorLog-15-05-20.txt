@@ -1,0 +1,120 @@
+-----------Exception Details on  15-05-2020 13:59:22-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 13:59:22
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 14:00:47-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 14:00:47
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:04:46-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:04:46
+Error Line No : ine 588
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:22:50-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:22:50
+Error Line No : ine 588
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:30:45-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:30:45
+Error Line No : ine 436
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:30:45-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:30:45
+Error Line No : ine 436
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:30:46-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:30:46
+Error Line No : ine 436
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:30:46-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:30:46
+Error Line No : ine 436
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:31:47-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:31:47
+Error Line No : ine 132
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetailsReport.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  15-05-2020 18:35:10-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 15-05-2020 18:35:10
+Error Line No : ine 140
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookHistoryReport.aspx
+
+--------------------------------*End*------------------------------------------
+
+

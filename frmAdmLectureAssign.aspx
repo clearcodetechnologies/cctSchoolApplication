@@ -9,8 +9,8 @@
         {
             text-align: center !important;
         }
-        .efficacious_send {
-            width: 60% !important;
+        .vclassrooms_send {
+            width: 24% !important;
             background: #3498db !important;
             border: none !important;
             font-size: 16px;
@@ -21,13 +21,24 @@
             margin: 7px auto !important;
             padding: 3px;
             cursor: pointer;
-            height: 28px !important;
-            float: left;
+            height: 28px !important; 
             text-align: center !important;
         }
         
     </style>
-<div class="content-header content-header1 pd-0">
+
+     <div class="content-header">
+        <h1>
+         Lecture Schedule
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ><i ></i>Home</a></li>
+            <li><a ><i ></i>Master</a></li>
+            <li><a ><i ></i>School Master </a></li>
+            <li class="active">Lecture Schedule</li>
+        </ol>
+    </div>
+<%--<div class="content-header content-header1 pd-0">
        
         <ul class="top_navlg">
         <li><a >Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
@@ -63,7 +74,7 @@
             <li><a href="FrmAdminMaster.aspx">Admin Master</a></li>
         </ul>
 
-    </div>
+    </div>--%>
  <section class="content">
     <div style="padding: 05px 0 0 0">
         <asp:UpdatePanel ID="updpan1" runat="server">
@@ -87,30 +98,32 @@
                                         Lecture Report</HeaderTemplate>
                                     <ContentTemplate>
                                         <center>
-                                            <table width="80%">
+                                            <table width="90%">
+                                             <asp:Button ID="btnCopy" runat="server" AutoPostBack="True"  CssClass="vclassrooms_send" 
+                                                    OnClick="btnCopy_Click" Text="Copy from last year" style="margin: 7px auto !important; float:none" />
                                                 <tr>
-                                                    <td align="center">
+                                                    <td align="center" style="width: 10%;">
                                                         <asp:Label ID="lblStandard" runat="server" Text="Standard"></asp:Label>
                                                     </td>
-                                                    <td align="center">
+                                                    <td align="center" style="width: 15%;">
                                                         <asp:DropDownList ID="drpStandard" runat="server" CssClass="select" AutoPostBack="True"
                                                             OnSelectedIndexChanged="drpStandard_SelectedIndexChanged">
                                                             <asp:ListItem>---Select---</asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
-                                                    <td align="center">
+                                                    <td align="center" style="width: 10%;">
                                                         <asp:Label ID="Label1" runat="server" Text="Division" style="padding-left:10px"></asp:Label>
                                                     </td>
-                                                    <td align="center">
+                                                    <td align="center" style="width: 15%;">
                                                         <asp:DropDownList ID="drpDivision" runat="server" OnSelectedIndexChanged="drpDivision_SelectedIndexChanged"
                                                             CssClass="select" AutoPostBack="True">
                                                             <asp:ListItem>---Select---</asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
-                                                    <td style="padding-left:10px" align="center">
+                                                    <td style="width: 10%;" align="center">
                                                         <asp:Label ID="lblDay" runat="server" Text="Day"></asp:Label>
                                                     </td>
-                                                    <td align="center">
+                                                    <td align="center" style="width: 15%;">
                                                         <asp:DropDownList ID="drpDay" runat="server" CssClass="select" AutoPostBack="True"
                                                             OnSelectedIndexChanged="drpDay_SelectedIndexChanged">
 
@@ -123,10 +136,10 @@
                                                             <asp:ListItem>Saturday</asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
-                                                    <td style="padding-top: 10px" align="center">
+                                                    <td style="width: 10%;" align="center">
                                                             <asp:Label ID="Label2" runat="server">Session</asp:Label>
                                                         </td>
-                                                        <td align="center">
+                                                        <td align="center" style="width: 15%;">
                                                             <asp:DropDownList ID="drpSession" CssClass="select" runat="server" 
                                                                 AutoPostBack="True" onselectedindexchanged="drpSession_SelectedIndexChanged" >
                                                             </asp:DropDownList>
@@ -178,7 +191,7 @@
                                     <HeaderTemplate>
                                         Lecture Assignment</HeaderTemplate>
                                     <ContentTemplate>
-                                        <div class="efficacious">
+                                        <div class="vclassrooms">
                                             
                                                 <br />
                                                 <table width="40%" style="margin:0 0 0 2%;">
@@ -330,11 +343,11 @@
                                                                 <tr>
                                                                     <td valign="top" align="left">
                                                                         <asp:Button ID="Button1" runat="server" Text="Submit"
-                                                                            CssClass="efficacious_send" OnClick="Button1_Click" />
+                                                                            CssClass="vclassrooms_send" OnClick="Button1_Click" />
                                                                     </td>
                                                                     <td valign="top">
                                                                         <asp:Button ID="Button2" runat="server" Style="margin-left: 45px;" Visible="False"
-                                                                            Text="Update" CssClass="efficacious_send" OnClick="Button2_Click" />
+                                                                            Text="Update" CssClass="vclassrooms_send" OnClick="Button2_Click" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>

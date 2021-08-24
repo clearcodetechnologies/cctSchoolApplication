@@ -39,6 +39,8 @@ public partial class frmPeriod_Master :DBUtility
     {
         string query = "Execute dbo.usp_Area @command='getSession',@intSchool_id='" + Session["School_id"] + "'";
         sBindDropDownList(drop1, query, "SessionName", "intSession_id");
+        string query1= "Execute dbo.usp_Area @command='getSession',@intSchool_id='" + Session["School_id"] + "'";
+        sBindDropDownList(ddlSessionName, query, "SessionName", "intSession_id");
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -194,6 +196,53 @@ public partial class frmPeriod_Master :DBUtility
 
         }
     }
+
+    [System.Web.Services.WebMethod]
+    public static object pullData(int id)
+    {
+        try
+        {
+            // int id = Convert.ToInt32(PeriodReport.DataKeys[e.NewEditIndex].Value);
+            //Session["id"] =id;
+            DataSet dsObj = new DataSet();
+            //  string strQry4 = "exec dbo.usp_BusFeesPayment @command='Editpay',@intPayment_Id='" + id + "',@intschool_id='" + Session["School_id"] + "'";
+            //  dsObj1 = sGetDataset(strQry4);
+
+            //            if (dsObj1.Tables[0].Rows.Count > 0)
+            //          {
+
+            string strQry = "exec dbo.usp_Area @command='EditPediod',@intPeriod_id='" + id + "',@intschool_id='" + HttpContext.Current.Session["School_id"] + "'";
+            dsObj = sGetDataset(strQry);
+            if (dsObj.Tables[0].Rows.Count > 0)
+            {
+                var varData = (from objData in new List<int> { 1 }
+                               select new
+                               {
+
+                                   id = id,//Convert.ToString(Session["id"]),
+                                   frmdt = Convert.ToDateTime(dsObj.Tables[0].Rows[0]["dtFromTime"]).ToString("hh:mm tt"),
+
+                                   todt = Convert.ToDateTime(dsObj.Tables[0].Rows[0]["dtToTime"]).ToString("hh:mm tt"),
+                                   ddlval = Convert.ToString(dsObj.Tables[0].Rows[0]["intSession_id"]),
+
+                                   check = Convert.ToString(dsObj.Tables[0].Rows[0]["btrecess"]).ToLower()
+
+
+                               }).FirstOrDefault();
+                return varData;
+            }
+            return null;
+        }
+        catch (Exception)
+        {
+
+            throw;
+
+        }
+    }
+
+
+
     protected void PeriodReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         PeriodReport.PageIndex = e.NewPageIndex;
@@ -240,12 +289,12 @@ public partial class frmPeriod_Master :DBUtility
         //    {
         //        MessageBox("Entered Record Already Exist");
         //        return;
-        //    }
+        //    }PeriodReport_RowCommand
         //    else
         //    {
 
-                try
-                {
+        try
+        {
                     //string cheval;
                     string intPeriod_id = hid1.Value;
                    // string Periodfrom = Convert.ToString(TextBox1.Text);
@@ -269,10 +318,15 @@ public partial class frmPeriod_Master :DBUtility
                     if (result1 != -1)
                     {
                         string display = "Period update Successfully!";
-                        MessageBox(display);
+                string strclean = "clrflds()";
+               
+                        MessageBox1(display, strclean);
                         fillgrid();
-                        Clear();
+                
+               //Response.Redirect("frmPeriod_Master.aspx");
+                Clear();
                         Button1.Text = "Submit";
+                        
                     }
                     else
                     {
@@ -289,8 +343,13 @@ public partial class frmPeriod_Master :DBUtility
         }
     }
 
-    protected void drop1_SelectedIndexChanged(object sender, EventArgs e)
+    protected void ddlSessionName_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        fillgridSessionwise();
+    }
+    protected void fillgridSessionwise()
+    {
+        string Disquery = "Execute dbo.usp_Area @command='DisplayPediodSessionWise',@intSchool_id='" + Session["School_id"] + "',@intSession_id='" + Convert.ToInt32(ddlSessionName.SelectedValue) + "'";
+        int grvDetail1 = sBindGrid(PeriodReport, Disquery);
     }
 }

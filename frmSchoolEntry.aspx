@@ -4,7 +4,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<div class="content-header content-header1 pd-0">
+    <div class="content-header">
+        <h1>
+            School Master
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ><i ></i>Home</a></li>
+            <li><a ><i ></i>Master</a></li>
+            <li><a ><i ></i>School Master</a></li>
+            <li class="active">School Master</li>
+        </ol>
+    </div>
+<%--<div class="content-header content-header1 pd-0">
        
         <ul class="top_navlg">
         <li><a >Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
@@ -40,7 +51,7 @@
             <li><a href="FrmAdminMaster.aspx">Admin Master</a></li>
         </ul>
 
-    </div>
+    </div>--%>
  <section class="content">
     <div style="padding: 5px 0 0 0">
         <center>
@@ -53,7 +64,7 @@
                                     ActiveTabIndex="1">
                                     <asp:TabPanel HeaderText="g" ID="tab" runat="server">
                                         <HeaderTemplate>
-                                            List
+                                            Details
                                         </HeaderTemplate>
                                         <ContentTemplate>
                                             <center>
@@ -91,11 +102,11 @@
                                     </asp:TabPanel>
                                     <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                                         <HeaderTemplate>
-                                            New Entry
+                                           Entry
                                         </HeaderTemplate>
                                         <ContentTemplate>
-                                            <center>
-                                                <table width="36%" style="text-align: right">
+                                           
+                                                <table width="36%" style="text-align: right; margin-left:2%;">
                                                     <tr>
                                                         <td align="justify">
                                                             &nbsp;
@@ -198,7 +209,7 @@
                                                             <asp:Label ID="Label9" runat="server" Text="Phone No 1"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtPhone1" runat="server" CssClass="input-blue" MaxLength="20" 
+                                                            <asp:TextBox ID="txtPhone1" runat="server" CssClass="input-blue" MaxLength="12" 
                                                                 AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
@@ -207,7 +218,7 @@
                                                             <asp:Label ID="Label10" runat="server" Text="Phone No 2"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtPhone2" runat="server" CssClass="input-blue" MaxLength="30" AutoComplete="Off"></asp:TextBox>
+                                                            <asp:TextBox ID="txtPhone2" runat="server" CssClass="input-blue" MaxLength="12" AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                      <tr>
@@ -215,7 +226,7 @@
                                                             <asp:Label ID="Label11" runat="server" Text="Phone No 3"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtPhone3" runat="server" CssClass="input-blue" MaxLength="30" AutoComplete="Off"></asp:TextBox>
+                                                            <asp:TextBox ID="txtPhone3" runat="server" CssClass="input-blue" MaxLength="12" AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                      <tr>
@@ -239,7 +250,7 @@
                                                             <asp:Label ID="Label14" runat="server" Text="Contact Person1"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtContactPerson1" runat="server" CssClass="input-blue" MaxLength="30" AutoComplete="Off"></asp:TextBox>
+                                                            <asp:TextBox ID="txtContactPerson1" runat="server" CssClass="input-blue" MaxLength="12" AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                       <tr>
@@ -264,7 +275,7 @@
                                                             <asp:Label ID="Label17" runat="server" Text="Email"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtEmail1" runat="server" CssClass="input-blue" MaxLength="30" AutoComplete="Off"></asp:TextBox>
+                                                            <asp:TextBox ID="txtEmail1" runat="server" CssClass="input-blue" MaxLength="12" AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                       <tr>
@@ -272,7 +283,7 @@
                                                             <asp:Label ID="Label18" runat="server" Text="Contact Person2"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtContactPerson2" runat="server" CssClass="input-blue" MaxLength="30" AutoComplete="Off"></asp:TextBox>
+                                                            <asp:TextBox ID="txtContactPerson2" runat="server" CssClass="input-blue" MaxLength="12" AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                        <tr>
@@ -305,7 +316,7 @@
                                                             <asp:Label ID="Label22" runat="server" Text="Contact Person3"></asp:Label>
                                                         </td>
                                                         <td align="justify">
-                                                            <asp:TextBox ID="txtContactPerson3" runat="server" CssClass="input-blue" MaxLength="30" AutoComplete="Off"></asp:TextBox>
+                                                            <asp:TextBox ID="txtContactPerson3" runat="server" CssClass="input-blue" MaxLength="12" AutoComplete="Off"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                        <tr>
@@ -341,9 +352,9 @@
                                                                 <td align="justify">
                                                                
                                                                 </td>
-                                                                    <td align="right" style="padding-left:-20px">
+                                                                    <td align="right" style="padding-left: 128px;">
                                                                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-                                                                            CssClass="efficacious_send" onclick="btnSubmit_Click" />
+                                                                            CssClass="vclassrooms_send" onclick="btnSubmit_Click" />
                                                                     </td>
                                                                     
                                                                 </tr>
@@ -356,7 +367,7 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </center>
+                                             
                                         </ContentTemplate>
                                     </asp:TabPanel>
                                 </asp:TabContainer>

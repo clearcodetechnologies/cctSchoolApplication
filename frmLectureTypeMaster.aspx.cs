@@ -158,8 +158,11 @@ public partial class frmLectureTypeMaster : DBUtility
             if (dsObj.Tables[0].Rows.Count > 0)
             {
                 txtLectureType.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vcLecture_type"]);
-                TBC.ActiveTabIndex = 1;
+                //TBC.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
             }
         }
         catch

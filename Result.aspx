@@ -108,6 +108,13 @@
             width: 98%;
             margin: 0 auto;
         }
+        .content-style{font-family: Verdana;
+    font-size: 10pt;
+    min-height: 1350px;
+    background-color: #fff;
+    border-top-width: 0;
+    border: solid 1px #d7d7d7;
+    border-top-color: #d7d7d7;}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -126,29 +133,31 @@
 <section class="content">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-<div><asp:Button ID="btnPDF" runat="server" Text="Export to PDF" OnClick="btnExport_Click"  Visible="false"/>
-     <table width="100%">
+       <div class="content-style"> 
+<div>
+    <asp:Button ID="btnPDF" runat="server" Text="Export to PDF" OnClick="btnExport_Click"  Visible="false"/>
+     <table width="70%">
                                                 <tr>
-                                                    <td align="center" valign="middle">
+                                                    <td align="center" valign="middle" style="width:10%;">
                                                         <asp:Label ID="lblSTD" runat="server" Text="STD" CssClass="textsize"></asp:Label>
                                                     </td>
-                                                    <td align="left" style="padding-right: 0px" valign="middle">
+                                                    <td align="left" style="padding-right: 0px; width:20%" valign="middle">
                                                         <asp:DropDownList ID="ddlSTD" runat="server" AutoPostBack="True" CssClass="textsize"
                                                             OnSelectedIndexChanged="ddlSTD_SelectedIndexChanged">
                                                         </asp:DropDownList>
                                                     </td>
-                                                    <td align="center" valign="middle">
+                                                    <td align="center" valign="middle" style="width:10%;">
                                                         <asp:Label ID="lblDIV" runat="server" Text="DIV" CssClass="textsize"></asp:Label>
                                                     </td>
-                                                    <td align="left" valign="middle">
+                                                    <td align="left" valign="middle" style="width:20%;">
                                                         <asp:DropDownList ID="ddlDIV" runat="server" AutoPostBack="True" CssClass="textsize"
                                                             OnSelectedIndexChanged="ddlDIV_SelectedIndexChanged">
                                                         </asp:DropDownList>
                                                     </td>                                                   
-                                                    <td align="center" valign="middle">
+                                                    <td align="center" valign="middle" style="width:10%;">
                                                         <asp:Label ID="lblStudName" runat="server" Text="Student Name" CssClass="textsize"></asp:Label>
                                                     </td>
-                                                    <td align="left" valign="bottom">                                                     
+                                                    <td align="left" valign="bottom" style="width:20%;">                                                     
                                                         <asp:DropDownList ID="ddlStudent" runat="server" AutoPostBack="True" CssClass="textsize" 
                                                             OnSelectedIndexChanged="ddlStudent_SelectedIndexChanged">
                                                         </asp:DropDownList>                                                     
@@ -165,7 +174,7 @@
        
         <h2 style="font-family:Verdana; font-size:20px;">Central Model School - Barrackpore</h2>
         <h4 style="font-family:Verdana; font-size:13px;">23, River Side Road, Barrackpore, West Bengal 700120</h4>
-        <h4 style="font-family:Verdana; font-size:13px;">E-mail: CentralModel@gmail.com, www.e-smarts.net/centralmodel</h4>
+        <h4 style="font-family:Verdana; font-size:13px;">E-mail: CentralModel@gmail.com, www.VClassrooms.net/centralmodel</h4>
         <%--<p style="font-family:Verdana; font-size:12px;">Affiliated to Maharashtra State Board</p>--%>
         <h3 style="font-family:Verdana; font-size:12px;">Record of Academic Performance<br>
             2017-18</h3>
@@ -347,7 +356,11 @@
             </table>
         </div>
     </div>
-    </asp:Panel></ContentTemplate> </asp:UpdatePanel>
+    </asp:Panel>
+           
+          </div> 
+           </ContentTemplate> </asp:UpdatePanel>
+    
 </section>
 </asp:Content>
 

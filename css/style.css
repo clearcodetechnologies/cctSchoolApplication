@@ -86,10 +86,10 @@ box-shadow: 0 0 5px #888;}
     margin: 0 auto;
     z-index: 10;	}
 .logo img{   
-    margin-bottom: 29px;}
+    margin-bottom: 29px; width:160px;}
 .login-form{
 
-	width:480px; margin:15px auto 0;
+	width:360px; margin:180px auto 0;
 	border-top:4px solid #b4d9f6;
 	border-radius:3px;
 	padding:10px 10px;	

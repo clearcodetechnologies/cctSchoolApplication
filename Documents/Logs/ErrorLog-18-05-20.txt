@@ -1,0 +1,36 @@
+-----------Exception Details on  18-05-2020 10:53:29-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 18-05-2020 10:53:29
+Error Line No : ine 588
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  18-05-2020 11:01:09-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 18-05-2020 11:01:09
+Error Line No : ine 588
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://localhost:24211/e-SMS12/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  18-05-2020 11:04:22-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 18-05-2020 11:04:22
+Error Line No : ine 588
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+

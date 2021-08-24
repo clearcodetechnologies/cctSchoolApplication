@@ -5,7 +5,7 @@
 <html>
 <head id="Head1" runat="server">
     <meta charset="UTF-8">
-    <title>E-Smarts</title>
+    <title>VClassrooms</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
         name='viewport'>
     <!-- bootstrap 3.0.2 -->
@@ -71,7 +71,7 @@
         
         @charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset@charset"utf-8";/* CSS Document */
         
-        .efficacious label
+        .vclassrooms label
         {
             display: block;
             height: auto;
@@ -85,7 +85,7 @@
             width: 85px;
             color: #000;
         }
-        #efficacious
+        #vclassrooms
         {
             background: #e5e5e5;
             border-radius: 7px;
@@ -94,7 +94,7 @@
             width: 90%;
             margin-bottom: 5px;
         }
-        .efficacious span
+        .vclassrooms span
         {
             display: block;
             height: auto;
@@ -109,7 +109,7 @@
             width: 120px;
             color: #000;
         }
-        .efficacious input, form.winner-inside textarea
+        .vclassrooms input, form.winner-inside textarea
         {
             display: block;
             border: 1px solid #3c8dbc;
@@ -124,11 +124,11 @@
             text-align: left;
             outline: none;
         }
-        .efficacious input[type="image"]
+        .vclassrooms input[type="image"]
         {
             margin: 0px;
         }
-        .efficacious input.winner-inside
+        .vclassrooms input.winner-inside
         {
             width: 100%;
             background: #ffff;
@@ -139,7 +139,7 @@
             margin-top: 10px;
             outline: none;
         }
-        .efficacious select
+        .vclassrooms select
         {
             width: 100%;
             border: 1px solid #3c8dbc;
@@ -152,7 +152,7 @@
             margin-bottom: 10px;
             outline: none;
         }
-        .efficacious textarea
+        .vclassrooms textarea
         {
             width: 100%;
             border: 1px solid #3c8dbc;
@@ -164,12 +164,12 @@
             font-size: 13px;
             margin-bottom: 10px;
         }
-        .efficacious input[type="image"]
+        .vclassrooms input[type="image"]
         {
             border: 0px;
             padding: 0px;
         }
-        .efficacious input.efficacious_send
+        .vclassrooms input.vclassrooms_send
         {
             width: 100px;
             background: #3c8dbc;
@@ -186,19 +186,19 @@
             float: left;
             text-align: center;
         }
-        .efficacious input[type=checkbox]:checked + label:after
+        .vclassrooms input[type=checkbox]:checked + label:after
         {
             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
             filter: alpha(opacity=100);
             opacity: 1;
         }
-        .efficacious input[type=checkbox]:checked + label:after
+        .vclassrooms input[type=checkbox]:checked + label:after
         {
             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
             filter: alpha(opacity=100);
             opacity: 1;
         }
-        .efficacious input[type=checkbox], input[type=radio]
+        .vclassrooms input[type=checkbox], input[type=radio]
         {
             display: block;
             width: 1.1em;
@@ -210,7 +210,7 @@
             line-height: 1em;
             font-size: 10px;
         }
-        .efficacious label
+        .vclassrooms label
         {
             display: inline;
             float: left;
@@ -219,7 +219,7 @@
             text-indent: 20px;
             white-space: nowrap;
         }
-        .efficacious input[type=checkbox] + label
+        .vclassrooms input[type=checkbox] + label
         {
             display: block;
             width: 1.1em;
@@ -231,7 +231,7 @@
             line-height: 1em;
             font-size: 14px;
         }
-        .efficacious input[type=checkbox]:checked + label::before
+        .vclassrooms input[type=checkbox]:checked + label::before
         {
             content: "\2714";
             color: #fff;
@@ -242,7 +242,7 @@
             margin-right: 6px;
             margin-left: -20px;
         }
-        .efficacious input[type=radio] + label
+        .vclassrooms input[type=radio] + label
         {
             display: block;
             width: 8em;

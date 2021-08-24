@@ -27,13 +27,13 @@ public partial class frmStaffAttendance : DBUtility
                     if (!IsPostBack)
                     {
                     GetData();
-                    ddlMonth1.SelectedValue = Convert.ToString(DateTime.Now.Month);
-                    ddlMonth1_SelectedIndexChanged(null, null);
+                    //ddlMonth1.SelectedValue = Convert.ToString(DateTime.Now.Month);
+                    //ddlMonth1_SelectedIndexChanged(null, null);
                    // FillDept();
                     FillUserType();
                     FillDept();
                     FillTeacher();
-                    TabContainer2.Visible = false;
+                    //TabContainer2.Visible = false;
                     geturl();
                 }
                 }
@@ -83,11 +83,11 @@ public partial class frmStaffAttendance : DBUtility
     {
         string Day_Date = e.Day.Date.ToShortDateString();
 
-        if (e.Day.Date.Day.ToString() == "15")
-        {
-            ddlMonth1.SelectedValue = Convert.ToString(e.Day.Date.Month);
-            ddlMonth1_SelectedIndexChanged(null, null);
-        }
+        //if (e.Day.Date.Day.ToString() == "15")
+        //{
+        //    ddlMonth1.SelectedValue = Convert.ToString(e.Day.Date.Month);
+        //    ddlMonth1_SelectedIndexChanged(null, null);
+        //}
 
         try
         {
@@ -118,7 +118,7 @@ public partial class frmStaffAttendance : DBUtility
                     {
                         Month = e.Day.Date.Month;
                         Year = e.Day.Date.Year;
-                        ddlMonth1.SelectedValue = Convert.ToString(Month);
+                        //ddlMonth1.SelectedValue = Convert.ToString(Month);
                     }
                     if (scheduledDate.Equals(Day_Date))
                     {
@@ -272,8 +272,8 @@ public partial class frmStaffAttendance : DBUtility
     {
         try
         {
-            grvAttendance.DataSource = createDataTable();
-            grvAttendance.DataBind();
+            //grvAttendance.DataSource = createDataTable();
+            //grvAttendance.DataBind();
         }
         catch (Exception)
         {
@@ -414,11 +414,11 @@ public partial class frmStaffAttendance : DBUtility
         {
                if (ddlTeacher.SelectedValue != "-1" && ddlTeacher.SelectedValue != "0")
                 {
-                    TabContainer2.Visible = true;
-                    TabContainer2.Tabs[0].Enabled = true;
-                    TabContainer2.Tabs[1].Enabled = true;
-                    TabContainer2.Tabs[2].Enabled = true;
-                    TabContainer2.Tabs[3].Enabled = true;
+                    //TabContainer2.Visible = true;
+                    //TabContainer2.Tabs[0].Enabled = true;
+                    //TabContainer2.Tabs[1].Enabled = true;
+                    //TabContainer2.Tabs[2].Enabled = true;
+                    //TabContainer2.Tabs[3].Enabled = true;
                     FillGrid();
                     GetData();
                     FillYear();
@@ -430,11 +430,11 @@ public partial class frmStaffAttendance : DBUtility
                 }
                 else if (ddlTeacher.SelectedValue == "-1")
                 {
-                    TabContainer2.Visible = true;
-                    TabContainer2.Tabs[2].Enabled = true;
-                    TabContainer2.Tabs[3].Enabled = false;
-                    TabContainer2.Tabs[0].Enabled = false;
-                    TabContainer2.Tabs[1].Enabled = false;
+                    //TabContainer2.Visible = true;
+                    //TabContainer2.Tabs[2].Enabled = true;
+                    //TabContainer2.Tabs[3].Enabled = false;
+                    //TabContainer2.Tabs[0].Enabled = false;
+                    //TabContainer2.Tabs[1].Enabled = false;
                     
                     FillYear();
                     ddlYear.SelectedValue = Convert.ToString(DateTime.Now.Year);
@@ -443,7 +443,7 @@ public partial class frmStaffAttendance : DBUtility
                 }
                 else
                 {
-                    TabContainer2.Visible = false;
+                    //TabContainer2.Visible = false;
                 }
         }
         catch 
@@ -1452,13 +1452,13 @@ public partial class frmStaffAttendance : DBUtility
             {
                 drpselect.Visible = true;
                 lblAttendanceStatus.Visible = true;
-                TabContainer2.Tabs[2].Visible = true;
+                //TabContainer2.Tabs[2].Visible = true;
             }
             else
             {
                 drpselect.Visible = false;
                 lblAttendanceStatus.Visible = false;
-                TabContainer2.Tabs[2].Visible = false;
+                //TabContainer2.Tabs[2].Visible = false;
             }
 
         }
@@ -1514,13 +1514,13 @@ public partial class frmStaffAttendance : DBUtility
     {
         try
         {
-            if (ddlMonth1.SelectedValue != "1")
-            {
-                ddlMonth1.SelectedValue = Convert.ToString((Convert.ToInt32(ddlMonth1.SelectedValue) - 1));
-                ddlMonth1_SelectedIndexChanged(null, null);
-            }
-            else
-            {
+            //if (ddlMonth1.SelectedValue != "1")
+            //{
+            //    ddlMonth1.SelectedValue = Convert.ToString((Convert.ToInt32(ddlMonth1.SelectedValue) - 1));
+            //    ddlMonth1_SelectedIndexChanged(null, null);
+            //}
+            //else
+            //{
                 if (CalAttendance.VisibleDate.Year != 001)
                 {
                     Year = CalAttendance.VisibleDate.Year - 1;
@@ -1534,67 +1534,67 @@ public partial class frmStaffAttendance : DBUtility
                 ddlMonth.SelectedValue = Convert.ToString(12);
                 CalAttendance.VisibleDate = Convert.ToDateTime("01/" + Month.ToString().PadLeft(2, '0') + "/" + Year);
                 GetData();
-            }
+            //}
         }
         catch
         {
 
         }
     }
-    protected void ddlMonth1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            Month = Convert.ToInt32(ddlMonth1.SelectedValue);
-            if (CalAttendance.VisibleDate.Year != 001)
-            {
-                Year = CalAttendance.VisibleDate.Year;
-            }
-            else
-            {
-                Year = DateTime.Now.Year;
-            }
-            FillGrid();
+    //protected void ddlMonth1_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        Month = Convert.ToInt32(ddlMonth1.SelectedValue);
+    //        if (CalAttendance.VisibleDate.Year != 001)
+    //        {
+    //            Year = CalAttendance.VisibleDate.Year;
+    //        }
+    //        else
+    //        {
+    //            Year = DateTime.Now.Year;
+    //        }
+    //        FillGrid();
 
-            CalAttendance.VisibleDate = Convert.ToDateTime("01/" + Month.ToString().PadLeft(2, '0') + "/" + Year);
-            GetData();
+    //        CalAttendance.VisibleDate = Convert.ToDateTime("01/" + Month.ToString().PadLeft(2, '0') + "/" + Year);
+    //        GetData();
 
-        }
-        catch
-        {
+    //    }
+    //    catch
+    //    {
 
-        }
-    }
-    protected void lnkNext_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            if (ddlMonth1.SelectedValue != "12")
-            {
-                ddlMonth1.SelectedValue = Convert.ToString((Convert.ToInt32(ddlMonth1.SelectedValue) + 1));
-                ddlMonth1_SelectedIndexChanged(null, null);
-            }
-            else
-            {
-                if (CalAttendance.VisibleDate.Year != 001)
-                {
-                    Year = CalAttendance.VisibleDate.Year + 1;
-                }
-                else
-                {
-                    Year = DateTime.Now.Year;
-                }
-                FillGrid();
-                Month = 1;
-                ddlMonth.SelectedValue = Convert.ToString(1);
-                CalAttendance.VisibleDate = Convert.ToDateTime("01/" + Month.ToString().PadLeft(2, '0') + "/" + Year);
-                GetData();
-            }
-        }
-        catch
-        {
-        }
-    }
+    //    }
+    //}
+    //protected void lnkNext_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (ddlMonth1.SelectedValue != "12")
+    //        {
+    //            ddlMonth1.SelectedValue = Convert.ToString((Convert.ToInt32(ddlMonth1.SelectedValue) + 1));
+    //            ddlMonth1_SelectedIndexChanged(null, null);
+    //        }
+    //        else
+    //        {
+    //            if (CalAttendance.VisibleDate.Year != 001)
+    //            {
+    //                Year = CalAttendance.VisibleDate.Year + 1;
+    //            }
+    //            else
+    //            {
+    //                Year = DateTime.Now.Year;
+    //            }
+    //            FillGrid();
+    //            Month = 1;
+    //            ddlMonth.SelectedValue = Convert.ToString(1);
+    //            CalAttendance.VisibleDate = Convert.ToDateTime("01/" + Month.ToString().PadLeft(2, '0') + "/" + Year);
+    //            GetData();
+    //        }
+    //    }
+    //    catch
+    //    {
+    //    }
+    //}
     public void FillSummeryAttendatce()
     {
         try
@@ -1658,43 +1658,43 @@ public partial class frmStaffAttendance : DBUtility
 
 
 
-            switch (TabContainer2.ActiveTabIndex)
-            {
-                case 1:
-                    //  ExportGridToPDF(grvAttendance, "Attendance " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                    exp.ExportGrid(grvAttendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth1.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth1.SelectedItem.Text + " Month Attendance");
+            //switch (TabContainer2.ActiveTabIndex)
+            //{
+            //    case 1:
+            //        //  ExportGridToPDF(grvAttendance, "Attendance " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //        exp.ExportGrid(grvAttendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth1.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth1.SelectedItem.Text + " Month Attendance");
 
-                    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='"+ ddlType.SelectedValue +"',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //        strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='"+ ddlType.SelectedValue +"',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
 
-                    break;
-                case 2:
-                    //   ExportGrid(grdattendance, "AttendanceDetails " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                    exp.ExportGrid(grdattendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth.SelectedItem.Text + " Month Attendance");
+            //        break;
+            //    case 2:
+            //        //   ExportGrid(grdattendance, "AttendanceDetails " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //        exp.ExportGrid(grdattendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth.SelectedItem.Text + " Month Attendance");
 
-                    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='" + ddlType.SelectedValue + "',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
-                    break;
+            //        strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='" + ddlType.SelectedValue + "',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //        break;
 
-                case 3:
-                    //  ExportGrid(grvSummery, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                    exp.ExportGrid(grvSummery, "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", "1", "Attendance Summary Of Year " + ddlYear1.SelectedValue);
+            //    case 3:
+            //        //  ExportGrid(grvSummery, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //        exp.ExportGrid(grvSummery, "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", "1", "Attendance Summary Of Year " + ddlYear1.SelectedValue);
 
-                    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='" + ddlType.SelectedValue + "',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "'";
-                    break;
+            //        strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='" + ddlType.SelectedValue + "',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "'";
+            //        break;
 
-                //case 4:
-                //    //ExportGrid(grvStudSumm, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                //    exp.ExportGrid(grvStudSumm, "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue);
+            //    //case 4:
+            //    //    //ExportGrid(grvStudSumm, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //    //    exp.ExportGrid(grvStudSumm, "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue);
 
-                //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
-                //    break;
+            //    //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //    //    break;
 
-                //case 5:
-                //    // ExportGrid(grvpercent, "AnalyseAttendane " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                //    exp.ExportGrid(grvpercent, "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%");
+            //    //case 5:
+            //    //    // ExportGrid(grvpercent, "AnalyseAttendane " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //    //    exp.ExportGrid(grvpercent, "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%");
 
-                //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
-                //    break;
-            }
+            //    //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //    //    break;
+            //}
             sExecuteQuery(strQry);
 
 
@@ -1725,44 +1725,44 @@ public partial class frmStaffAttendance : DBUtility
             //}
             ClsExportPdf exp = new ClsExportPdf();
 
-            switch (TabContainer2.ActiveTabIndex)
-            {
-                case 1:
-                    //  ExportGridToPDF(grvAttendance, "Attendance " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                    exp.Page_Load(null,null,grvAttendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth1.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth1.SelectedItem.Text + " Month Attendance");
+            //switch (TabContainer2.ActiveTabIndex)
+            //{
+            //    case 1:
+            //        //  ExportGridToPDF(grvAttendance, "Attendance " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //        exp.Page_Load(null,null,grvAttendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth1.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth1.SelectedItem.Text + " Month Attendance");
 
-                    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //        strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
 
-                    break;
-                case 2:
-                    //   ExportGrid(grdattendance, "AttendanceDetails " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                    exp.Page_Load(null, null, grdattendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth.SelectedItem.Text + " Month Attendance");
+            //        break;
+            //    case 2:
+            //        //   ExportGrid(grdattendance, "AttendanceDetails " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //        exp.Page_Load(null, null, grdattendance, ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text, "", ddlType.SelectedValue, ddlMonth.SelectedItem.Text + " Month Attendance");
 
-                    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
-                    break;
+            //        strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + ddlTeacher.SelectedItem.Text + " " + ddlMonth.SelectedItem.Text + " Month Attendance" + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //        break;
 
-                case 3:
-                    //  ExportGrid(grvSummery, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                    exp.Page_Load(null, null, grvSummery, "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text,"", ddlType.SelectedValue, "Attendance Summary Of Year " + ddlYear1.SelectedValue);
+            //    case 3:
+            //        //  ExportGrid(grvSummery, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //        exp.Page_Load(null, null, grvSummery, "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlTeacher.SelectedValue), ddlTeacher.SelectedItem.Text, ddlDept.SelectedItem.Text,"", ddlType.SelectedValue, "Attendance Summary Of Year " + ddlYear1.SelectedValue);
 
-                    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "'";
-                    break;
+            //        strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Year " + ddlYear1.SelectedValue + " " + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlTeacher.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "'";
+            //        break;
 
-                //case 4:
-                //    //ExportGrid(grvStudSumm, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                //    exp.ExportGrid(grvStudSumm, "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue);
+            //    //case 4:
+            //    //    //ExportGrid(grvStudSumm, "AttendanceSummary " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //    //    exp.ExportGrid(grvStudSumm, "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue);
 
-                //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
-                //    break;
+            //    //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Attendance Summary Of Month " + ddlMonths.SelectedValue + " " + ddlYear2.SelectedValue + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //    //    break;
 
-                //case 5:
-                //    // ExportGrid(grvpercent, "AnalyseAttendane " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
-                //    exp.ExportGrid(grvpercent, "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%");
+            //    //case 5:
+            //    //    // ExportGrid(grvpercent, "AnalyseAttendane " + DateTime.Now + ".pdf", "application/vnd.ms-excel");
+            //    //    exp.ExportGrid(grvpercent, "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString(), Convert.ToInt32(ddlStudent.SelectedValue), ddlStudent.SelectedItem.Text, ddlSTD.SelectedItem.Text, ddlDIV.SelectedItem.Text, "1", "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%");
 
-                //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
-                //    break;
-            }
-            sExecuteQuery(strQry);
+            //    //    strQry = "exec [usp_ReportDetails]  @type='InsertReportDetail',@vchRptName='" + "Analyse Attendance Of Status " + ddlStatus.SelectedItem.Text + " between " + ddlMin.SelectedValue + "% and " + ddlMax.SelectedValue + "%" + DateTime.Now.ToShortDateString() + "',@intUserid='" + ddlStudent.SelectedValue + "',@intUserType='1',@vchReportFormat='Excel',@intSchoolId='" + Session["School_id"] + "',@intInsertedBy='" + Session["User_Id"] + "',@vchInsertedIp='" + GetSystemIP() + "'";
+            //    //    break;
+            //}
+            //sExecuteQuery(strQry);
         }
         catch (Exception)
         {
@@ -1773,21 +1773,21 @@ public partial class frmStaffAttendance : DBUtility
     {
         try
         {
-            switch (TabContainer2.ActiveTabIndex)
-            {
-                case 1:
-                    ExportToWord(grvAttendance, "Attendance " + DateTime.Now + ".doc");
-                    break;
-                case 2:
-                    ExportToWord(grdattendance, "AttendanceDetails " + DateTime.Now + ".doc");
-                    break;
+            //switch (TabContainer2.ActiveTabIndex)
+            //{
+            //    case 1:
+            //        ExportToWord(grvAttendance, "Attendance " + DateTime.Now + ".doc");
+            //        break;
+            //    case 2:
+            //        ExportToWord(grdattendance, "AttendanceDetails " + DateTime.Now + ".doc");
+            //        break;
 
-                case 3:
-                    ExportToWord(grvSummery, "AttendanceSummary " + DateTime.Now + ".doc");
-                    break;
+            //    case 3:
+            //        ExportToWord(grvSummery, "AttendanceSummary " + DateTime.Now + ".doc");
+            //        break;
 
 
-            }
+            //}
         }
         catch (Exception)
         {

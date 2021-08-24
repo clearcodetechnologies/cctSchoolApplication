@@ -17,6 +17,7 @@ public partial class FrmAdminMaster : DBUtility
     DataSet dsObj1 = new DataSet();
     DataSet dsObj = new DataSet();
     string strMaxID = string.Empty;
+    string serverpath = "http://192.168.1.150/vclassroomsDemoAPI/image/";
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -29,7 +30,8 @@ public partial class FrmAdminMaster : DBUtility
                 checksession();
                 geturl();
                 filldata();
-                CompareValidator3.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
+                //CompareValidator3.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
+                CompareValidator3.ValueToCompare = DateTime.Now.ToShortDateString();
                 string st = Request.QueryString["successMessage"];
                 string st1 = Request.QueryString["successMessage1"];
 
@@ -460,17 +462,17 @@ public partial class FrmAdminMaster : DBUtility
 
             if (FileUpload1.HasFile)
             {
-                String savePath = "E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/";
+                String savePath = "E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image/";
                 string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                FileUpload1.SaveAs("E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
+                FileUpload1.SaveAs("E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
                 string file = FileUpload1.PostedFile.FileName;
 
                 //TeacherImg.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
-                TeacherImg.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
+                TeacherImg.ImageUrl = "http://192.168.1.150/vclassroomsDemoAPI/image/" + file;
                 ViewState["FilenameTeacher"] = file;
                 Button1.Text = "Change Image";
                 Button8.Visible = true;
-                ViewState["Filename1"] = savePath + file;
+                ViewState["Filename1"] = file;
                 // Response.Redirect(Request.Url.AbsoluteUri);
             }
 
@@ -610,7 +612,7 @@ public partial class FrmAdminMaster : DBUtility
             string ipval = GetSystemIP();
 
             string instrquery1 = "Execute dbo.usp_TeacherTransaction @command='insertAdmin',@vchFirst_name='" + tfname + "',@vchMiddle_name='" + tmname + "',@vchLast_name='" + tlname + "',@vchPreferedSubject='" + tPSubject + "',@intAcademic_id='" + tAcademicYear + "',@intsubject_id='" + tDepartnm + "',@intDesignation_Id='" + tDesignation + "',@vchGender='" + gender + "',@dtDOB='" + tDobnm + "',@vchEmail='" + Emailvl + "',@vchHighestQualification='" + Qualif + "'," +
-                                     "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchImageURL='" + filnmn1 + "',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
+                                     "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchImageURL='" + serverpath + "',@vchProfile='"+ filnmn1 +"',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
                                      "@intSchool_id='" + Session["School_id"] + "',@intInserted_id='" + insertby + "',@dtInserted_Date='" + insertdt + "',@vchInserted_IP='" + ipval + "'," +
                                      "@vchDegree1='" + txtDev1 + "',@vchInstitution1='" + txtInv1 + "',@vchtxtUniversity1='" + txtUnv1 + "',@intPassingYear1='" + txtPaYv1 + "',@vchPercent1='" + txtPe1 + "'," +
                                      "@vchMajorSubject1='" + txtMaSv1 + "',@vchDegree2='" + txtDev2 + "',@vchInstitution2='" + txtInv2 + "',@vchtxtUniversity2='" + txtUnv2 + "',@intPassingYear2='" + txtPaYv2 + "'," +
@@ -859,7 +861,7 @@ public partial class FrmAdminMaster : DBUtility
         string Upval = GetSystemIP();
 
         string instrquery1 = "Execute dbo.usp_Profile @command='UpdateAdmin',@vchFirst_name='" + tfname + "',@vchMiddle_name='" + tmname + "',@vchLast_name='" + tlname + "',@vchPreferedSubject='" + tPSubject + "',@intsubject_id='" + tDepartnm + "',@intDesignation_Id='" + designa + "',@vchGender='" + gender + "',@dtDOB='" + tDobnm + "',@vchEmail='" + Emailvl + "',@vchHighestQualification='" + Qualif + "'," +
-                                 "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchProfile='" + filnmn1 + "',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
+                                 "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchProfile='" + filnmn1 + "',@vchImageURL='"+ serverpath +"',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
                                  "@intSchool_id='" + Session["School_id"] + "',@intUpdated_id='" + Updateby + "',@dtUpdated_Date='" + Updatedt + "',@vchUpdated_IP='" + Upval + "'," +
                                  "@vchDegree1='" + txtDev1 + "',@vchInstitution1='" + txtInv1 + "',@vchtxtUniversity1='" + txtUnv1 + "',@intPassingYear1='" + txtPaYv1 + "',@vchPercent1='" + txtPe1 + "'," +
                                  "@vchMajorSubject1='" + txtMaSv1 + "',@vchDegree2='" + txtDev2 + "',@vchInstitution2='" + txtInv2 + "',@vchtxtUniversity2='" + txtUnv2 + "',@intPassingYear2='" + txtPaYv2 + "'," +
@@ -1019,9 +1021,29 @@ public partial class FrmAdminMaster : DBUtility
 
                 TextBox18.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtTimeToContact"]);
                 TabContainer1.ActiveTabIndex = 1;
+
+                String savePath = Convert.ToString(dsObj.Tables[0].Rows[0]["vchImageURL"]);
+
+                TeacherImg.ImageUrl = savePath + Convert.ToString(dsObj.Tables[0].Rows[0]["vchProfile"]);
+
                 Button8.Text = "Update";
                 Button2.Visible = false;
+
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
+        }
+        catch
+        {
+
+        }
+    }
+
+    protected void grvDetail_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        try
+        {
+            
         }
         catch
         {

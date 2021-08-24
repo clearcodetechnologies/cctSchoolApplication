@@ -42,7 +42,7 @@
                                                 <table width="50%">
                                                  <tr>
                                                         <td>
-                                                            <div class="efficacious" id="efficacious">
+                                                            <div class="vclassrooms" id="vclassrooms">
                                                                 <table width="70%">
                                                                     <tr>
                                                                     <td align="center">
@@ -71,7 +71,7 @@
                                                     </tr>
                                                      <tr>
                                                         <td>
-                                                            <div class="efficacious" id="Div2">
+                                                            <div class="vclassrooms" id="Div2">
                                                                 <table width="70%">
                                                                 <tr>
                                                                     <td align="left">

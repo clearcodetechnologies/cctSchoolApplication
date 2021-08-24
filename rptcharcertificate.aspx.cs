@@ -30,6 +30,10 @@ public partial class rptcharcertificate : DBUtility
             string reportPath = Server.MapPath("RptCharacterCertificate.rpt");
             crystalReport.Load(reportPath);
 
+
+            TextObject vchschool_name = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text2"];
+            TextObject vchschool_add = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text5"];
+            TextObject vchschool_phoneNo = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text6"];
            
             TextObject vchStudent_name = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text9"];
             TextObject vchFatherName = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text15"];

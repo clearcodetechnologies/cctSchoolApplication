@@ -1,301 +1,138 @@
-﻿<%@ Page Title="E-Smarts" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true"
+﻿<%@ Page Title="VClassrooms" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true"
     CodeFile="frmExamType.aspx.cs" Inherits="frmExamType" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <style type="text/css">
-        .mGrid th
-        {
-            text-align: center !important;
-        }
-        .efficacious textarea
-        {
-            width: 97% !important;
-        }
-        .efficacious input[type=checkbox], input[type=radio]
-        {
-            float: left;
-        }
-        .efficacious input[type=checkbox] + label
-        {
-            display: block;
-            width: auto !important;
-            height: auto !important;
-            border: 0.0625em solid rgb(192,192,192);
-            border-radius: 0.25em;
-            background: white !important;
-            vertical-align: middle;
-            line-height: 1em;
-            font-size: 14px;
-            color: #000;
-            padding: 1px 0px;
-            text-align: center;
-        }
-        .modalPopup
-        {
-            background-color: #696969;
-            filter: alpha(opacity=40);
-            opacity: 0.7;
-            xindex: -1;
-        }
-    </style>
-     <script type="text/javascript">
-         var prm = Sys.WebForms.PageRequestManager.getInstance();
-         //Raised before processing of an asynchronous postback starts and the postback request is sent to the server.
-         prm.add_beginRequest(BeginRequestHandler);
-         // Raised after an asynchronous postback is finished and control has been returned to the browser.
-         prm.add_endRequest(EndRequestHandler);
-         function BeginRequestHandler(sender, args) {
-             //Shows the modal popup - the update progress
-             var popup = $find('<%= modalPopup.ClientID %>');
-             if (popup != null) {
-                 popup.show();
-             }
-         }
-
-         function EndRequestHandler(sender, args) {
-             //Hide the modal popup - the update progress
-             var popup = $find('<%= modalPopup.ClientID %>');
-             if (popup != null) {
-                 popup.hide();
-             }
-         }
-    </script>
-    <script language="javascript" type="text/javascript">
-        function confirm() {
-            if (Page_ClientValidate() == false) {
-                return false;
-            }
-            else {
-
-                var atLeast = 1;
-                var count = 0;
-                var chkLst = document.getElementById('<%=chkSTD.ClientID %>');
-                var chk = chkLst.getElementsByTagName("input");
-                for (var i = 0; i < chk.length; i++) {
-                    if (chk[i].checked) {
-                        count++;
-                    }
-                }
-                if (atLeast > count) {
-                    alert('Please Select Atleast One Standard');
-                    return false;
-                }
-                //ConfMsg();
-
-            }
-        }
-
-        function ConfMsg() {
-            var btn = document.getElementById("<%=btnSubmit.ClientID %>").value;
-            if (btn == 'Submit') {
-
-                if (confirm('Do You Really Want To Save Entered Record?')) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
-
-                if (confirm('Do You Really Want To Update Entered Record?')) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        }
-    </script>
+    <script type="text/javascript">
+function funcswitchtab() {
+    $('#tab2').trigger('click')
+    $("#tab2Entry").addClass("active show");
+    $("#custom-tabs-five-overlay-tab").removeClass("active");
+    $("#custom-tabs-five-overlay").removeClass("show").removeClass("active");
+}         
+</script> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-<div class="content-header content-header1 pd-0">
-       
-        <ul class="top_navlg">
-        <li><a >Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-        <li><a >School Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-            <li><a href="frmSchoolEntry.aspx">School Master</a></li>
-             <li><a href="frmNetworkAdmMaster.aspx">SMS Master</a></li>
-            <li><a href="frmAcademicYearMaster.aspx">Academic Year Master</a></li>
-            <li><a href="frmCategoryMaster.aspx">Category Master</a></li>
-            <li><a href="frmLectureTypeMaster.aspx">Lecture Type Master</a></li>
-            <li><a href="frmDepartmentMaster.aspx">Department Master</a></li>
-            <li><a href="frmDesignationMaster.aspx">Designation Master</a></li>
-            <li><a href="frmExamMaster.aspx">Exam Master</a></li>
-            <li class="active1"><a>Exam Type Master</a></li>
-            <li><a href="frmExamSubjectLink.aspx">Exam Passing Criteria</a></li>
-            <li><a href="frmLeaveTypeMaster.aspx">Leave Type Master</a></li>
-            <li><a href="frmHolidayTypeMaster.aspx">Holiday Type Master</a></li>
-            <li><a href="frmVacationTypeMaster.aspx">Vacation Type Master</a></li>
-            <li><a href="frmStatusMaster.aspx">Status Master</a></li>
-            <li><a href="frmSessionMaster.aspx">Session Master</a></li>
-            <li><a href="frmPeriod_Master.aspx">Period Master</a></li>
-            <li><a href="frmStandardMaster.aspx">Standard Master</a></li>
-            <li><a href="frmDivision_master.aspx">Division Master</a></li>
-            <li><a href="frmSubject_Entry.aspx">Subject Master</a></li>
-            <li><a href="frmAdmLectureAssign.aspx">Lecture Schedule</a></li>
-            <li><a href="FrmRouteMaster.aspx">Route Master</a></li>
-            <li><a href="frmBloodGroupMaster.aspx">Blood Group Master</a></li>
-            <li><a href="frmCountryMaster.aspx">Country Master</a></li>
-            <li><a href="frmStateMaster.aspx">State Master</a></li>
-            <li><a href="frmCityMaster.aspx">City Master</a></li>
-            <li><a href="frmAdmStudentProfile.aspx">Student Master</a></li>
-            <li><a href="FrmAdmTeacherProfile.aspx">Teacher Master</a></li>
-            <li><a href="FrmAdminStaffProfile.aspx">Staff Master</a></li>
-            <li><a href="FrmAdminMaster.aspx">Admin Master</a></li>
-        </ul>
-
-    </div>
-<section class="content">
-    <div style="padding: 10px 0 0 0; ">
-        
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">   Exam Type Master </h1>
+          </div>  
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Master</a></li>
+              <li class="breadcrumb-item active"> Exam Type Master</li>
+            </ol>
+          </div> 
+        </div> 
+      </div> 
+    </div> 
+  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <table>
-                        <tr>
-                            <td align="left">
-                                <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle" runat="server" Width="1015px"
-                                    ActiveTabIndex="1">
-                                    <asp:TabPanel HeaderText="g" ID="tab" runat="server">
-                                        <HeaderTemplate>
-                                            Detail</HeaderTemplate>
-                                        <ContentTemplate>
-                                            <center>
-                                                <table width="100%" style="background-color:White;">                                                    
-                                                    <tr>
-                                                        <td align="left">
-                                                            <asp:GridView ID="grvDetail" runat="server"
-                                                              AllowSorting="True" AutoGenerateColumns="False"
-                                                        CssClass="table  tabular-table " Width="50%"  
-                                                                OnRowDataBound="grvDetail_RowDataBound"
-                                                                DataKeyNames="intExamType_id" OnRowEditing="grvDetail_RowEditing" OnRowDeleting="grvDetail_RowDeleting">
-                                                                <Columns>
-                                                                <asp:BoundField DataField="intStandard_id" HeaderText="Standard" ReadOnly="True" />
-                                                                 <asp:BoundField DataField="ExamTypeName" HeaderText="Exam Type" ReadOnly="True" />
-                                                                    
-                                                                    <asp:TemplateField HeaderText="Edit">
-                                                                        <ItemTemplate>
-                                                                            <asp:ImageButton ID="ImgEdit" runat="server" CommandName="Edit" CausesValidation="false"
-                                                                                ImageUrl="~/images/edit.png" /></ItemTemplate>
-                                                                    </asp:TemplateField>
-                                                                   <asp:TemplateField HeaderText="Delete">
-                                                                        <ItemTemplate>
-                                                                            <asp:ImageButton ID="ImgDelete" runat="server" CommandName="Delete" CausesValidation="False" OnClientClick="return confirm('Are you sure you want to delete ?');" 
-                                                                                ImageUrl="~/images/delete.png" /></ItemTemplate>
-                                                                    </asp:TemplateField>
-                                                                </Columns>
-                                                            </asp:GridView>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                </div></center>
-                                        </ContentTemplate>
-                                    </asp:TabPanel>
-                                    <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
-                                        <HeaderTemplate>
-                                            New Entry</HeaderTemplate>
-                                        <ContentTemplate>
-                                        
-                                                <div class="style1"  style="background-color:White;">
-                                                    <table width="30%" style="margin:0 0 0 2%;">
-                                                        <tr id="TrExam" visible="False" runat="server">
-                                                            <td class="style4" align="left" runat="server" >
-                                                                <asp:Label ID="Label7" runat="server" CssClass="textcss" Text="Exam"></asp:Label>
-                                                            </td>
-                                                            <td align="left" runat="server">
-                                                                <asp:DropDownList ID="drpExam" runat="server" AutoPostBack="True" CssClass="selectf">
-                                                                </asp:DropDownList>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                        <td>
-                                                        <asp:Label ID="lblSTD1" runat="server" Text="Standard" CssClass="col-md-12 p-rl5"></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                                                                 <asp:DropDownList ID="ddlSTD1" runat="server" AutoPostBack="True"
-                                                                 CssClass="form-control">
-                                                                <asp:ListItem Value="0" Text="---Select---"></asp:ListItem>
-                                                            </asp:DropDownList>
-                                                        </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="style4" align="left" runat="server" >
-                                                                <asp:Label ID="Label1" runat="server" Text="Type" style="text-align: left"></asp:Label>
-                                                            </td>
-                                                            <td >
-                                                             <asp:TextBox ID="txtExamType" runat="server" AutoPostBack="True" CssClass="selectf"
-                                                              Font-Names="Verdana" ForeColor="Black" MaxLength="30"></asp:TextBox>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                <div class="card-header p-0 pt-1">
+                  <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="tab2" data-toggle="pill" href="#tab2Entry" role="tab" aria-controls="tab2Entry" aria-selected="false">Entry</a>
+                    </li> 
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-five-tabContent">
+                      <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
+                        <div class="col-lg-12 col-md-12">
+                             <asp:GridView ID="grvDetail" runat="server" AllowSorting="True" AutoGenerateColumns="False" AllowPaging="True" 
+                                    CssClass="table table-hover table-bordered cus-table tabular-table "  PageSize="20"  DataKeyNames="intExamType_id" OnRowDeleting="grvDetail_RowDeleting"
+                                    OnRowEditing="grvDetail_RowEditing">
+                                    <Columns>                                                                 
+                                        <asp:BoundField DataField="intStandard_id" HeaderText="Standard" ReadOnly="True" />
+                                        <asp:BoundField DataField="ExamTypeName" HeaderText="Type" ReadOnly="True" />
                                                                
-                                                                <asp:FilteredTextBoxExtender ID="txtExamType_FilteredTextBoxExtender" runat="server"
-                                                                    Enabled="True" FilterType="Custom, UppercaseLetters, LowercaseLetters,numbers" TargetControlID="txtExamType"
-                                                                    ValidChars=".- ">
-                                                                </asp:FilteredTextBoxExtender>
-                                                            </td>
+                                        <asp:TemplateField HeaderText="Edit">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgEdit" runat="server" CssClass="gbtn-edit" CommandName="Edit" CausesValidation="false"
+                                                    ImageUrl="~/images/edit.svg" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Delete">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgDelete" runat="server" CssClass="gbtn-delete" CommandName="Delete" CausesValidation="false"
+                                                    OnClientClick="return confirm('Do You Really Want To Delete Selected Record?');" ImageUrl="~/images/delete.svg" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                        </div> 
+                      </div>
+                    <div class="tab-pane fade" id="tab2Entry" role="tabpanel" aria-labelledby="tab2">
+                     <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                   <asp:Label ID="Label4" class="col-form-label" runat="server" Text="Standard"></asp:Label> 
+                                    <asp:DropDownList ID="ddlSTD1" runat="server" CssClass="form-control">
+                                        <%-- <asp:ListItem Value="0">---Select---</asp:ListItem>--%>
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlSTD1"
+                                        Display="None" ErrorMessage="Please select Standard"></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender1"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator1">
+                                    </asp:ValidatorCalloutExtender> 
+                                </div>
+                             </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                  <asp:Label ID="Label2" runat="server"  class="col-form-label"  Text="Type"></asp:Label> 
+                                   <asp:TextBox ID="txtExamType" runat="server" AutoComplete="Off" CssClass="form-control" MaxLength="75"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtExamType"
+                                        Display="None" ErrorMessage="Please Enter Exam Type"></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="RequiredFieldValidator7_ValidatorCalloutExtender"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator7">
+                                    </asp:ValidatorCalloutExtender>
+                                     
+                                </div>
+                             </div>
+                                
+                                 <div class="col-lg-3 col-md-4 col-sm-6">
+                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success btn-sm mt-18" OnClick="btnSubmit_Click" OnClientClick="return ConfirmInsertUpdate();"
+                                    Text="Submit"/>
+                                <asp:Button ID="btnClear" runat="server" CausesValidation="False" OnClick="btnCancel_Click" CssClass="btn btn-danger btn-sm mt-18"
+                                    Text="Clear" Visible="False" />
+                                </div>
 
-                                                        </tr>
-                                                        <tr id="TrSubject" visible="False" runat="server">
-                                                            <td  class="style5" align="left" runat="server">
-                                                                <asp:Label ID="Label2" runat="server" CssClass="textcss" Text="Subject"></asp:Label>
-                                                            </td>
-                                                            <td class="auto-style6" align="left" valign="top" runat="server">
-                                                                <div id="divId" style="overflow: scroll; height: 190px;">
-                                                                    <asp:CheckBoxList ID="chkSTD" runat="server" CssClass="selectf">
-                                                                    </asp:CheckBoxList>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr id="Tr2" visible="False" runat="server">
-                                                            <td class="style6" align="left" runat="server">
-                                                                <asp:Label ID="Label8" runat="server" CssClass="textcss" Text="Max Marks"></asp:Label>
-                                                            </td>
-                                                            <td align="left" runat="server">
-                                                                <asp:TextBox ID="txtExamMax" runat="server" CssClass="selectf" Width="96%" 
-                                                                    MaxLength="3"></asp:TextBox>
-                                                                <asp:FilteredTextBoxExtender ID="txtExamMax_FilteredTextBoxExtender" runat="server"
-                                                                    Enabled="True" FilterType="Custom, Numbers" TargetControlID="txtExamMax" ValidChars=".">
-                                                                </asp:FilteredTextBoxExtender>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
-                                                                <ProgressTemplate>
-                                                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/images/waiting.gif"></asp:Image>
-                                                                </ProgressTemplate>
-                                                            </asp:UpdateProgress>
-                                                            <asp:ModalPopupExtender ID="modalPopup" runat="server" TargetControlID="UpdateProgress1"
-                                                                PopupControlID="UpdateProgress1" BackgroundCssClass="modalPopup" DynamicServicePath=""
-                                                                Enabled="True">
-                                                            </asp:ModalPopupExtender>
-                                                            </td>
-                                                            <td>
-                                                                <table width="80%">
-                                                                    <tr>
-                                                                        <td align="left">
-                                                                            <asp:Button ID="btnSubmit" runat="server" CssClass="efficacious_send" OnClick="btnSubmit_Click"
-                                                                                OnClientClick="return confirm();" Text="Submit" />
-                                                                        </td>
-                                                                        <td align="left">
-                                                                            <asp:Button ID="btnClear" runat="server" CausesValidation="False" 
-                                                                                CssClass="efficacious_send" Visible="False"
-                                                                                OnClick="btnClear_Click" Text="Clear" />
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                       
-                                        </ContentTemplate>
+
+                            </div>
+                         </div>
+                       </div> 
+                     
+                       </div>
+                    </div>
+
+                </div>
+            </div>
+         </div>
+       </div>
+     </section>               
+ </ContentTemplate>
+            </asp:UpdatePanel>
+
+ 
+           <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle d-none" runat="server"  
+                                    ActiveTabIndex="1">
+                                    <asp:TabPanel HeaderText="g" CssClass="vclassrooms" ID="tab" runat="server">
+                                         
+                                    </asp:TabPanel>
+                                    <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1"> 
                                     </asp:TabPanel>
                                 </asp:TabContainer>
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-      
-    </div>
-</section>
+                         
+    
 </asp:Content>

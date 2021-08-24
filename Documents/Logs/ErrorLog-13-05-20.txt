@@ -1,0 +1,147 @@
+-----------Exception Details on  13-05-2020 15:55:11-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 15:55:11
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://localhost:41053/e-SMS12/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 15:58:45-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 15:58:45
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://localhost:41053/e-SMS12/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 16:03:14-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 16:03:14
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://localhost:41053/e-SMS12/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:23:48-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:23:48
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:30:33-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:30:33
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:35:09-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:35:09
+Error Line No : ine 726
+Error Message: SqlException
+Exception Type: System.Data.SqlClient.SqlException
+Error Location : String or binary data would be truncated.
+The statement has been terminated.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:35:14-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:35:14
+Error Line No : ine 726
+Error Message: SqlException
+Exception Type: System.Data.SqlClient.SqlException
+Error Location : String or binary data would be truncated.
+The statement has been terminated.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:35:58-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:35:58
+Error Line No : ine 726
+Error Message: SqlException
+Exception Type: System.Data.SqlClient.SqlException
+Error Location : String or binary data would be truncated.
+The statement has been terminated.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:37:49-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:37:49
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:38:24-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:38:24
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:38:54-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:38:54
+Error Line No : line 46
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  13-05-2020 17:39:03-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 13-05-2020 17:39:03
+Error Line No : ine 478
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookAssign.aspx
+
+--------------------------------*End*------------------------------------------
+
+

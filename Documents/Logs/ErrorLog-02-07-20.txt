@@ -1,0 +1,12 @@
+-----------Exception Details on  02-07-2020 11:04:40-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 02-07-2020 11:04:40
+Error Line No : ine 588
+Error Message: ThreadAbortException
+Exception Type: System.Threading.ThreadAbortException
+Error Location : Thread was being aborted.
+Error Page Url: http://VClassrooms.com/vclassroomsSchoolDemo/frmBookDetails.aspx
+
+--------------------------------*End*------------------------------------------
+
+

@@ -39,8 +39,8 @@ public class ClsExportExcel : DBUtility
         HtmlTextWriter htw = new HtmlTextWriter(sw);
 
         
-        htw.Write("<table width='100%'><tr><td colspan='2'><img src='~\\images\\pdflogo.jpg' alt='' /></td><td></td><td colspan='4' ><h2>SKP School</h2></td></tr>");
-        htw.Write("<table><tr><td></td><td></td><td></td><td colspan='2' align='center'>Uttarakhand</td><td colspan='2' align='center'> </td></tr><tr><td><br/></td></tr></table>");
+        htw.Write("<table width='100%'><tr><td colspan='2'><img src='~\\images\\pdflogo.jpg' alt='' /></td><td></td><td colspan='4' ><h2>vclassrooms Demo School</h2></td></tr>");
+        htw.Write("<table><tr><td></td><td></td><td></td><td colspan='2' align='center'>Navi Mumbai</td><td colspan='2' align='center'> </td></tr><tr><td><br/></td></tr></table>");
 
         //if (Convert.ToString(Session["UserType_id"]) == "5")
         //{

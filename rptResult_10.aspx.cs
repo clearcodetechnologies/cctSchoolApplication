@@ -35,6 +35,9 @@ public partial class rptResult_I_V : DBUtility
                 crystalReport.Load(reportPath);
 
                 //{Code Ny me
+                TextObject Heading = (TextObject)crystalReport.ReportDefinition.Sections["Section1"].ReportObjects["Text23"];
+                Heading.Text = "ACHIEVEMENT RECORD ACADEMIC YEAR (" + Session["AcademicYearName"] + ")";
+
                 //Student Profile
                 TextObject AdmnNo = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text4"];
                 TextObject Studentnm = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text8"];
@@ -115,6 +118,9 @@ public partial class rptResult_I_V : DBUtility
                 TextObject CSAGrade4 = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text94"];
 
                 TextObject Exam = (TextObject)crystalReport.ReportDefinition.Sections["Section1"].ReportObjects["Text33"];
+
+                TextObject termII = (TextObject)crystalReport.ReportDefinition.Sections["Section1"].ReportObjects["Text96"];
+                TextObject atttermII = (TextObject)crystalReport.ReportDefinition.Sections["Section1"].ReportObjects["Text97"];
                 //}
 
                
@@ -152,6 +158,8 @@ public partial class rptResult_I_V : DBUtility
                     Std.Text=Convert.ToString(dsObj.Tables[0].Rows[0]["vchStandard_name"]);
                     Div.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchDivisionName"]);
                     //StudentId.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intStudentID_Number"]);
+
+                    termII.Text = Convert.ToString(Session["Exam_id"]) == "Term 2" ? "Term-II" : "";
                 }
                 //Half Yearly variables for total and percentage
                 int HYMarksEng = 0;

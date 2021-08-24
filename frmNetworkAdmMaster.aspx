@@ -1,107 +1,61 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" CodeFile="frmNetworkAdmMaster.aspx.cs" Inherits="frmNetworkAdmMaster" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style>
-        .mGrid th
-        {
-            text-align: center !important;
-        }
-    </style>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+          <script type="text/javascript">
+     
 
-    <script language="javascript" type="text/javascript">
-
-        function confirmMsg() {
-            var btn = document.getElementById("<%=btnSubmit.ClientID %>").value;
-            if (btn == 'Submit') {
-                var msg = confirm('Do You Really Want To Save Entered Record ?');
-                if (msg) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
-                var msg = confirm('Do You Really Want To Update Entered Record ?');
-                if (msg) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-
-        }
-
-    </script>
+       function funcswitchtab() {
+           $('#tab2').trigger('click')
+           $("#tab2Entry").addClass("active show");
+           $("#custom-tabs-five-overlay-tab").removeClass("active");
+           $("#custom-tabs-five-overlay").removeClass("show").removeClass("active");
+       }
+         
+   </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<div class="content-header content-header1 pd-0">
-       
-        <ul class="top_navlg">
-        <li><a >Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-        <li><a >School Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-            <li><a href="frmSchoolEntry.aspx">School Master</a></li>
-             <li class="active1"><a href="frmNetworkAdmMaster.aspx">SMS Master</a></li>
-            <li><a href="frmAcademicYearMaster.aspx">Academic Year Master</a></li>
-            <li><a href="frmCategoryMaster.aspx">Category Master</a></li>
-            <li><a href="frmLectureTypeMaster.aspx">Lecture Type Master</a></li>
-            <li><a href="frmDepartmentMaster.aspx">Department Master</a></li>
-            <li><a href="frmDesignationMaster.aspx">Designation Master</a></li>
-            <li><a href="frmExamMaster.aspx">Exam Master</a></li>
-            <li><a href="frmExamType.aspx">Exam Type Master</a></li>
-            <li><a href="frmExamSubjectLink.aspx">Exam Passing Criteria</a></li>
-            <li><a href="frmLeaveTypeMaster.aspx">Leave Type Master</a></li>
-            <li><a href="frmHolidayTypeMaster.aspx">Holiday Type Master</a></li>
-            <li><a href="frmVacationTypeMaster.aspx">Vacation Type Master</a></li>
-            <li><a href="frmStatusMaster.aspx">Status Master</a></li>
-            <li><a href="frmSessionMaster.aspx">Session Master</a></li>
-            <li><a href="frmPeriod_Master.aspx">Period Master</a></li>
-            <li><a href="frmStandardMaster.aspx">Standard Master</a></li>
-            <li><a href="frmDivision_master.aspx">Division Master</a></li>
-            <li><a href="frmSubject_Entry.aspx">Subject Master</a></li>
-            <li><a href="frmAdmLectureAssign.aspx">Lecture Schedule</a></li>
-            <li><a href="FrmRouteMaster.aspx">Route Master</a></li>
-            <li><a href="frmBloodGroupMaster.aspx">Blood Group Master</a></li>
-            <li><a href="frmCountryMaster.aspx">Country Master</a></li>
-            <li><a href="frmStateMaster.aspx">State Master</a></li>
-            <li><a href="frmCityMaster.aspx">City Master</a></li>
-            <li><a href="frmAdmStudentProfile.aspx">Student Master</a></li>
-            <li><a href="FrmAdmTeacherProfile.aspx">Teacher Master</a></li>
-            <li><a href="FrmAdminStaffProfile.aspx">Staff Master</a></li>
-            <li><a href="FrmAdminMaster.aspx">Admin Master</a></li>
-        </ul>
-
-    </div>
- <section class="content">
- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <table width="100%">
-                <tr>
-                    <td align="left">
-                        <asp:TabContainer runat="server" CssClass="MyTabStyle" ID="TBC" Width="70%" 
-                            ActiveTabIndex="1">
-                            <asp:TabPanel runat="server" ID="TB1">
-                                <HeaderTemplate>
-                                    Details
-                                </HeaderTemplate>
-                                <ContentTemplate>
-                                    <left>
-                                        <table width="100%">
-                                            <caption>
-                                                &nbsp;
-                                            </tr>
-                                            <tr>
-                                                <td align="left">
-                                                    <asp:GridView ID="grvDetail" runat="server" AllowPaging="True" 
-                                                        AllowSorting="True" AutoGenerateColumns="False" 
-                                                        CssClass="table  tabular-table " DataKeyNames="intNetwork_id" 
-                                                        OnPageIndexChanging="grvDetail_PageIndexChanging" 
-                                                        OnRowDeleting="grvDetail_RowDeleting" OnRowEditing="grvDetail_RowEditing" 
-                                                        Width="50%">
-                                                        <Columns>
-                                                            <asp:TemplateField HeaderText="Floor_Id" Visible="False">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">   SMS Admin Master </h1>
+          </div>  
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Master</a></li>
+              <li class="breadcrumb-item active"> SMS Admin Master</li>
+            </ol>
+          </div> 
+        </div> 
+      </div> 
+    </div> 
+  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                <div class="card-header p-0 pt-1">
+                  <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="tab2" data-toggle="pill" href="#tab2Entry" role="tab" aria-controls="tab2Entry" aria-selected="false">Entry</a>
+                    </li> 
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-five-tabContent">
+                      <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
+                        <div class="col-lg-12 col-md-12">
+                             <asp:GridView ID="grvDetail" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                                    CssClass="table table-hover table-bordered cus-table tabular-table "  PageSize="20"  DataKeyNames="intNetwork_id" OnRowDeleting="grvDetail_RowDeleting"
+                                    OnRowEditing="grvDetail_RowEditing" OnPageIndexChanging="grvDetail_PageIndexChanging" >
+                                    <Columns>                                                                 
+                                        <asp:TemplateField HeaderText="Floor_Id" Visible="False">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblId" runat="server" Text='<%#Eval("intNetwork_id") %>'></asp:Label>
                                                                 </ItemTemplate>
@@ -111,106 +65,86 @@
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="intMobileNo" HeaderText="Mobile No." 
                                                                 ReadOnly="True">
-                                                            </asp:BoundField>
-                                                            <asp:TemplateField HeaderText="Edit">
-                                                                <ItemTemplate>
-                                                                    <asp:ImageButton ID="ImgEdit" runat="server" CommandName="Edit" 
-                                                                        ImageUrl="~/images/edit.png" />
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Delete">
-                                                                <ItemTemplate>
-                                                                    <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="true" 
-                                                                        CommandName="Delete" ImageUrl="~/images/delete.png" 
-                                                                        OnClientClick="return confirm('Do You Really Want To Delete Selected Record ?');" />
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                        </Columns>
-                                                    </asp:GridView>
-                                                </td>
-                                            </tr>
-</caption></table>
-                                    </left>
-                                </ContentTemplate>
-                            </asp:TabPanel>
-                            <asp:TabPanel runat="server" ID="TB2">
-                                <HeaderTemplate>
-                                    New Entry
-                                </HeaderTemplate>
-                                <ContentTemplate>
-                                    <left>
-                                        <div class="efficacious">
-                                            <table width="50%">
-                                                <tr>
-                                                    <td hei>
-                                                    </td>
-                                                    <td colspan="2">
-                                                    &nbsp
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="10%">
-                                                    </td>
-                                                    <td align="Left" width="50%">
-                                                        <asp:Label ID="Label7" runat="server" Text="Administration Name"></asp:Label>
-                                                    </td>
-                                                    <td align="left" width="100%">
-                                                        <asp:DropDownList ID="drpAdmin" 
-                                                            runat="server">
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="10%">
-                                                    </td>
-                                                    <td align="Left">
-                                                        <asp:Label ID="Label2" runat="server" Text="Mobile"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:TextBox ID="txtMobile" runat="server" CssClass="input-blue" MaxLength="50" ToolTip="Enter Mobile No. Here "></asp:TextBox>
-                                                        <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="txtMobile"
-                                                            FilterType="Numbers" 
-                                                            ValidChars=" " Enabled="True">
-                                                        </asp:FilteredTextBoxExtender>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td colspan="2">
-                                                        &nbsp;
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                     <td align="right">
-                                                       
-                                                    </td>
-                                                    <td align="right">
-                                                        <asp:Button ID="btnSubmit" runat="server" CssClass="efficacious_send" 
-                                                            Text="Submit" onclick="btnSubmit_Click">
-                                                        </asp:Button>
-                                                    </td>
-                                                    <td align="right">
-                                                        <asp:Button ID="btnCancel" runat="server" CssClass="efficacious_send" Visible="False"
-                                                            Text="Cancel" 
-                                                           />
-                                                    </td>
-                                                </tr>
-                                            </table>
-</div>
-                                    </left>
-                                </ContentTemplate>
-                            </asp:TabPanel>
-                        </asp:TabContainer>
-                    </td>
-                </tr>
-            </table>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-</section>
+                                                            </asp:BoundField>                                                           
+                                                                  
+                                        <asp:TemplateField HeaderText="Edit">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgEdit" runat="server" CssClass="gbtn-edit" CommandName="Edit" CausesValidation="false"
+                                                    ImageUrl="~/images/edit.svg" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Delete">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgDelete" runat="server" CssClass="gbtn-delete" CommandName="Delete" CausesValidation="false"
+                                                    OnClientClick="return confirm('Do You Really Want To Delete Selected Record?');" ImageUrl="~/images/delete.svg" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                        </div> 
+                      </div>
+                    <div class="tab-pane fade" id="tab2Entry" role="tabpanel" aria-labelledby="tab2">
+                     <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                   <asp:Label ID="Label4" class="col-form-label" runat="server" Text="Administration Name"></asp:Label> 
+                                    <asp:DropDownList ID="drpAdmin" runat="server" CssClass="form-control">
+                                        <%-- <asp:ListItem Value="0">---Select---</asp:ListItem>--%>
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpAdmin"
+                                        Display="None" ErrorMessage="Please Enter Division"></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender1"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator1">
+                                    </asp:ValidatorCalloutExtender> 
+                                </div>
+                             </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                  <asp:Label ID="Label2" runat="server"  class="col-form-label"  Text="Mobile"></asp:Label> 
+                                   <asp:TextBox ID="txtMobile" runat="server" AutoComplete="Off" CssClass="form-control" MaxLength="75"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtMobile"
+                                        Display="None" ErrorMessage="Please Enter Mobile No."></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="RequiredFieldValidator7_ValidatorCalloutExtender"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator7">
+                                    </asp:ValidatorCalloutExtender>
+                                     
+                                </div>
+                             </div>
+                                
+                                 <div class="col-lg-3 col-md-4 col-sm-6">
+                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success btn-sm mt-18" OnClick="btnSubmit_Click" OnClientClick="return ConfirmInsertUpdate();"
+                                    Text="Submit"/>
+                                <asp:Button ID="btnCancel" runat="server" CausesValidation="False" CssClass="btn btn-danger btn-sm mt-18"
+                                    Text="Clear" Visible="False" />
+                                </div>
+
+
+                            </div>
+                         </div>
+                       </div> 
+                     
+                       </div>
+                    </div>
+
+                </div>
+            </div>
+         </div>
+       </div>
+     </section>               
+ </ContentTemplate>
+            </asp:UpdatePanel>
+
+ 
+           <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle d-none" runat="server"  
+                                    ActiveTabIndex="1">
+                                    <asp:TabPanel HeaderText="g" CssClass="vclassrooms" ID="tab" runat="server">
+                                         
+                                    </asp:TabPanel>
+                                    <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1"> 
+                                    </asp:TabPanel>
+                                </asp:TabContainer>
+                         
+    
 </asp:Content>
 

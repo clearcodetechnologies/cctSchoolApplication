@@ -66,8 +66,8 @@ public partial class frmMessaging : DBUtility
             bool stcardp = sBindDropDownList(drpUserType, strQry, "vchUser_name", "intUserType_id");
             drpUserType.Items.Insert(0, "Multiple");
 
-            strQry = "Execute dbo.usp_idcard @command='SelectDepartment',@intSchool_id='" + Session["School_id"] + "',@intRole_Id='" + drpUserType.SelectedValue.Trim() + "' ";
-            bool stcardp2 = sBindDropDownList(drpDepartment, strQry, "vchDepartment_name", "intDepartment");
+            //strQry = "Execute dbo.usp_idcard @command='SelectDepartment',@intSchool_id='" + Session["School_id"] + "',@intRole_Id='" + drpUserType.SelectedValue.Trim() + "' ";
+           // bool stcardp2 = sBindDropDownList(drpDepartment, strQry, "vchDepartment_name", "intDepartment");
             // drpDepartment.Items.Insert(1, "All");
 
         }
@@ -439,7 +439,7 @@ public partial class frmMessaging : DBUtility
                             strFCMToken = this.grdMessage.DataKeys[row.RowIndex].Values[3].ToString();
                             string msgParent = txtNotice.Text.Trim();
                             //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobileNo.Trim() + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
-                            //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                            //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                             //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobileNo + "&sender=EFFICA&message=" + msgParent + "&format=json&custom=1,2&flash=0", "");
                             //POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobileNo + "&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             //POST("http://www.smsjust.com/sms/user/urlsms.php?username=GurukulAratiG&pass=_nwGE1$5&senderid=GURUKL&dest_mobileno=" + strMobileNo + "&msgtype=UNI&message=" + txtNotice.Text.Trim() + "&response=Y", "");

@@ -60,6 +60,39 @@ public class WebService : System.Web.Services.WebService {
                 Conn.Dispose();
         }
     }
+
+    [WebMethod]
+    public bool StudentIDNumberExits(String StudentIDNumber)
+    {
+        if (string.IsNullOrEmpty(StudentIDNumber))
+            return false;
+        try
+        {
+            strQry = "Execute dbo.usp_Profile @command='CheckStudentIDNumber',@intSchool_id='" + Session["School_id"] + "',@intStudentID_Number=' " + StudentIDNumber.Trim() + "'";
+            Conn = new SqlConnection(connectionString);
+            Cmd = new SqlCommand(strQry, Conn);
+            Conn.Open();
+            int NoOfRecords=0;
+             NoOfRecords = Cmd.ExecuteNonQuery();
+            Conn.Close();
+
+            return NoOfRecords == 0 ? false : true;
+
+        }
+
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+        finally
+        {
+            if (sp_Name != null)
+                sp_Name = null;
+            if (Conn != null)
+                Conn.Dispose();
+        }
+    }
     
 }
 

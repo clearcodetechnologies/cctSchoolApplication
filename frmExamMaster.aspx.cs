@@ -33,8 +33,9 @@ public partial class frmExamMaster : DBUtility
              strQry = "exec [usp_getAttendance] @type='FillAllStd',@intSchool_id='" + Session["School_id"] + "'";
              sBindDropDownList(ddlSTD, strQry, "vchStandard_name", "intstandard_id");
              sBindDropDownList(drpSTD, strQry, "vchStandard_name", "intstandard_id");
+           
 
-             FillExaminationType();
+            //FillExaminationType();
         }
         catch (Exception)
         {
@@ -50,11 +51,13 @@ public partial class frmExamMaster : DBUtility
         //FillExaminationType();
         strQry = "exec usp_ExamMarks @type='FillExaminationType',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + ddlSTD.SelectedValue + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
         sBindDropDownList(ddlExamType, strQry, "ExamTypeName", "intExamType_id");
-        
+        FillExaminationType();
+
     }
 
     public void FillExaminationType()
     {
+
         strQry = "exec usp_ExamMarks @type='FillExaminationType1',@intSchool_id='" + Session["School_id"] + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
         sBindDropDownList(ddlExamType, strQry, "ExamTypeName", "intExamType_id");
 
@@ -82,7 +85,7 @@ public partial class frmExamMaster : DBUtility
                     txtExam.Text = "";
                     txtMax.Text = "";
                     txtPassing.Text = "";
-                    btnUpdate.Text = "Sumbit";
+                    btnUpdate.Text = "Submit";
                     ViewState["Edit"] = "No";
                 }
             }
@@ -107,7 +110,7 @@ public partial class frmExamMaster : DBUtility
                     txtExam.Text = "";
                     txtMax.Text = "";
                     txtPassing.Text = "";
-                    btnUpdate.Text = "Sumbit";
+                    btnUpdate.Text = "Submit";
                     ViewState["Edit"] = "No";
                 }
 
@@ -122,7 +125,12 @@ public partial class frmExamMaster : DBUtility
         dsObj = sGetDataset(strQry);
         if (dsObj.Tables[0].Rows.Count > 0)
         {
-            TabContainer1.ActiveTabIndex = 0;
+            //bContainer1.ActiveTabIndex = 0;
+            grdExam.DataSource = dsObj;
+            grdExam.DataBind();
+        }
+        else
+        {
             grdExam.DataSource = dsObj;
             grdExam.DataBind();
         }
@@ -157,7 +165,11 @@ public partial class frmExamMaster : DBUtility
             txtExam.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchExamination_name"]);
             txtPassing.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intMinMark"]);
             txtMax.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intMaxMark"]);
+            TabContainer1.ActiveTabIndex = 1;
             btnUpdate.Text = "Update";
+            string script = "funcswitchtab()";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
         }
     }
     protected void grdExam_RowDeleting(object sender, GridViewDeleteEventArgs e)

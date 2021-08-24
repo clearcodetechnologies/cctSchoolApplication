@@ -146,6 +146,10 @@ public partial class frmExamSubjectLink : DBUtility
             txtTotalMarks.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intMaxMarks"]);
             txtExamMax.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intMarks"]);
 
+            string script = "funcswitchtab()";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
+
         }
 
     }

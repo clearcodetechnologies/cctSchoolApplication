@@ -25,9 +25,12 @@ public partial class frmNoticeBoardCreation : DBUtility
     string strStandard_id = "", strDivision = "", strDepartment = "", strStaff_id = "", strStudent_id = "", strUserType = "", strFcmTokan="";
     DataSet dsObj = new DataSet();
     protected void Page_Load(object sender, EventArgs e)
-    {      
+    {
+     
         if (!IsPostBack)
         {
+            Label1.Visible = false;
+            FileUpload1.Visible = false;
             fillDrp();
             fillNotice();
             grdNotice.Columns[4].Visible = false;
@@ -58,6 +61,7 @@ public partial class frmNoticeBoardCreation : DBUtility
     {
 
         btnUpdate.Visible = false;
+        string Test = Convert.ToString(Session["UserType_Id"]);
         if (Convert.ToString(Session["UserType_Id"]) == "3")        {
            
             strQry = "exec [usp_TeacherDashboard] @type='NoticeBoardGrid',@intUserType_id='" + Convert.ToString(Session["UserType_Id"]) + "' ";
@@ -228,6 +232,13 @@ public partial class frmNoticeBoardCreation : DBUtility
         strQry = "";
         int j = 0;
 
+        string filename = "";
+        if (FileUpload1.HasFile)
+        {
+            FileUpload1.SaveAs("E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
+            filename = "http://192.168.1.150/vclassroomsDemoAPI/image/" + FileUpload1.FileName;
+        }
+
         if (drpUserType.Text == "All")
         {
             strQry = "usp_NocticeBoard @command='student',@intschool_id='" + Session["School_id"] + "'";
@@ -244,7 +255,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                     encodedStr1 = (encodedStr1).Replace("'", "''");
 
                     //strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + strStandard_id.Trim() + "',@intDivision_id='" + strDivision.Trim() + "',@intStudent_id='" + strStudent_id.Trim() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
-                    strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='0',@intStandard_id='0',@intDivision_id='0',@intStudent_id='0',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+                    strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='0',@intStandard_id='0',@intDivision_id='0',@intStudent_id='0',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
                 j = sExecuteQuery(strQry);
 
                 //code for notification
@@ -314,6 +325,7 @@ public partial class frmNoticeBoardCreation : DBUtility
             {
                 MessageBox("Notice addedd succefully");
                 fillNotice();
+                Clear();
             }
             else
             {
@@ -337,10 +349,11 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr = (encodedStr).Replace("'", "''");
                 encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
                 sExecuteQuery(strQry);
                 MessageBox("Notice addedd succefully");
                 fillNotice();
+                Clear();
                 //}
 
             }
@@ -351,10 +364,11 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr = (encodedStr).Replace("'", "''");
                 encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
                 sExecuteQuery(strQry);
                 MessageBox("Notice addedd succefully");
                 fillNotice();
+                Clear();
             }
         }
         else if (drpUserType.Text == "2")
@@ -374,7 +388,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                     encodedStr = (encodedStr).Replace("'", "''");
                     encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                    strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+                    strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
                     j = sExecuteQuery(strQry);
 
                     //}
@@ -383,6 +397,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                 {
                     MessageBox("Notice addedd succefully");
                     fillNotice();
+                    Clear();
                 }
             }
         }
@@ -413,7 +428,7 @@ public partial class frmNoticeBoardCreation : DBUtility
             //else
             //{
                // strQry = "usp_NocticeBoard @command='AllTeachersDepartment',@intschool_id='" + Session["School_id"] + "',@intDepartment_id='" + drpDepartment.SelectedValue.Trim() + "'";
-                strQry = "usp_NocticeBoard @command='AllTeachersDepartment',@intschool_id='" + Session["School_id"] + "'";    
+            strQry = "usp_NocticeBoard @command='AllTeachersDepartment',@intschool_id='" + Session["School_id"] + "',@AcademicID='" + Session["AcademicID"] + "'";    
                 dsObj = sGetDataset(strQry);
                 if (dsObj.Tables[0].Rows.Count > 0)
                 {
@@ -426,7 +441,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                     encodedStr = (encodedStr).Replace("'", "''");
                     encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                    strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+                    strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
                     j = sExecuteQuery(strQry);
 
                     //}
@@ -435,6 +450,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                 {
                     MessageBox("Notice addedd succefully");
                     fillNotice();
+                    Clear();
             }
            // }
 
@@ -488,13 +504,14 @@ public partial class frmNoticeBoardCreation : DBUtility
             encodedStr = (encodedStr).Replace("'", "''");
             encodedStr1 = (encodedStr1).Replace("'", "''");
 
-            strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id=4,@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id=0,@intTeacher_id=0,@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+            strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id=4,@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id=0,@intTeacher_id=0,@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
             j = sExecuteQuery(strQry);
 
                 if (j > 0)
                 {
                     MessageBox("Notice addedd succefully");
                     fillNotice();
+                    Clear();
             }
            // }
 
@@ -517,8 +534,10 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr1 = (encodedStr1).Replace("'", "''");
                 //[-][vinod W][27.09.2019]
 
-                strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='insert',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intInserted_by='" + Session["User_Id"] + "',@InsertIP='" + GetSystemIP() + "',@ImageURL='" + filename + "',@AcademicID='" + Session["AcademicID"] + "'";
                 j = sExecuteQuery(strQry);
+
+
 
                 //}
             }
@@ -526,7 +545,7 @@ public partial class frmNoticeBoardCreation : DBUtility
             {
                 MessageBox("Notice addedd succefully");
                 fillNotice();
-
+                Clear();
             }
             // }
         
@@ -545,6 +564,16 @@ public partial class frmNoticeBoardCreation : DBUtility
         {
             // return msg;
         }
+    }
+
+    private void Clear()
+    {
+        drpUserType.ClearSelection();
+        drpStandard.ClearSelection();
+        txtfromdate.Text = "";
+        txtTodate.Text = "";
+        txtSubject.Text = "";
+        txtNotice.Text = "";
     }
 
     protected void grdNotice_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -604,7 +633,9 @@ public partial class frmNoticeBoardCreation : DBUtility
                 TabContainer1.ActiveTabIndex = 2;
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = true;
-               // fillNotice();
+                // fillNotice();
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
 
         }
@@ -647,6 +678,13 @@ public partial class frmNoticeBoardCreation : DBUtility
         strQry = "";
         int j = 0;
 
+
+        string filename = "";
+        if (FileUpload1.HasFile)
+        {
+            FileUpload1.SaveAs("E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
+            filename = "http://192.168.1.150/vclassroomsDemoAPI/image/" + FileUpload1.FileName;
+        }
         if (drpUserType.Text == "All")
         {
             //strQry = "usp_NocticeBoard @command='student',@intschool_id='" + Session["School_id"] + "'";
@@ -678,7 +716,7 @@ public partial class frmNoticeBoardCreation : DBUtility
             //    strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "'";
             //    j = sExecuteQuery(strQry);
             //}
-            strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='0',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "'";
+            strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='0',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "',@ImageURL='"+filename+"'";
                  j = sExecuteQuery(strQry);
             if (j > 0)
             {
@@ -696,7 +734,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr = (encodedStr).Replace("'", "''");
                 encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "',@ImageURL='" + filename + "'";
 
                 sExecuteQuery(strQry);
                 MessageBox("Notice Updated succefully");
@@ -708,7 +746,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr = (encodedStr).Replace("'", "''");
                 encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='1',@intStandard_id='" + stdId.ToString() + "',@intDepartment_id='0',@intTeacher_id='0',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "',@ImageURL='" + filename + "'";
                 sExecuteQuery(strQry);
                 MessageBox("Notice Updated succefully");
             }
@@ -750,7 +788,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr = (encodedStr).Replace("'", "''");
                 encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "',@intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "',@ImageURL='" + filename + "'";
                 j = sExecuteQuery(strQry);
             }
             if (j > 0)
@@ -771,7 +809,7 @@ public partial class frmNoticeBoardCreation : DBUtility
                 encodedStr = (encodedStr).Replace("'", "''");
                 encodedStr1 = (encodedStr1).Replace("'", "''");
 
-                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "', @intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "'";
+                strQry = "usp_NocticeBoard @command='Update',@intNotice_id='" + Session["id"] + "', @intschool_id='" + Session["School_id"] + "',@intUserType_id='" + strUserType.Trim() + "',@intStandard_id='0',@intDivision_id='0',@intStudent_id='',@intDepartment_id='" + strDepartment.Trim() + "',@intTeacher_id='" + strStaff_id.Trim() + "',@dtIssue_date='" + Convert.ToDateTime(txtfromdate.Text).ToString("MM/dd/yyyy") + "',@dtEnd_date='" + Convert.ToDateTime(txtTodate.Text).ToString("MM/dd/yyyy") + "',@vchSubject=N'" + encodedStr + "',@vchNotice=N'" + encodedStr1 + "',@intUpdate_by='" + Convert.ToString(Session["User_Id"]) + "',@UpdateIP='" + GetSystemIP() + "',@ImageURL='" + filename + "'";
                 j = sExecuteQuery(strQry);
             }
             if (j > 0)

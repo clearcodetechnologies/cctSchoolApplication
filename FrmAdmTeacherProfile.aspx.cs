@@ -19,17 +19,14 @@ public partial class FrmAdmTeacherProfile : DBUtility
     DataSet dsObj = new DataSet();
     string strMaxID = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
-    {
-        CompareValidator3.ValueToCompare = DateTime.Now.ToShortDateString();
+    { 
         
         try
             {
                
                 if (!IsPostBack)
                 {
-
-                    FillStandard();
-                    getDivision();
+                  
                     fillAcademicYear();
                     checksession();
                     geturl();
@@ -55,9 +52,14 @@ public partial class FrmAdmTeacherProfile : DBUtility
                         Editv();  
 
                     }
-                    fGrid();            
-                 }
-                if (FileUpload1.HasFile)
+                    fGrid();
+
+
+                string script = "funcswitchtab1()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
+            }
+            if (FileUpload1.HasFile)
                 {
                     ViewState["FilenameTeacher"] = FileUpload1.PostedFile.FileName;
                 }
@@ -151,7 +153,7 @@ public partial class FrmAdmTeacherProfile : DBUtility
                     txtPassingYear5.Visible = false;
                     txtPercent5.Visible = false;
                     txtMajorSubject5.Visible = false;
-                    Button4.Visible = false;
+                    //Button4.Visible = false;
                     Button5.Visible = false;
                     Button6.Visible = false;
                     Button7.Visible = false;
@@ -400,7 +402,10 @@ public partial class FrmAdmTeacherProfile : DBUtility
                     TextBox7.Text = Convert.ToString(ViewState["mdob"]);
                 }
             }
-   
+    
+    
+    
+    
     }
     protected void filldata()
     {
@@ -456,21 +461,18 @@ public partial class FrmAdmTeacherProfile : DBUtility
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        //if (FileUpload1.HasFile)
-        //{
-        //    String savePath = "D:/Application Live/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/image/";
-        //    string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-        //    FileUpload1.SaveAs("D:/Application Live/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
-        //    string file = FileUpload1.PostedFile.FileName;
+        if (FileUpload1.HasFile)
+        {
+            String savePath = "~/images/Profile/Teachers/";
+            string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+            FileUpload1.PostedFile.SaveAs(Server.MapPath("~/images/Profile/Teachers/") + fileName);
+            string file = FileUpload1.PostedFile.FileName;
 
-        //    TeacherImg.ImageUrl = "http://e-smarts.com/SKPAPI/IMAGE/" + file;
-        //    ViewState["FilenameTeacher"] = file;
-        //    Button1.Text = "Change Image";
-        //    Button8.Visible = true;
-        //    ViewState["Filename"] = savePath + file;
-        //   // Response.Redirect(Request.Url.AbsoluteUri);
-        //    ViewState["Filename1"] =  file;
-        //}
+            TeacherImg.ImageUrl = savePath + file;
+            ViewState["FilenameTeacher"] = file;
+            Button1.Text = "Change Image";
+           // Response.Redirect(Request.Url.AbsoluteUri);
+        }
         //try
         //{
 
@@ -493,38 +495,6 @@ public partial class FrmAdmTeacherProfile : DBUtility
         //{
 
         //}
-        try
-        {
-            String savePath = "E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/";
-
-            if (FileUpload1.HasFile)
-            {
-                int fileSize = FileUpload1.PostedFile.ContentLength;
-                if (fileSize > 50000)
-                {
-                    MessageBox("File exceed 50kb");
-                }
-                else
-                {
-                    FileUpload1.SaveAs("E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
-                    string file = FileUpload1.PostedFile.FileName;
-
-                    //TeacherImg.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
-                    TeacherImg.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
-                    Button1.Text = "Change Image";
-
-                    ViewState["Filename1"] = savePath + file;
-                    ViewState["Filename"] = file;
-                }
-
-            }
-
-
-        }
-        catch
-        {
-
-        }
     }
     protected void submit(object sender, EventArgs e)
     {
@@ -586,13 +556,10 @@ public partial class FrmAdmTeacherProfile : DBUtility
             string tfname = Convert.ToString(TextBox1.Text);
             string tmname = Convert.ToString(TextBox2.Text);
             string tlname = Convert.ToString(TextBox3.Text);
-            string tCardNumber = Convert.ToString(txtTeacherID.Text);
             string tPSubject = Convert.ToString(TextBox4.Text);
             string tAcademicYear = Convert.ToString(ddlAcademicYear.Text);
             string tDepartnm = Convert.ToString(TextBox5.Text);
             string tDesignation = Convert.ToString(ddlDesignation.Text);
-            string tsandard = Convert.ToString(ddlSTD.Text);
-            string tDivision = Convert.ToString(ddlDIV.Text);
             string gender = Convert.ToString(TextBox6.SelectedItem.Value);
             string tDobnm = null;
             if (!String.IsNullOrEmpty(TextBox7.Text))
@@ -625,9 +592,9 @@ public partial class FrmAdmTeacherProfile : DBUtility
             string Twiurl = Convert.ToString(TextBox14.Text);
             string otheurl = Convert.ToString(TextBox15.Text);
             string filnmn1 = null;
-            if (ViewState["Filename"] != null)
+            if (ViewState["FilenameTeacher"] != null)
             {
-                filnmn1 = ViewState["Filename"].ToString();
+                filnmn1 = ViewState["FilenameTeacher"].ToString();
             }
             string Preaddress = Convert.ToString(TextBox16.Text);
             string Paraddress = Convert.ToString(TextBox17.Text);
@@ -644,14 +611,14 @@ public partial class FrmAdmTeacherProfile : DBUtility
             string ipval = GetSystemIP();
 
             string instrquery1 = "Execute dbo.usp_TeacherTransaction @command='insertteacher',@vchFirst_name='" + tfname + "',@vchMiddle_name='" + tmname + "',@vchLast_name='" + tlname + "',@vchPreferedSubject='" + tPSubject + "',@intAcademic_id='" + tAcademicYear + "',@intsubject_id='" + tDepartnm + "',@intDesignation_Id='" + tDesignation + "',@vchGender='" + gender + "',@dtDOB='" + tDobnm + "',@vchEmail='" + Emailvl + "',@vchHighestQualification='" + Qualif + "'," +
-                                     "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchProfile='" + filnmn1 + "',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
+                                     "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchImageURL='" + filnmn1 + "',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
                                      "@intSchool_id='" + Session["School_id"] + "',@intInserted_id='" + Session["User_id"] + "',@dtInserted_Date='" + insertdt + "',@vchInserted_IP='" + ipval + "'," +
                                      "@vchDegree1='" + txtDev1 + "',@vchInstitution1='" + txtInv1 + "',@vchtxtUniversity1='" + txtUnv1 + "',@intPassingYear1='" + txtPaYv1 + "',@vchPercent1='" + txtPe1 + "'," +
                                      "@vchMajorSubject1='" + txtMaSv1 + "',@vchDegree2='" + txtDev2 + "',@vchInstitution2='" + txtInv2 + "',@vchtxtUniversity2='" + txtUnv2 + "',@intPassingYear2='" + txtPaYv2 + "'," +
                                      "@vchPercent2='" + txtPe2 + "',@vchMajorSubject2='" + txtMaSv2 + "',@vchDegree3='" + txtDev3 + "',@vchInstitution3='" + txtInv3 + "',@vchtxtUniversity3='" + txtUnv3 + "'," +
                                      "@intPassingYear3='" + txtPaYv3 + "',@vchPercent3='" + txtPe3 + "',@vchMajorSubject3='" + txtMaSv3 + "',@vchDegree4='" + txtDev4 + "',@vchInstitution4='" + txtInv4 + "'," +
                                      "@vchtxtUniversity4='" + txtUnv4 + "',@intPassingYear4='" + txtPaYv4 + "',@vchPercent4='" + txtPe4 + "',@vchMajorSubject4='" + txtMaSv4 + "',@vchDegree5='" + txtDev5 + "'," +
-                                     "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "',@dtTimeToContact='" + TimeTocon + "',@vchCardNumber='" + tCardNumber + "',@intStandard_id='" + tsandard + "',@intDivision_id='" + tDivision + "'";
+                                     "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "',@dtTimeToContact='" + TimeTocon + "'";
             int str = sExecuteQuery(instrquery1);
 
             //string strQry1 = "exec [usp_TeacherTransaction] @type='getNewID'";
@@ -669,14 +636,13 @@ public partial class FrmAdmTeacherProfile : DBUtility
                 string display = "Teacher Profile Saved!";
                 MessageBox(display);
                 Clear();
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
-
             else
             {
                 MessageBox("ooopppsss!Teacher Profile failed");
-
             }
-
         }
         catch
         { 
@@ -705,7 +671,6 @@ public partial class FrmAdmTeacherProfile : DBUtility
         TextBox15.Text = "";
         TextBox16.Text = "";
         TextBox17.Text = "";
-        txtTeacherID.Text = "";
      
     
     }
@@ -722,54 +687,72 @@ public partial class FrmAdmTeacherProfile : DBUtility
     protected void Button4_Click(object sender, EventArgs e)
     {
         tr2.Visible = true;
-        TabPanel1.Visible = true;
-        TabPanel1.Enabled = false;
-        TabPanel2.Visible = true;
-        TabPanel2.Enabled = false;
-        TabPanel3.Visible = true;
-        TabPanel3.Enabled = true;
+        //TabPanel1.Visible = true;
+        //TabPanel1.Enabled = false;
+        //TabPanel2.Visible = true;
+        //TabPanel2.Enabled = false;
+        //TabPanel3.Visible = true;
+        //TabPanel3.Enabled = true;
         Button4.Visible = false;
+
+        string script = "funcswitchtab1()";
+        ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
+
+
+
     }
     protected void Button5_Click(object sender, EventArgs e)
     {
         tr3.Visible = true;
        
-        TabPanel1.Visible = true;
-        TabPanel1.Enabled = false;
-        TabPanel2.Visible = true;
-        TabPanel2.Enabled = false;
-        TabPanel3.Visible = true;
-        TabPanel3.Enabled = true;
-        Button4.Visible = false;
+        //TabPanel1.Visible = true;
+        //TabPanel1.Enabled = false;
+        //TabPanel2.Visible = true;
+        //TabPanel2.Enabled = false;
+        //TabPanel3.Visible = true;
+        //TabPanel3.Enabled = true;
+       // Button4.Visible = false;
         Button5.Visible = false;
+
+        string script = "funcswitchtab1()";
+        ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
     }
     protected void Button6_Click(object sender, EventArgs e)
     {
         tr4.Visible = true;
        
-        TabPanel1.Visible = true;
-        TabPanel1.Enabled = false;
-        TabPanel2.Visible = true;
-        TabPanel2.Enabled = false;
-        TabPanel3.Visible = true;
-        TabPanel3.Enabled = true;
-        Button4.Visible = false;
-        Button5.Visible = false;
+       // TabPanel1.Visible = true;
+       // TabPanel1.Enabled = false;
+       // TabPanel2.Visible = true;
+       // TabPanel2.Enabled = false;
+       // TabPanel3.Visible = true;
+       // TabPanel3.Enabled = true;
+       //// Button4.Visible = false;
+       // Button5.Visible = false;
         Button6.Visible = false;
+
+        string script = "funcswitchtab1()";
+        ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
     }
     protected void Button7_Click(object sender, EventArgs e)
     {
         tr5.Visible = true;
-        TabPanel1.Visible = true;
-        TabPanel1.Enabled = false;
-        TabPanel2.Visible = true;
-        TabPanel2.Enabled = false;
-        TabPanel3.Visible = true;
-        TabPanel3.Enabled = true;
-        Button4.Visible = false;
-        Button5.Visible = false;
-        Button6.Visible = false;
+        //TabPanel1.Visible = true;
+        //TabPanel1.Enabled = false;
+        //TabPanel2.Visible = true;
+        //TabPanel2.Enabled = false;
+        //TabPanel3.Visible = true;
+        //TabPanel3.Enabled = true;
+        ////Button4.Visible = false;
+        //Button5.Visible = false;
+        //Button6.Visible = false;
         Button7.Visible = false;
+        string script = "funcswitchtab1()";
+        ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
     }
     protected void Updateval(object sender, EventArgs e)
     {
@@ -823,17 +806,16 @@ public partial class FrmAdmTeacherProfile : DBUtility
 
         }
 
+
+
         string tfname = Convert.ToString(TextBox1.Text);
         string tmname = Convert.ToString(TextBox2.Text);
         string tlname = Convert.ToString(TextBox3.Text);
-        string tCardNumber = Convert.ToString(txtTeacherID.Text);
         string tPSubject = Convert.ToString(TextBox4.Text);
         string tDepartnm = Convert.ToString(TextBox5.Text);
         //fillDesignation();
         //ddlDesignation.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intDesignation_Id"]);  
         string designa = Convert.ToString(ddlDesignation.SelectedValue);
-        string tstd = Convert.ToString(ddlSTD.SelectedValue);
-        string tdiv = Convert.ToString(ddlDIV.SelectedValue);
         string gender = Convert.ToString(TextBox6.SelectedItem.Text);
         string tDobnm = null;
         if (!String.IsNullOrEmpty(TextBox7.Text))
@@ -867,9 +849,9 @@ public partial class FrmAdmTeacherProfile : DBUtility
         string filnmn1 = null;
 
 
-        if (ViewState["Filename"] != null)
+        if (ViewState["FilenameTeacher"] != null)
         {
-            filnmn1 = ViewState["Filename"].ToString();
+            filnmn1 = ViewState["FilenameTeacher"].ToString();
         }
         string Preaddress = Convert.ToString(TextBox16.Text);
         string Paraddress = Convert.ToString(TextBox17.Text);
@@ -886,8 +868,8 @@ public partial class FrmAdmTeacherProfile : DBUtility
 
         string Upval = GetSystemIP();
 
-        string instrquery1 = "Execute dbo.usp_Profile @command='UpdateTea',@vchFirst_name='" + tfname.Trim() + "',@vchMiddle_name='" + tmname + "',@vchLast_name='" + tlname.Trim() + "',@vchPreferedSubject='" + tPSubject + "',@intDepartment_id='" + tDepartnm + "',@intDesignation_Id='" + designa + "',@vchGender='" + gender + "',@dtDOB='" + tDobnm + "',@vchEmail='" + Emailvl + "',@vchHighestQualification='" + Qualif + "'," +
-                                 "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchProfile='" + filnmn1 + "',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
+        string instrquery1 = "Execute dbo.usp_Profile @command='UpdateTea',@vchFirst_name='" + tfname + "',@vchMiddle_name='" + tmname + "',@vchLast_name='" + tlname + "',@vchPreferedSubject='" + tPSubject + "',@intDepartment_id='" + tDepartnm + "',@intDesignation_Id='" + designa + "',@vchGender='" + gender + "',@dtDOB='" + tDobnm + "',@vchEmail='" + Emailvl + "',@vchHighestQualification='" + Qualif + "'," +
+                                 "@intTelNo1='" + TelePhone1 + "',@intTelNo2='" + TelePhone2 + "',@intMobileNo='" + Tmobino + "',@vchFacebookURL='" + faceurl + "',@vchTwitterURL='" + Twiurl + "',@vchOtherURL='" + otheurl + "',@vchImageURL='" + filnmn1 + "',@vchAddress='" + Preaddress + "',@vchPermanent='" + Paraddress + "'," +
                                  "@intSchool_id='" + Session["School_id"] + "',@intUpdated_id='" + Updateby + "',@dtUpdated_Date='" + Updatedt + "',@vchUpdated_IP='" + Upval + "'," +
                                  "@vchDegree1='" + txtDev1 + "',@vchInstitution1='" + txtInv1 + "',@vchtxtUniversity1='" + txtUnv1 + "',@intPassingYear1='" + txtPaYv1 + "',@vchPercent1='" + txtPe1 + "'," +
                                  "@vchMajorSubject1='" + txtMaSv1 + "',@vchDegree2='" + txtDev2 + "',@vchInstitution2='" + txtInv2 + "',@vchtxtUniversity2='" + txtUnv2 + "',@intPassingYear2='" + txtPaYv2 + "'," +
@@ -895,16 +877,19 @@ public partial class FrmAdmTeacherProfile : DBUtility
                                  "@intPassingYear3='" + txtPaYv3 + "',@vchPercent3='" + txtPe3 + "',@vchMajorSubject3='" + txtMaSv3 + "',@vchDegree4='" + txtDev4 + "',@vchInstitution4='" + txtInv4 + "'," +
                                  "@vchtxtUniversity4='" + txtUnv4 + "',@intPassingYear4='" + txtPaYv4 + "',@vchPercent4='" + txtPe4 + "',@vchMajorSubject4='" + txtMaSv4 + "',@vchDegree5='" + txtDev5 + "'," +
                                  "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "',"+
-                                 "@intTeacher_id='" + Convert.ToString(Session["intTeacher_id"]) + "',@dtTimeToContact='" + TimeTocon + "',@vchCardNumber='" + tCardNumber + "',@intstanderd_id='" + tstd + "',@intDivision_id='" + tdiv + "'";
+                                 "@intTeacher_id='" + Convert.ToString(Session["intTeacher_id"]) + "',@dtTimeToContact='" + TimeTocon + "'";
         int str = sExecuteQuery(instrquery1);
 
         if (str != -1)
         {
-            //string display = "Teacher Profile Update Successfully!";
+            string display = "Teacher Profile Update Successfully!";
             //MessageBox(display);
             Clear();
-           // Response.Redirect("FrmAdmTeacherProfile.aspx");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Teacher Profile Update Successfully!');window.location ='FrmAdmTeacherProfile.aspx';", true);
+            fGrid();
+            // Response.Redirect("FrmAdmTeacherProfile.aspx");
+            string script = "funcswitchtab();alert('" + display + "')";
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Teacher Profile Update Successfully!');window.location ='FrmAdmTeacherProfile.aspx';", true);           
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
         }
 
         else
@@ -949,8 +934,6 @@ public partial class FrmAdmTeacherProfile : DBUtility
             dsObj = sGetDataset(query1);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
-                string file = Convert.ToString(dsObj.Tables[0].Rows[0]["vchprofile"]);
-                TeacherImg.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
                 //txtName.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchRole"]);
                 txtDegree1.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchDegree1"]);
                 txtInstitution1.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchInstitution1"]);
@@ -968,7 +951,14 @@ public partial class FrmAdmTeacherProfile : DBUtility
                 txtPassingYear2.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intPassingYear2"]);
                 txtPercent2.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchPercent2"]);
                 txtMajorSubject2.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchMajorSubject2"]);
-
+                if (!string.IsNullOrEmpty(txtDegree2.Text))
+                {
+                    Button4_Click(null, null);
+                }else
+                {
+                    tr2.Visible = false;
+                    Button4.Visible = true;
+                }
         //}
         //if (tr3.Visible == true)
         //{
@@ -978,10 +968,18 @@ public partial class FrmAdmTeacherProfile : DBUtility
                 txtPassingYear3.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intPassingYear3"]);
                 txtPercent3.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchPercent3"]);
                 txtMajorSubject3.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchMajorSubject3"]);
-
-        //}
-        //if (tr4.Visible == true)
-        //{
+                if (!string.IsNullOrEmpty(txtDegree3.Text))
+                {
+                    Button5_Click(null, null);
+                }
+                else
+                {
+                    tr3.Visible = false;
+                    Button5.Visible = true;
+                }
+                //}
+                //if (tr4.Visible == true)
+                //{
                 txtDegree4.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchDegree4"]);
                 txtInstitution4.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchInstitution4"]);
                 txtUniversity4.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchtxtUniversity4"]);
@@ -1003,36 +1001,10 @@ public partial class FrmAdmTeacherProfile : DBUtility
                 TextBox1.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchFirst_name"]);
                 TextBox2.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchMiddle_name"]);
                 TextBox3.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchLast_name"]);
-                txtTeacherID.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchCardNumber"]);
                 TextBox4.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchPreferedSubject"]);
                 TextBox5.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intDepartment_id"]);
                 fillDesignation();
-                ddlDesignation.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intDesignation_Id"]);
-                string std = Convert.ToString(dsObj.Tables[0].Rows[0]["intStandard_id"]);
-
-                if (std == "")
-                {
-                    FillStandard();
-                    ddlSTD.SelectedValue = "0";
-                }
-                else
-                {
-                    FillStandard();
-                    ddlSTD.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intStandard_id"]);
-                }
-
-                string div = Convert.ToString(dsObj.Tables[0].Rows[0]["intDivision_id"]);
-
-                if (div == "")
-                {
-                    getDivision();
-                    ddlDIV.SelectedValue = "0";
-                }
-                else
-                {
-                    getDivision();
-                    ddlDIV.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intDivision_id"]);
-                }
+                ddlDesignation.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intDesignation_Id"]);               
                 TextBox6.SelectedItem.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchGender"]);
         //string tDobnm = null;
         //if (!String.IsNullOrEmpty(TextBox7.Text))
@@ -1076,45 +1048,12 @@ public partial class FrmAdmTeacherProfile : DBUtility
                 TabContainer1.ActiveTabIndex = 1;
                 Button8.Text = "Update";
                 Button2.Visible = false;
+
+                string script = "funcswitchtab1()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
+              
             }
-        }
-        catch
-        {
-
-        }
-    }
-    public void FillStandard()
-    {
-        try
-        {
-            string strQry = "";
-            strQry = "usp_DivisionWiseAllotment @type='FillSTD',@intSchool_Id='" + Convert.ToString(Session["School_id"]) + "'";
-            sBindDropDownList(ddlSTD, strQry, "vchStandard_name", "intStandard_id");
-            //ddlSTD.SelectedValue = "1";
-            //strQry = "exec usp_DivisionWiseAllotment @type='FillDiv',@intSchool_Id='" + Convert.ToString(Session["School_Id"]) + "',@intstandard_id='" + ddlSTD.SelectedValue + "'";
-            //sBindDropDownList(ddlDIV, strQry, "vchDivisionName", "intDivision_id");
-
-        }
-        catch
-        {
-
-        }
-
-    }
-    protected void ddlSTD_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        getDivision();
-    }
-
-    public void getDivision()
-    {
-        try
-        {
-            int stat = Convert.ToInt32(ddlSTD.SelectedItem.Value);
-
-            string query2 = "Execute dbo.usp_Profile @command='RemarkDivision',@intSchool_id='" + Session["School_id"] + "',@intstanderd_id='" + stat + "' ";
-            bool st2 = sBindDropDownList(ddlDIV, query2, "vchDivisionName", "intDivision_id");
-
         }
         catch
         {
@@ -1139,20 +1078,5 @@ public partial class FrmAdmTeacherProfile : DBUtility
 
         }
     }
-
-    protected void ExportToExcel_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            string query2 = "Execute dbo.spExportToExcel @command='ExportTeacher',@intSchool_id='" + Session["School_id"] + "' ";
-            dsObj = sGetDataset(query2);
-            Session["TeacherExcel"] = dsObj;
-            Response.Redirect("frmExcel.aspx");
-        }
-        catch
-        {
-        }
-    }
-
 }
 

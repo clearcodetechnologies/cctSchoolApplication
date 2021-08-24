@@ -5,10 +5,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="content-header">
-        <h1 style="box-sizing: border-box; margin: 0px; font-size: 24px; font-family: &quot;Source Sans Pro&quot;, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); font-style: normal; font-variant: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(236, 240, 245);">
-            Lecture Schedule</h1>
         <h1>
-            &nbsp;</h1>
+            Lecture Schedule</h1>
+        
         <ol class="breadcrumb">
             <li><a ><i ></i>Home</a></li>
             <li><a ><i ></i>Trash</a></li>
@@ -16,7 +15,7 @@
             <li class="active">Lecture Schedule</li>
         </ol>
     </div>
-    <div style="padding: 5px 0 0 0">
+    <div style="padding: 5px 0 0 15px">
         <center>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
@@ -31,7 +30,7 @@
                                         </HeaderTemplate>
                                         <ContentTemplate>
                                             <center>
-                                                <table width="100%">
+                                                <table width="96%" style="margin-left:2%;">
                                                     <tr>
                                                         <td align="left">
                                                             <asp:GridView ID="grvDetail" runat="server" AllowSorting="True" AutoGenerateColumns="False"

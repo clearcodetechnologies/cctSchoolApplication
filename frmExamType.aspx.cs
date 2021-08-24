@@ -29,7 +29,7 @@ public partial class frmExamType : DBUtility
     {        
         strQry = "";
         strQry = "exec usp_ExamType @command='subject',@intSchool_Id='" + Convert.ToString(Session["School_Id"]) + "'";
-        sBindCheckBoxList(chkSTD, strQry, "vchsubjectname", "intsubject_id");
+        //sBindCheckBoxList(chkSTD, strQry, "vchsubjectname", "intsubject_id");
     }
     public void FillExam()
     {
@@ -37,7 +37,7 @@ public partial class frmExamType : DBUtility
         {
             strQry = "";
             strQry = "exec usp_ExamType @command='Exam',@intSchool_id='" + Convert.ToString(Session["School_Id"]) + "'";
-            sBindDropDownList(drpExam, strQry, "vchExamination_name", "intExam_id");
+            //sBindDropDownList(drpExam, strQry, "vchExamination_name", "intExam_id");
 
         }
         catch
@@ -199,8 +199,12 @@ public partial class frmExamType : DBUtility
         {
             ViewState["Edit"] = "Yes";
             TabContainer1.ActiveTabIndex = 1;
+            ddlSTD1.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intStandard_id"]);
             txtExamType.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["ExamTypeName"]);
             btnSubmit.Text = "Update";
+            string script = "funcswitchtab()";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
 
         }
     }
@@ -227,5 +231,10 @@ public partial class frmExamType : DBUtility
     protected void ddlSTD_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        ddlSTD1.ClearSelection();
+        txtExamType.Text = "";
     }
 }

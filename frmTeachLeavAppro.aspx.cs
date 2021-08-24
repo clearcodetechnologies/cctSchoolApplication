@@ -198,6 +198,8 @@ public partial class frmTeachLeavAppro :DBUtility
                 ToLbl.Text = Convert.ToDateTime(dsObj.Tables[0].Rows[0]["ToDate"]).ToString("dd/MM/yyyy");
                 TotalLbl.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["TotalLeaveDays"]);
                 ViewState["StudentId"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStudent_id"]);
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
 
         }
@@ -241,6 +243,8 @@ public partial class frmTeachLeavAppro :DBUtility
                 ToLbl.Text = Convert.ToDateTime(dsObj.Tables[0].Rows[0]["ToDate"]).ToString("dd/MM/yyyy");
                 TotalLbl.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["TotalLeaveDays"]);
                 // ViewState["StudentId"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStudent_id"]);
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
 
         }
@@ -337,7 +341,7 @@ public partial class frmTeachLeavAppro :DBUtility
                     TabPanel1.Visible = false;
                     TabContainer1.ActiveTabIndex = 0;
                     TabPanel2.Visible = true;
-                    TabPanel3.Visible = true;
+                    tab2Entry.Visible = true;
                     GridView1.Visible = true;
                     Clear();
                     fillGrid();
@@ -381,7 +385,7 @@ public partial class frmTeachLeavAppro :DBUtility
                     TabPanel1.Visible = false;
                     TabContainer1.ActiveTabIndex = 0;
                     TabPanel2.Visible = true;
-                    TabPanel3.Visible = true;
+                    tab2Entry.Visible = true;
                     GridView1.Visible = true;
                     Clear();
                     fillGrid();

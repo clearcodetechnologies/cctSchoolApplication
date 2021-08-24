@@ -464,7 +464,7 @@ public partial class frmSyllabusMst : DBUtility
                 //        cmd.Parameters.AddWithValue("@intstandard_id", ddlSTD3.SelectedValue);
                 //        cmd.Parameters.AddWithValue("@intSubject_id", ddlSub2.SelectedValue);
                 //        //cmd.Parameters.AddWithValue("@intExam_id", chkExamList.SelectedValue);
-                //        cmd.Parameters.AddWithValue("@filePath", "http://e-smarts.com/SKPAPI/PDF/" + strPage1FileName);
+                //        cmd.Parameters.AddWithValue("@filePath", "http://VClassrooms.com/SKPAPI/PDF/" + strPage1FileName);
                 //        // cmd.Parameters.AddWithValue("@13", DropDownList2.SelectedValue);
                 //        //con.Open();
                 //        cmd.ExecuteNonQuery();

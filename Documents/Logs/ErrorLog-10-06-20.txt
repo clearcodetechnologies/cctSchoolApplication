@@ -1,0 +1,60 @@
+-----------Exception Details on  10-06-2020 18:51:35-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 10-06-2020 18:51:35
+Error Line No : ine 458
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsschooldemo/frmBookDetails.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  10-06-2020 18:51:35-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 10-06-2020 18:51:35
+Error Line No : ine 458
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsschooldemo/frmBookDetails.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  10-06-2020 18:51:35-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 10-06-2020 18:51:35
+Error Line No : ine 458
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsschooldemo/frmBookDetails.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  10-06-2020 18:51:36-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 10-06-2020 18:51:36
+Error Line No : ine 458
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsschooldemo/frmBookDetails.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+
+-----------Exception Details on  10-06-2020 18:51:37-----------------
+-------------------------------------------------------------------------------------
+Log Written Date: 10-06-2020 18:51:37
+Error Line No : ine 458
+Error Message: NullReferenceException
+Exception Type: System.NullReferenceException
+Error Location : Object reference not set to an instance of an object.
+Error Page Url: http://VClassrooms.com/vclassroomsschooldemo/frmBookDetails.aspx/GetSearchAccession
+
+--------------------------------*End*------------------------------------------
+
+

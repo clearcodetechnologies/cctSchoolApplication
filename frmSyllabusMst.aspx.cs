@@ -402,18 +402,12 @@ public partial class frmSyllabusMst : DBUtility
     protected string Values;
     protected void Post(object sender, EventArgs e)
     {
-        
-
         byte[] bytes;
 
         string ErrMsg = string.Empty;
 
         try
         {
-
-
-            
-
                 if (FileUpload1.HasFile)
                 {
                     string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
@@ -432,7 +426,7 @@ public partial class frmSyllabusMst : DBUtility
                         filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
 
                        // FileUpload1.SaveAs("C:/inetpub/wwwroot/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/PDF/" + filename);
-                       FileUpload1.SaveAs("D:/Application Live/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/PDF/" + filename); 
+                       FileUpload1.SaveAs("D:/Application Live/Mumbai/Android Demo/SKSchoolApi/SKSchoolApi/PDF/" + filename); 
                         using (Stream fs = FileUpload1.PostedFile.InputStream)
                         {
                             using (BinaryReader br = new BinaryReader(fs))
@@ -463,58 +457,21 @@ public partial class frmSyllabusMst : DBUtility
                         cmd.Parameters.AddWithValue("@Data", bytes);
                         cmd.Parameters.AddWithValue("@intstandard_id", ddlSTD3.SelectedValue);
                         cmd.Parameters.AddWithValue("@intSubject_id", ddlSub2.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@intExam_id", chkExamList.SelectedValue);
-                        cmd.Parameters.AddWithValue("@filePath", "http://e-smarts.com/SKPAPI/PDF/" + strPage1FileName);
+                        cmd.Parameters.AddWithValue("@intExam_id", "0");
+                        cmd.Parameters.AddWithValue("@filePath", "http://VClassrooms.com/vclassroomsSchoolDemoAPI/PDF/" + strPage1FileName);
                         // cmd.Parameters.AddWithValue("@13", DropDownList2.SelectedValue);
                         //con.Open();
                         cmd.ExecuteNonQuery();
-
-
-
                         con.Close();
                     }
+
+                    MessageBox(" Record Saved Successfully.... ");
+                    ddlSTD3.ClearSelection();
+                    ddlSub2.ClearSelection();
                 }
 
 
-                //using (Stream fs = FileUpload1.PostedFile.InputStream)
-                //{
-                //    using (BinaryReader br = new BinaryReader(fs))
-                //    {
-                //        byte[] bytes = br.ReadBytes((Int32)fs.Length);
-                //        string constr = ConfigurationManager.ConnectionStrings["esmsSKP"].ConnectionString;
-                //        using (SqlConnection con = new SqlConnection(constr))
-                //        {
-                //           // FileUpload1.SaveAs("C:/inetpub/wwwroot/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/PDF/" + filename);
-                //           // FileUpload1.SaveAs(Server.MapPath(Path.Combine("~/SKSchoolApi/SKSchoolApi/PDF/", filename)));
-
-                //            FileUpload1.SaveAs(Server.MapPath("C:/inetpub/wwwroot/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/PDF/" + filename)); 
-
-                //            string strPage1FileName = Path.GetFileName(uploadfile.FileName).ToString();
-                //            string File1Ext = System.IO.Path.GetExtension(uploadfile.FileName);
-
-                //            string query = "insert into tblexport values (@Name, @ContentType, @Data,@intstandard_id,@intSubject_id,@intExam_id,1,@filePath)";
-                //            using (SqlCommand cmd = new SqlCommand(query))
-                //            {
-                //                cmd.Connection = con;
-                //                cmd.Parameters.AddWithValue("@Name", filename);
-                //                cmd.Parameters.AddWithValue("@ContentType", contentType);
-                //                cmd.Parameters.AddWithValue("@Data", bytes);
-                //                cmd.Parameters.AddWithValue("@intstandard_id", ddlSTD3.SelectedValue);
-                //                cmd.Parameters.AddWithValue("@intSubject_id", ddlSub2.SelectedValue);
-                //                cmd.Parameters.AddWithValue("@intExam_id", chkExamList.SelectedValue);
-                //                cmd.Parameters.AddWithValue("@filePath", "http://eserveshiksha.co.in/SKPSchoolApi/PDF/" + filename);
-                //                // cmd.Parameters.AddWithValue("@13", DropDownList2.SelectedValue);
-                //                con.Open();
-                //                cmd.ExecuteNonQuery();
-
-
-
-                //                con.Close();
-                //            }
-                //        }
-                //    }
-                //}
-
+             
             
         }
 
@@ -624,7 +581,29 @@ public partial class frmSyllabusMst : DBUtility
         //{
 
         //}
-    } 
+    }
+
+    public void FillSyllabusGridView()
+    {
+        try
+        {
+            string standardID = ddlSTD4.SelectedValue == "0" || ddlSTD4.SelectedValue == "-1" ? "0" : ddlSTD4.SelectedValue;
+            string subjectID = ddlSub4.SelectedValue == "0" || ddlSub4.SelectedValue == "-1" ? "0" : ddlSub4.SelectedValue;
+
+            strQry = "exec usp_Syllabus_Master @type='FillGridSyllabusPDF',@intstandard_id='" + standardID + "',@intSubject_id='" + subjectID + "',@intSchool_id='" + Session["School_id"] + "'";
+
+            dsObj = new DataSet();
+            dsObj = sGetDataset(strQry);
+            grvSyllabus.DataSource = dsObj;
+            grvSyllabus.DataBind();
+        }
+        catch
+        {
+
+        }
+    }
+
+
     public void FillSyllabusGrid()
     {
         try

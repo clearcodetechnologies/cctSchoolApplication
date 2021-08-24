@@ -187,7 +187,7 @@ xindex:-1;
         {
             background: #FFF;
         }
-        .efficacious_send
+        .vclassrooms_send
         {
             border: none;
             width: 15% !important;
@@ -427,7 +427,7 @@ xindex:-1;
                                                         <td rowspan="6" class="style8">
                                                             <asp:Image ID="FatherImg" AlternateText="Image" ImageUrl="images/Sample%20Photo1.jpg"
                                                                 runat="server" Style="line-height: normal; height: 100px; width: 80px; margin-right: 27px;
-                                                                margin-top: -140px" border="2" ToolTip="Image" />&nbsp;&nbsp;
+                                                                margin-top: -100px" border="2" ToolTip="Image" />&nbsp;&nbsp;
                                                         </td>
                                                         <td align="left" width="230" now abbrrap="nowrap">
                                                             <asp:Label ID="lblvchno" runat="server" Font-Bold="False">Father Name <font size="1px" color="red">*</font></asp:Label>
@@ -534,7 +534,7 @@ xindex:-1;
                                                         <td>
                                                             <asp:Image ID="MotherImg" runat="server" AlternateText="Image" border="2" 
                                                                 ImageUrl="images/Sample%20Photo1.jpg" Style="line-height: normal; height: 100px; width: 80px; margin-right: 27px;
-                                                                margin-top: -155px" ToolTip="Image" />
+                                                                margin-top: -140px" ToolTip="Image" />
                                                         </td>
                                                            <td align="left" width="230" nowrap="nowrap">
                                                             <asp:Label ID="lbldrivermobno" runat="server" Font-Bold="False">Mother Name</asp:Label>

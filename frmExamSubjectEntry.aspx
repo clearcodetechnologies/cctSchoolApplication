@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<div class="content-header content-header1 pd-0">
+<%--<div class="content-header content-header1 pd-0">
        
         <ul class="top_navlg">
         <li><a >Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
@@ -50,7 +50,18 @@
             <li><a href="frmEVS.aspx">EVS Master</a></li>
             <li><a href="frmComputer.aspx">Computer Master</a></li>
         </ul>
-            </div>
+            </div>--%>
+<div class="content-header">
+        <h1>
+          Exam Subject Master
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ><i ></i>Home</a></li>
+            <li><a ><i ></i>Master</a></li>
+            <li><a ><i ></i>School Master </a></li>
+            <li class="active">Exam Subject Master</li>
+        </ol>
+    </div>
 <asp:UpdatePanel ID="upd1" runat="server">
         <ContentTemplate>
             <div style="padding: 5px 0 0 0">
@@ -63,25 +74,28 @@
                                     <HeaderTemplate>
                                         List of Subjects</HeaderTemplate>
                                     <ContentTemplate>
-                                        <div class="efficacious">
-                                            <table width="100%">
+                                        <div class="vclassrooms">
+                                           <table width="60%">
                                                 <tr>
-                                                    <td align="right">
+                                                    <td align="right" style="padding: 0 15px;">
                                                         <asp:Label ID="ssst" runat="server">Standard</asp:Label>
                                                     </td>
-                                                    <td>
+                                                    <td style="width:70%">
                                                         <asp:DropDownList ID="Stdrop1" runat="server" Style="width: 32%;" AutoPostBack="True"
                                                             OnSelectedIndexChanged="Stdrop1_SelectedIndexChanged">
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
+                                               </table>
+                                             <table width="100%">
+                                                
                                                 <tr>
                                                     <td align="center" colspan="2">
                                                         <asp:GridView ID="SubReport" runat="server" OnPageIndexChanging="SubReport_PageIndexChanging"
                                                             AllowSorting="True" AutoGenerateColumns="False" CssClass="table  tabular-table "
                                                             OnRowDataBound="SubReport_RowDataBound" 
                                                             OnRowEditing="SubReport_RowEditing" DataKeyNames="intExamSubject_id"
-                                                            OnRowDeleting="SubReport_RowDeleting" OnRowCommand="SubReport_RowCommand" Width="100%"
+                                                            OnRowDeleting="SubReport_RowDeleting" OnRowCommand="SubReport_RowCommand" Width="95%"
                                                             OnSelectedIndexChanged="SubReport_SelectedIndexChanged"
                                                             PageSize="20">
                                                             <Columns>
@@ -95,13 +109,13 @@
                                                                 
                                                                 <asp:TemplateField HeaderText="Edit">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton ID="ImgEdit" runat="server" Style="width: 24px !important; outline: 0;"
+                                                                        <asp:ImageButton ID="ImgEdit" runat="server" Style="width: 18px !important; outline: 0;"
                                                                             ImageUrl="~/images/edit.png" CommandName="Edit" CausesValidation="false" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                <asp:TemplateField HeaderText="Delete">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton ID="ImgDelete" runat="server" Style="width: 24px !important; outline: 0;"
+                                                                        <asp:ImageButton ID="ImgDelete" runat="server" Style="width: 22px !important; outline: 0;"
                                                                             ImageUrl="~/images/delete.png" CommandName="Delete" OnClientClick="return confirm(&quot;Are you sure you want delete the user?&quot;);"
                                                                             CausesValidation="false" />
                                                                     </ItemTemplate>
@@ -118,7 +132,7 @@
                                     <HeaderTemplate>
                                         Subject Entry</HeaderTemplate>
                                     <ContentTemplate>
-                                        <div class="efficacious">
+                                        <div class="vclassrooms">
                                       
                                                 <table style="font-weight: bolder; width: 40%; margin: 10px 0 10px 15px;" align="center">
                                                     <tr>
@@ -169,11 +183,11 @@
                                                             <table width="80%">
                                                                 <tr>
                                                                     <td align="right">
-                                                                        <asp:Button ID="Button1"  style="padding-left:10px" runat="server" Text="Submit" OnClick="Button1_Click" CssClass="efficacious_send" />
+                                                                        <asp:Button ID="Button1"  style="padding-left:10px" runat="server" Text="Submit" OnClick="Button1_Click" CssClass="vclassrooms_send" />
                                                                     </td>
                                                                     <td align="left">
                                                                         <asp:Button ID="Button2" runat="server" Text="Clear" OnClick="Button2_Click" 
-                                                                            CssClass="efficacious_send" Visible="False" /><asp:HiddenField
+                                                                            CssClass="vclassrooms_send" Visible="False" /><asp:HiddenField
                                                                             ID="hid1" runat="server" />
                                                                     </td>
                                                                 </tr>

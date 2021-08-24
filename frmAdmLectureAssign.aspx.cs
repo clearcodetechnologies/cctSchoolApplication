@@ -269,7 +269,7 @@ public partial class frmAdmLectureAssign : DBUtility
                         //}
                     }
                 }
-            } 
+            }
             if (result1 != -1)
             {
                 display = "Lecture Assigned Successfully!";
@@ -414,7 +414,7 @@ public partial class frmAdmLectureAssign : DBUtility
 
             int result1 = sExecuteQuery(instremaquery1);
 
-            if (result1 != -1)
+            if (result1 > 0)
             {
                 string display = "Card Assignment Modified Successfully!";
                 MessageBox(display);
@@ -509,6 +509,11 @@ public partial class frmAdmLectureAssign : DBUtility
 
             query2 = "Execute dbo.usp_Profile @command='RemarkDivision',@intSchool_id='" + Session["School_id"] + "',@intstanderd_id='" + stat + "' ";
             st2 = sBindDropDownList(drpDivision, query2, "vchDivisionName", "intDivision_id");
+            drpDivision.ClearSelection();
+            //drpDay.ClearSelection();
+            //grvDetail1 = sBindGrid(grvDetail, query2);
+
+            FillLectureSchedule();
         }
         catch
         {
@@ -518,25 +523,117 @@ public partial class frmAdmLectureAssign : DBUtility
 
     protected void drpDivision_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Disquery = "Execute dbo.usp_LectureAssign @command='Divisionwise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
-        grvDetail1 = sBindGrid(grvDetail, Disquery);
+        //if (drpDay.SelectedValue == "---Select---")
+        //{
+        //    Disquery = "Execute dbo.usp_LectureAssign @command='Divisionwise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+        //    grvDetail1 = sBindGrid(grvDetail, Disquery);
+        //}
+        //else
+        //{
+        //    Disquery = "Execute dbo.usp_LectureAssign @command='DayWise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@vchDay='" + drpDay.Text.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+        //    grvDetail1 = sBindGrid(grvDetail, Disquery);
+        //    drpSession.ClearSelection();
+        //}
+
+        FillLectureSchedule();
+
     }
     protected void drpDay_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Disquery = "Execute dbo.usp_LectureAssign @command='DayWise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@vchDay='" + drpDay.Text.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
-        grvDetail1 = sBindGrid(grvDetail, Disquery);
+        //Disquery = "Execute dbo.usp_LectureAssign @command='DayWise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@vchDay='" + drpDay.Text.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+        //grvDetail1 = sBindGrid(grvDetail, Disquery);
+
+        FillLectureSchedule();
     }
     protected void drpSession_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Disquery = "Execute dbo.usp_LectureAssign @command='SessionWise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@vchDay='" + drpDay.Text.Trim() + "',@intSession_id='" + drpSession.SelectedValue.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
-        grvDetail1 = sBindGrid(grvDetail, Disquery);
+        //Disquery = "Execute dbo.usp_LectureAssign @command='SessionWise',@intSchool_id='" + Session["School_id"] + "',@intStandard_id='" + drpStandard.SelectedValue.Trim() + "',@intDivision_id='" + drpDivision.SelectedValue.Trim() + "',@vchDay='" + drpDay.Text.Trim() + "',@intSession_id='" + drpSession.SelectedValue.Trim() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+        //grvDetail1 = sBindGrid(grvDetail, Disquery);
+
+        FillLectureSchedule();
     }
 
+    private void FillLectureSchedule()
+    {
+        try
+        {
+            string Day = drpDay.SelectedValue == "---Select---" ? "0" : drpDay.SelectedValue;
+            string Division = drpDivision.SelectedValue == "---Select---" ? "0" : drpDivision.SelectedValue;
+            string Standard = drpStandard.SelectedValue == "---Select---" ? "0" : drpStandard.SelectedValue;
+            string LecSession = drpSession.SelectedValue == "---Select---" ? "0" : drpSession.SelectedValue;
+
+            Disquery = "Execute dbo.usp_LectureAssign @command='LectureScheduleData',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "',@intStandard_id='" + Standard + "',@intDivision_id='" + Division + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "',@vchDay='" + Day + "',@intSession_id='" + LecSession + "'";
+            grvDetail1 = sBindGrid(grvDetail, Disquery);
+        }
+        catch (Exception ex)
+        {
+        }
+    }
+
+    //Copy Timetable from last year to current year
+    protected void btnCopy_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int intAcademic_id = Convert.ToInt32(Session["AcademicID"]);
+            intAcademic_id -= 1;
+            //string query1 = "Execute usp_LectureAssign @command='CopyFromLastYear',@intAcademic_id='" + intAcademic_id + "',@intSchool_id='" + Session["School_id"] + "'";
+
+            string query1 = "Execute usp_LectureAssign @command='MoveLecture',@intAcademic_id='" + intAcademic_id + "',@intSchool_id='" + Session["School_id"] + "'";
+
+            dsObj = sGetDataset(query1);
+            SqlBulkCopy objbulk = new SqlBulkCopy(getConnectionString());
+            //assign Destination table name  
+            //objbulk.DestinationTableName = "temptblLectureSchedules";
+            //objbulk.WriteToServer(dsObj.Tables[0]);  
+            string str;
+            string insertby;
+            string intSchool_id;
+            for (int i = 0; i < dsObj.Tables[0].Rows.Count; i++)
+            {
+                try
+                {
+                    Lecname = Convert.ToString(dsObj.Tables[0].Rows[i]["vchLecture_name"]);
+                    LectType = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intLecture_type"]);
+                    stand = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intStandard_id"]);
+                    Divi = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intDivision_id"]);
+                    str = Convert.ToString(dsObj.Tables[0].Rows[i]["vchDay"]);
+                    Sess = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intSession_id"]);
+                    Peri = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intPeriod_id"]);
+                    Teachnm = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intTeacher_id"]);
+                    Subj = Convert.ToInt32(dsObj.Tables[0].Rows[i]["intSubject_id"]);
+                    insertby = null;
+                    insertdt = null;
+                    ipval = null;
+                    intSchool_id = Convert.ToString(dsObj.Tables[0].Rows[i]["intSchool_id"]);
+
+                    query1 = "Execute usp_LectureAssign @command='CheckLectureExists',@intTeacher_id='" + Teachnm + "',@intSession_id='" + Sess + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "',@intPeriod_id='" + Peri + "',@vchDay='" + str + "'";
+                    int test1 = sExecuteQuery(query1);
+                    if (test1 < 1)
+                    {
+                        instremaquery1 = "Execute dbo.usp_LectureAssign @command='LectureSchedule',@vchLecture_name='" + Lecname + "',@intLecture_type='" + LectType + "',";
+                        instremaquery1 += "@intStandard_id='" + stand + "',@intDivision_id='" + Divi + "',@vchDay='" + str + "',@intSession_id='" + Sess + "',@intPeriod_id='" + Peri + "',";
+                        instremaquery1 += "@intTeacher_id='" + Teachnm + "',@intSubject_id='" + Subj + "',@intInerted_by='" + insertby + "',@dtInsertDate='" + insertdt + "',";
+                        instremaquery1 += "@InsertIP='" + ipval + "',@intschool_id='" + Session["School_id"] + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+
+                        result1 = sExecuteQuery(instremaquery1);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                btnCopy.Visible = false;
+            }
+        }
+        catch (Exception ex)
+        {
+        }
+    }
 
 }
 
-   
-    
 
- 
+
+
+
 

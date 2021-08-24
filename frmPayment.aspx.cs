@@ -74,7 +74,7 @@ public partial class frmPayment : DBUtility
         request.ContentType = "application/x-www-form-urlencoded";
         request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; CK={CVxk71YSfgiE6+6P6ftT7lWzblrdvMbRqavYf/6OcMIH8wfE6iK7TNkcwFAsxeChX7qRAlQhvPWso3KI6Jthvnvls9scl+OnAEhsgv+tuvs=}; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
 
-        string postData = "login=19538&pass=India@123&ttype=NBFundTransfer&prodid=EFFICACIOUS&amt=" + Convert.ToString(txtEnterAmt.Text.Trim()) + "&txncurr=INR&txnscamt=0&clientcode=007=&txnid=" + Convert.ToString(Session["Student_id"]) + "&date=25/06/2012%2012:23:23&custacc=123456789012&ru=http://e-smarts.net";
+        string postData = "login=19538&pass=India@123&ttype=NBFundTransfer&prodid=vclassrooms&amt=" + Convert.ToString(txtEnterAmt.Text.Trim()) + "&txncurr=INR&txnscamt=0&clientcode=007=&txnid=" + Convert.ToString(Session["Student_id"]) + "&date=25/06/2012%2012:23:23&custacc=123456789012&ru=http://VClassrooms.net";
 
         byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 

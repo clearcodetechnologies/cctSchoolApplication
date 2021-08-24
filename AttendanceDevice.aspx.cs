@@ -561,7 +561,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked present today";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -663,7 +663,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked late today";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -765,7 +765,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked out for lunch";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -867,7 +867,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked in after lunch break";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -968,7 +968,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is left from the school";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1075,7 +1075,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked present today";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1175,7 +1175,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked late today";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1275,7 +1275,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked out for lunch break";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1375,7 +1375,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked in after lunch break";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1476,7 +1476,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is left from the school";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1583,7 +1583,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked present today";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1683,7 +1683,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked late today";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1783,7 +1783,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked out for lunch";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1883,7 +1883,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is marked in after lunch Break";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();
@@ -1984,7 +1984,7 @@ namespace AttendanceDevice
                             if (vchDesignation == "13")
                             {
                                 message = "" + TeacherName + " is left from the school";
-                                //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
+                                //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + to + "&message=" + message + "&senderid=AROHAN&accusage=1", "");
                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A1f82622e8e28d6c8e63ebc1543439e25&sender=AROHAN&to=" + vchMobileNo.Trim() + "&message=" + message.Trim() + "&format=json&custom=1,2&flash=0&unicode=1", "");
                             }
                             con.Close();

@@ -1,270 +1,158 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" EnableEventValidation="true" CodeFile="frmColasticActivity.aspx.cs" Inherits="frmColasticActivity" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+     <script type="text/javascript">
+function funcswitchtab() {
+    $('#tab2').trigger('click')
+    $("#tab2Entry").addClass("active show");
+    $("#custom-tabs-five-overlay-tab").removeClass("active");
+    $("#custom-tabs-five-overlay").removeClass("show").removeClass("active");
+}         
+</script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content-header">
-        <h1>
-            
-            Colastic Activity
-        </h1>
-        <ol class="breadcrumb">
-            <li><a ><i ></i>Home</a></li>
-            <li><a ><i ></i>Master</a></li>
-            <li><a ><i ></i>School Master</a></li>
-            <li class="active">Activity Master</li>
-        </ol>
-    </div>
-
- <style>
-        .efficacious_send
-        {
-            width: 100% !important;
-            background: #3498db;
-            border: none;
-            font-size: 16px;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 2px;
-            color: #fff;
-            margin: 10px auto;
-            padding: 7px;
-            cursor: pointer;
-            height: 37px;
-            margin-right: 10px;
-            float: none;
-            text-align: center;
-        }
-        .textcss
-        {
-            font-size: 13px !important;
-        }
-        .textsize
-        {
-            width: 230px;
-            height: 30px;
-            font-size: 13px;
-            border-radius: 5px;
-            border: 1px solid #3498db;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-        }
-    </style>
-    <div style="padding: 5px 0 0 0">
-        <center>
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">   Colastic Activity </h1>
+          </div>  
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Master</a></li>
+              <li class="breadcrumb-item active"> Activity Master</li>
+            </ol>
+          </div> 
+        </div> 
+      </div> 
+    </div> 
+  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <table width="100%">
-                        <tr>
-                            <td align="left">
-                                <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle" runat="server" Width="1015px"
-                                    ActiveTabIndex="1">
-                                    
-                                    <asp:TabPanel HeaderText="g" ID="tab" runat="server">
-                                        <HeaderTemplate>
-                                            Detail
-                                        </HeaderTemplate>
-                                        <ContentTemplate>
-                                            <center>
-                                                <table width="100%">
-                                                    <tr>
-                                                        <td align="left">
-
-                                                       <asp:GridView ID="grvDetail" runat="server" DataKeyNames="intColasticActivity_id" CssClass="table  tabular-table " 
-                                                                AutoGenerateColumns="False" onrowdeleting="grvDetail_RowDeleting1" 
-                                                                onrowediting="grvDetail_RowEditing1">
-                                                            <Columns>
-                                                                <asp:BoundField DataField="intSection_id" HeaderText="Section" ReadOnly="True" />
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                <div class="card-header p-0 pt-1">
+                  <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="tab2" data-toggle="pill" href="#tab2Entry" role="tab" aria-controls="tab2Entry" aria-selected="false">Entry</a>
+                    </li> 
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-five-tabContent">
+                      <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
+                        <div class="col-lg-12 col-md-12">
+                             <asp:GridView ID="grvDetail" runat="server" AllowSorting="True" AutoGenerateColumns="False" AllowPaging="True" 
+                                    CssClass="table table-hover table-bordered cus-table tabular-table "  PageSize="20"  DataKeyNames="intColasticActivity_id" OnRowDeleting="grvDetail_RowDeleting" OnRowEditing="grvDetail_RowEditing" >
+                                    <Columns>                                                                 
+                                        <asp:BoundField DataField="intSection_id" HeaderText="Section" ReadOnly="True" />
                                                                  <asp:BoundField DataField="dtDate" HeaderText="Date" ReadOnly="True" />
                                                                  <asp:BoundField DataField="vchDescription" HeaderText="Details" ReadOnly="True" />
                                                                
-                                                               
-                                                               <asp:TemplateField HeaderText="Edit" >
-                                                         <ItemTemplate>
-                                                              <asp:LinkButton ID="ImgEdit" runat="server" CommandName="Edit" CausesValidation="false"  >Edit</asp:LinkButton>
-                                                              </ItemTemplate>
-                                                             
-                                                             </asp:TemplateField>  
-                                                                   <asp:TemplateField HeaderText="Delete">
-                                                                <ItemTemplate>
-                                                                    <asp:LinkButton ID="ImgDelete" runat="server" CommandName="Delete" CausesValidation="false"
-                                                                        OnClientClick="return confirm('Do You Really Want To Delete Selected Record?');">Delete</asp:LinkButton>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                              </Columns>
-                                                           </asp:GridView>
-                                                            <%--<asp:GridView ID="grvDetail" CssClass="table  tabular-table " 
-                                                                AutoGenerateColumns="False"  runat="server" Width="50%"  
-                                                                DataKeyNames="intColasticActivity_id" onrowdeleting="grvDetail_RowDeleting1" 
-                                                                onrowediting="grvDetail_RowEditing1"  >
-                                                             <Columns>
-                                                                 <asp:BoundField DataField="intSection_id" HeaderText="Section" ReadOnly="True" />
-                                                                 <asp:BoundField DataField="dtDate" HeaderText="Date" ReadOnly="True" />
-                                                                 <asp:BoundField DataField="vchDescription" HeaderText="Details" ReadOnly="True" />
-                                                              
-                                                               <asp:TemplateField HeaderText="Edit">
-                                                                        <ItemTemplate>
-                                                                            <asp:ImageButton ID="ImgEdit" runat="server" CommandName="Edit" CausesValidation="false"
-                                                                                ImageUrl="~/images/edit.png" />
-                                                                        </ItemTemplate>
-                                                                    </asp:TemplateField>
-                                                                    <asp:TemplateField HeaderText="Delete">
-                                                                        <ItemTemplate>
-                                                                            <asp:ImageButton ID="ImgDelete" runat="server" CommandName="Delete" CausesValidation="false"
-                                                                                OnClientClick="return confirm('Do You Really Want To Delete Selected Record?');" ImageUrl="~/images/delete.png" />
-                                                                        </ItemTemplate>
-                                                                    </asp:TemplateField>
-                                                                       </Columns>
-                                                            </asp:GridView>--%>
-
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </center>
-                                        </ContentTemplate>
-                                    </asp:TabPanel>
-                                    
-                                    <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
-                                        <HeaderTemplate>
-                                            New Entry
-                                        </HeaderTemplate>
-                                        <ContentTemplate>
-                                           
-                                               <table width="36%" style="text-align: right; margin:0 0 0 2%;">
-                                                    <tr>
-                                                        <td align="justify">
-                                                            &nbsp;
-                                                        </td>
-                                                        <td align="justify">
-                                                            &nbsp;
-                                                        </td>
-                                                    </tr>
-              
-
-
-                                                    <tr>
-                                                        <td align="justify"> 
-                                                            <asp:Label ID="Label1" runat="server" Text="Section"></asp:Label>
-                                                        </td>
-                                                        <td align="justify">
-                                                            <asp:DropDownList ID="ddlSection" runat="server" CssClass="input-blue" 
-                                                                AutoComplete="Off" Width="100%">
-                                                            <asp:ListItem Value="0" Text="--Select Section--"></asp:ListItem>
+                                        <asp:TemplateField HeaderText="Edit">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgEdit" runat="server" CssClass="gbtn-edit" CommandName="Edit" CausesValidation="false"
+                                                    ImageUrl="~/images/edit.svg" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Delete">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgDelete" runat="server" CssClass="gbtn-delete" CommandName="Delete" CausesValidation="false"
+                                                    OnClientClick="return confirm('Do You Really Want To Delete Selected Record?');" ImageUrl="~/images/delete.svg" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                        </div> 
+                      </div>
+                    <div class="tab-pane fade" id="tab2Entry" role="tabpanel" aria-labelledby="tab2">
+                     <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                   <asp:Label ID="Label4" class="col-form-label" runat="server" Text="Section"></asp:Label> 
+                                    <asp:DropDownList ID="ddlSection" runat="server" CssClass="form-control">
+                                        <asp:ListItem Value="0" Text="--Select Section--"></asp:ListItem>
                                                             <asp:ListItem Value="1" Text="Primary"></asp:ListItem>
                                                             <asp:ListItem Value="2" Text="Secondary"></asp:ListItem>
-                                                            </asp:DropDownList>
-                                                        </td>
-                                                     <tr>
-                                                        <td align="left">
-                                                            &nbsp;
-                                                        </td>
-                                                        <td align="left">
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ValidationGroup="a" 
-                                                                runat="server" SetFocusOnError="True"
-                                    ErrorMessage="Please Select  Section" Operator="NotEqual" InitialValue="0" ValueToCompare="0" 
-                                                                Type="Integer" Display="Dynamic" ControlToValidate="ddlSection"
-                                    ForeColor="Red" ></asp:RequiredFieldValidator>
-                                    </td>
-                                    </tr>
-                            
-
-                                                    </tr>
-
-
-                                                     <tr>
-                                                        <td align="justify"> 
-                                                            <asp:Label ID="Label3" runat="server" Text="Date"></asp:Label>
-                                                        </td>
-                                                        <td align="justify">
-                                                            <asp:TextBox ID="txtDate" runat="server" CssClass="input-blue" MaxLength="50" 
-                                                                AutoComplete="Off" Width="125px"></asp:TextBox>
-                                                               <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" 
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlSection"
+                                        Display="None" ErrorMessage="Please select Section"></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender1"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator1">
+                                    </asp:ValidatorCalloutExtender> 
+                                </div>
+                             </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                  <asp:Label ID="Label2" runat="server"  class="col-form-label"  Text="Date"></asp:Label> 
+                                   <asp:TextBox ID="txtDate" runat="server" AutoComplete="Off" CssClass="form-control" MaxLength="75"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtDate"
+                                        Display="None" ErrorMessage="Please Enter Date"></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="RequiredFieldValidator7_ValidatorCalloutExtender"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator7">
+                                    </asp:ValidatorCalloutExtender>
+                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" 
                                                     Format="yyyy/MM/dd" TargetControlID="txtDate">
                                                 </asp:CalendarExtender>
-                                                   <tr>
-                                                        <td align="left">
-                                                            &nbsp;
-                                                        </td>
-                                                        <td align="left">
-                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ValidationGroup="a"  runat="server" ControlToValidate="txtDate"
-                                                                Display="Dynamic" ErrorMessage="Please Enter Date"></asp:RequiredFieldValidator>
-                                                        </td>
-
-
-                                                        <td align="left">
-                                                            &nbsp;
-                                                        </td>
-                                                        <td align="left">
-                                                           <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
             ControlToValidate="txtDate" ErrorMessage="Please Enter proper date format in yyyy/mm/dd"
             ValidationExpression="\d{4}(\/|\-)((10|11|12)|0[1-9]{1})(\/|\-)(([0-2][1-9])|(3[01]{1}))"></asp:RegularExpressionValidator>
-                                                        </td>
+                                     
+                                </div>
+                             </div>
+
+                             <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                   <asp:Label ID="Label1" class="col-form-label" runat="server" Text="Details"></asp:Label> 
+                  
+                                   <asp:TextBox ID="txtDet" runat="server" AutoComplete="Off" CssClass="form-control" MaxLength="75"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDet"
+                                        Display="None" ErrorMessage="Please Enter Details"></asp:RequiredFieldValidator>
+                                    <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender2"
+                                        runat="server" Enabled="True" TargetControlID="RequiredFieldValidator7">
+                                    </asp:ValidatorCalloutExtender>
+                                </div>
+                             </div>
+                                
+                                 <div class="col-lg-3 col-md-4 col-sm-6">
+                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success btn-sm mt-18" OnClick="btnSubmit_Click" OnClientClick="return ConfirmInsertUpdate();"
+                                    Text="Submit"/>
+                                <asp:Button ID="btnClear" runat="server" CausesValidation="False" OnClick="btnClear_Click" CssClass="btn btn-danger btn-sm mt-18"
+                                    Text="Clear" Visible="False" />
+                                </div>
 
 
-                                                    </tr>
-                                                        </td>
-                                                    </tr>
+                            </div>
+                         </div>
+                       </div> 
+                     
+                       </div>
+                    </div>
 
-                                                    <tr>
-                                                        <td align="justify"> 
-                                                            <asp:Label ID="Label2" runat="server" Text="Details"></asp:Label>
-                                                        </td>
-                                                        <td align="justify">
-                                                            <asp:TextBox ID="txtDet" runat="server" CssClass="input-blue" MaxLength="50" 
-                                                                AutoComplete="Off" Width="125px"></asp:TextBox>
+                </div>
+            </div>
+         </div>
+       </div>
+     </section>               
+ </ContentTemplate>
+            </asp:UpdatePanel>
 
-                                                             <tr>
-                                                        <td align="left">
-                                                            &nbsp;
-                                                        </td>
-                                                        <td align="left">
-                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="a"  runat="server" ControlToValidate="txtDet"
-                                                                Display="Dynamic" ErrorMessage="Please Enter Details"></asp:RequiredFieldValidator>
-                                                        </td>
-                                                    </tr>
-                                                        </td>
-                                                    </tr>
-
-                                                    
-                                                 
-                                                    <tr>
-                                                    <td>&nbsp;</td>
-                                                        <td align="left">
-                                                            <table width="100%">
-                                                                <tr>
-                                                                    <td align="left">
-                                                                        <asp:Button ID="btnSubmit" ValidationGroup="a" runat="server" Text="Submit" CssClass="efficacious_send"
-                                                                            OnClick="btnSubmit_Click" />
-                                                                    </td>
-                                                                    <td align="left" style="padding-left:10px">
-                                                                        <asp:Button ID="btnClear" runat="server" OnClick="btnClear_Click" Style="padding-left: 10px"
-                                                                            CssClass="efficacious_send" Text="Clear" CausesValidation="False" />
-                                                                    </td>
-                                                                </tr>
-                                                            </table>                                                            
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center" class="auto-style5" colspan="2">
-                                                            &nbsp;
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                           
-                                        </ContentTemplate>
+ 
+           <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle d-none" runat="server"  
+                                    ActiveTabIndex="1">
+                                    <asp:TabPanel HeaderText="g" CssClass="vclassrooms" ID="tab" runat="server">
+                                         
+                                    </asp:TabPanel>
+                                    <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1"> 
                                     </asp:TabPanel>
                                 </asp:TabContainer>
-                            </td>
-                        </tr>
-                    </table>
-                   
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </center>
-    </div>
-
-
+                         
+    
 </asp:Content>

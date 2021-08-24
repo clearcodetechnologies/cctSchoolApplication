@@ -15,6 +15,9 @@ public partial class frmAdmStudentProfile : DBUtility
 {
     DataSet dsObj1 = new DataSet();
     DataSet dsObj = new DataSet();
+    DataTable dtConcession = new DataTable();
+    int ID = 0;
+    string serverpath = "http://VClassrooms.com/vclassroomsSchoolDemoAPI/image/";
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -71,7 +74,18 @@ public partial class frmAdmStudentProfile : DBUtility
     protected void FillCategory()
     {
         string strQry = "usp_Profile @command='selectCategory',@intschool_id='" + Convert.ToString(Session["School_id"]) + "'";
-        bool stcardp = sBindDropDownList(txt9, strQry, "vchCategory", "intCat_Id");       
+        bool stcardp = sBindDropDownList(txt9, strQry, "vchCategory", "intCat_Id");
+
+         //strQry = "exec [usp_Feetype_master]  @command='select',@intschool_id='" + Convert.ToString(Session["School_id"]) + "'";
+         //stcardp = sBindDropDownList(drpconcession, strQry, "Fee_Name", "intFeetype_id");
+
+        //strQry = "exec [usp_concession_master]  @command='select',@intschool_id='" + Convert.ToString(Session["School_id"]) + "'";
+        //stcardp = sBindDropDownList(drpconcession, strQry, "vchConcession_name", "intConcession_id");
+
+        //strQry = "exec usp_FeesAssignSTD @type='FillArea',@intSchool_Id='" + Convert.ToString(Session["School_Id"]) + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+        //sBindDropDownList(drptransport, strQry, "vchArea_Name", "intArea_Id");
+
+
     }
     protected void getCountry()
     {
@@ -165,6 +179,8 @@ public partial class frmAdmStudentProfile : DBUtility
         txtNationality.Text = "";
         txtLandmark.Text = "";
         txtPincode.Text = "";
+        txtGuardianName.Text = "";
+        txtGuardianNumber.Text = "";
     }
     protected void query()
     {
@@ -229,7 +245,7 @@ public partial class frmAdmStudentProfile : DBUtility
                 {
                     MessageBox("Please Insert First Name!");
                     txt1.Focus();
-                        return;
+                    return;
                 }
                 if (txtStudentID.Text == "")
                 {
@@ -243,121 +259,141 @@ public partial class frmAdmStudentProfile : DBUtility
                     txt11.Focus();
                     return;
                 }
-                // ButN6.Enabled = false;
-                string GRNo = Convert.ToString(txtGRNo.Text);
-                string StandId = DropDownList2.SelectedItem.Value;
-                string DiviId = DropDownList3.SelectedItem.Value;
-                string rollno = Convert.ToString(TextBox1.Text);
-                string Fname = Convert.ToString(txt1.Text);
-                string Mname = Convert.ToString(txt2.Text);
-                string lname = Convert.ToString(txt3.Text);
-                string Fathername = Convert.ToString(txt4.Text);
-                string Mothername = Convert.ToString(txt5.Text);
-                string Emailid = Convert.ToString(txt6.Text);
-                string Dobnm = null;
-                if (!String.IsNullOrEmpty(txt7.Text))
-                 Dobnm = Convert.ToDateTime(txt7.Text).ToString("MM/dd/yyyy");
-                string cast = Convert.ToString(txt9.SelectedValue);
-                string subcast = Convert.ToString(txt10.Text);
-                string gender = Convert.ToString(txt11.SelectedItem.Value);
-                string filnmn = null;
-
-                if (ViewState["Filename1"] != null)
+                if (StudentIDNumberExits())
                 {
-                    filnmn = ViewState["Filename1"].ToString();
-                }
-
-
-                //if (txt13.Text != "")
-                //{
-                string fathno = Convert.ToString(txt13.Text);
-                //}
-                //if (txt14.Text != "")
-                //{
-                string mothno = Convert.ToString(txt14.Text);
-                //}
-
-                string Preadd = Convert.ToString(txt34.Text);
-                string paradd = Convert.ToString(txt35.Text);
-                string Bloodgp = Convert.ToString(txt44.Text);
-                string healthdis = Convert.ToString(DropDownList1.SelectedItem.Value);
-                string Descip = Convert.ToString(txt45.Text);
-                string insertby = Convert.ToString(Session["User_id"]);
-                //long insertby = Convert.ToInt64(Session["User_id"]);
-                string insertdt = DateTime.Now.ToString("MM/dd/yyyy");
-                string ipval = GetSystemIP();
-
-                string StuID_Number = Convert.ToString(txtStudentID.Text);
-                string BirthPlace = Convert.ToString(txtPlaceOfBirth.Text);
-                string BusAlert = Convert.ToString(txtSMSMobile.Text);
-                //string dtAdm = Convert.ToString(txtAdmissionDate.Text);
-                string dtAdm = null;
-                if (!String.IsNullOrEmpty(txtAdmissionDate.Text))
-
-                    dtAdm = Convert.ToDateTime(txtAdmissionDate.Text).ToString("MM/dd/yyyy");
-                string Mothertongue = Convert.ToString(txtMothertounge.Text);
-                string Religion = Convert.ToString(txtReligion.Text);
-                string FirstLang = Convert.ToString(txtFirstLanguage.Text);
-                string SecondLang = Convert.ToString(txtSecondLanguage.Text);
-                string ThirdLang = Convert.ToString(txtThirdLanguage.Text);
-
-                string Studentaadhar = Convert.ToString(txtstdaadhar.Text);
-                string Fatheraadhar = Convert.ToString(txtfatheraadhar .Text);
-                string Motheraadhar = Convert.ToString(txtmotheraadhar .Text);
-
-                string FatherOccu = Convert.ToString(txtFatherOccupation.Text);
-                string MotherOccu = Convert.ToString(txtMotherOccupation.Text);
-                string FatherDesign = Convert.ToString(txtFatherDesignation.Text);
-                string MotherDesign = Convert.ToString(txtMotherDesignation.Text);
-                string FatherIncome = Convert.ToString(txtFatherIncome.Text);
-                string MotherIncome = Convert.ToString(txtMotherIncome.Text);
-                string UserName = Convert.ToString(txtUserName.Text);
-                string Password = Convert.ToString(txtPassword.Text);
-                string Nationality = Convert.ToString(txtNationality.Text);
-                string LandMark = Convert.ToString(txtLandmark.Text);
-                string Pincode = Convert.ToString(txtPincode.Text);
-                getCountry();
-                string CountryID = DdlCountryName.SelectedItem.Value;
-                getState();
-                string StateID = DdlStateName.SelectedItem.Value;
-                getCity();
-                string CityID = DdlCityName.SelectedItem.Value;
-                string ReceiptNo = Convert.ToString(txtreceiptno.Text);
-
-                string instrquery1 = "Execute dbo.usp_Profile @command='InsertStudentProfile',@intGRNo='" + GRNo + "',@intstanderd_id='" + StandId + "',@intDivision_id='" + DiviId + "',@intRollNo='" + rollno + "',@vchStudentFirst_name='" + Fname + "',@vchStudentMiddle_name='" + Mname + "'," +
-                                      "@vchStudentLast_name='" + lname + "',@vchFatherName='" + Fathername + "',@vchMotherName='" + Mothername + "',@vchGender='" + gender + "',@intHomePhoneNo1='" + fathno + "',@intHomePhoneNo2='" + mothno + "',@dtDOB='" + Dobnm + "',@dtActivationDate='" + insertdt + "',@vchActivestatus=1,@intActivationBy='" + Session["User_id"] + "'," +
-                                      "@intStudentID_Number='" + StuID_Number + "',@vchplaceofBirth='" + BirthPlace + "',@intBusAlert1='" + BusAlert + "',@dtAdmission='" + dtAdm + "',@vchMothertongue='" + Mothertongue + "',@vchReligion='" + Religion + "',@vchFirstLanguage='" + FirstLang + "',@vchSecondLanguage='" + SecondLang + "'," +
-                                      "@vchThirdLanguage='" + ThirdLang + "',@vchFatherOccupation='" + FatherOccu + "',@vchMotherOccupation='" + MotherOccu + "',@vchFatherDesignation='" + FatherDesign + "',@vchMotherDesignation='" + MotherDesign + "',@intFatherIncome='" + FatherIncome + "',@intMotherIncome='" + MotherIncome + "',@vchNationality='" + Nationality + "',@vchLandMark='" + LandMark + "',@vchPincode='" + Pincode + "'," +
-                                      "@intCountry_id='" + CountryID + "',@intState_id='" + StateID + "',@intCity_id='" + CityID + "'," +
-
-                                      "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intInserted_by='" + Session["User_id"] + "',@InseretIP='" + GetSystemIP() + "',@intSchool_id='" + Session["School_Id"] + "',@intAcademic_id='" + Session["AcademicID"] + "',@vchaadhar_no='" + Studentaadhar + "',@vchEmergencyConPerson1='" + Fatheraadhar + "',@intEmergencyContat1='" + Motheraadhar + "',@vchUser_name='" + UserName + "',@vchPassword='" + Password + "',@Receipt_no='" + ReceiptNo + "'";
-
-               
-
-                int str = sExecuteQuery(instrquery1);
-
-                if (str != -1)
-                {
-                    string display = "Student Profile Submit!";
-                    MessageBox(display);
-                    btnSubmit.Text = "Submit";
-                    //ButN6.Visible = false;
-                    // Clear();
-                    fGrid();
-
+                    MessageBox("Student Id Number already exits");
                 }
                 else
                 {
-                    MessageBox("ooopppsss!Student Profile submission Failed");
+                    // ButN6.Enabled = false;
+                    string GRNo = Convert.ToString(txtGRNo.Text);
+                    string StandId = DropDownList2.SelectedItem.Value;
+                    string DiviId = DropDownList3.SelectedItem.Value;
+                    string rollno = Convert.ToString(TextBox1.Text);
+                    string Fname = Convert.ToString(txt1.Text);
+                    string Mname = Convert.ToString(txt2.Text);
+                    string lname = Convert.ToString(txt3.Text);
+                    string Fathername = Convert.ToString(txt4.Text);
+                    string Mothername = Convert.ToString(txt5.Text);
+                    string Emailid = Convert.ToString(txt6.Text);
+                    string Dobnm = null;
+                    if (!String.IsNullOrEmpty(txt7.Text))
+                        Dobnm = Convert.ToDateTime(txt7.Text).ToString("MM/dd/yyyy");
+                    string cast = Convert.ToString(txt9.SelectedValue);
+                    string subcast = Convert.ToString(txt10.Text);
+                    string gender = Convert.ToString(txt11.SelectedItem.Value);
+                    string filnmn = null;
+
+                    if (ViewState["Filename1"] != null)
+                    {
+                        filnmn = ViewState["Filename1"].ToString();
+                    }
+
+
+                    //if (txt13.Text != "")
+                    //{
+                    string fathno = Convert.ToString(txt13.Text);
+                    //}
+                    //if (txt14.Text != "")
+                    //{
+                    string mothno = Convert.ToString(txt14.Text);
+                    //}
+
+                    string Preadd = Convert.ToString(txt34.Text);
+                    string paradd = Convert.ToString(txt35.Text);
+                    string Bloodgp = Convert.ToString(txt44.Text);
+                    string healthdis = Convert.ToString(DropDownList1.SelectedItem.Value);
+                    string Descip = Convert.ToString(txt45.Text);
+                    string insertby = Convert.ToString(Session["User_id"]);
+                    //long insertby = Convert.ToInt64(Session["User_id"]);
+                    string insertdt = DateTime.Now.ToString("MM/dd/yyyy");
+                    string ipval = GetSystemIP();
+
+                    string StuID_Number = Convert.ToString(txtStudentID.Text);
+                    string BirthPlace = Convert.ToString(txtPlaceOfBirth.Text);
+                    string BusAlert = Convert.ToString(txtSMSMobile.Text);
+                    //string dtAdm = Convert.ToString(txtAdmissionDate.Text);
+                    string dtAdm = null;
+                    if (!String.IsNullOrEmpty(txtAdmissionDate.Text))
+
+                        dtAdm = Convert.ToDateTime(txtAdmissionDate.Text).ToString("MM/dd/yyyy");
+                    string Mothertongue = Convert.ToString(txtMothertounge.Text);
+                    string Religion = Convert.ToString(txtReligion.Text);
+                    string FirstLang = Convert.ToString(txtFirstLanguage.Text);
+                    string SecondLang = Convert.ToString(txtSecondLanguage.Text);
+                    string ThirdLang = Convert.ToString(txtThirdLanguage.Text);
+
+                    string Studentaadhar = Convert.ToString(txtstdaadhar.Text);
+                    string Fatheraadhar = Convert.ToString(txtfatheraadhar.Text);
+                    string Motheraadhar = Convert.ToString(txtmotheraadhar.Text);
+
+                    string FatherOccu = Convert.ToString(txtFatherOccupation.Text);
+                    string MotherOccu = Convert.ToString(txtMotherOccupation.Text);
+                    string FatherDesign = Convert.ToString(txtFatherDesignation.Text);
+                    string MotherDesign = Convert.ToString(txtMotherDesignation.Text);
+                    string FatherIncome = Convert.ToString(txtFatherIncome.Text);
+                    string MotherIncome = Convert.ToString(txtMotherIncome.Text);
+                    string UserName = Convert.ToString(txtUserName.Text);
+                    string Password = Convert.ToString(txtPassword.Text);
+                    string Nationality = Convert.ToString(txtNationality.Text);
+                    string LandMark = Convert.ToString(txtLandmark.Text);
+                    string Pincode = Convert.ToString(txtPincode.Text);
+                   // getCountry();
+                    string CountryID = DdlCountryName.SelectedItem.Value;
+                    //getState();
+                    string StateID = DdlStateName.SelectedItem.Value;
+                    //getCity();
+                    string CityID = DdlCityName.SelectedItem.Value;
+                    string ReceiptNo = Convert.ToString(txtreceiptno.Text);
+                    string GuardianNm = Convert.ToString(txtGuardianName.Text);
+                    string GuardianNumber = Convert.ToString(txtGuardianNumber.Text);
+
+                    string dtstartdate = "";
+                    if (!String.IsNullOrEmpty(txtstartdate.Text))
+                        dtstartdate = Convert.ToDateTime(txtstartdate.Text).ToString("MM/dd/yyyy");
+
+                    string dtenddate = "";
+                    if (!String.IsNullOrEmpty(txtenddate.Text))
+                        dtenddate = Convert.ToDateTime(txtenddate.Text).ToString("MM/dd/yyyy");
+
+                    string instrquery1 = "Execute dbo.usp_Profile @command='InsertStudentProfile',@intGRNo='" + GRNo + "',@intstanderd_id='" + StandId + "',@intDivision_id='" + DiviId + "',@intRollNo='" + rollno + "',@vchStudentFirst_name='" + Fname + "',@vchStudentMiddle_name='" + Mname + "'," +
+                                          "@vchStudentLast_name='" + lname + "',@vchFatherName='" + Fathername + "',@vchMotherName='" + Mothername + "',@vchGender='" + gender + "',@intHomePhoneNo1='" + fathno + "',@intHomePhoneNo2='" + mothno + "',@dtDOB='" + Dobnm + "',@dtActivationDate='" + insertdt + "',@vchActivestatus=1,@intActivationBy='" + Session["User_id"] + "'," +
+                                          "@intStudentID_Number='" + StuID_Number + "',@vchplaceofBirth='" + BirthPlace + "',@intBusAlert1='" + BusAlert + "',@dtAdmission='" + dtAdm + "',@vchMothertongue='" + Mothertongue + "',@vchReligion='" + Religion + "',@vchFirstLanguage='" + FirstLang + "',@vchSecondLanguage='" + SecondLang + "'," +
+                                          "@vchThirdLanguage='" + ThirdLang + "',@vchFatherOccupation='" + FatherOccu + "',@vchMotherOccupation='" + MotherOccu + "',@vchFatherDesignation='" + FatherDesign + "',@vchMotherDesignation='" + MotherDesign + "',@intFatherIncome='" + FatherIncome + "',@intMotherIncome='" + MotherIncome + "',@vchNationality='" + Nationality + "',@vchLandMark='" + LandMark + "',@vchPincode='" + Pincode + "'," +
+                                          "@intCountry_id='" + CountryID + "',@intState_id='" + StateID + "',@intCity_id='" + CityID + "'," +
+                                          "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + serverpath + "',@vchProfile='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intInserted_by='" + Session["User_id"] + "',@InseretIP='" + GetSystemIP() + "',@intSchool_id='" + Session["School_Id"] + "',@intAcademic_id='" + Session["AcademicID"] + "',@vchaadhar_no='" + Studentaadhar + "',@vchEmergencyConPerson1='" + Fatheraadhar + "',@intEmergencyContat1='" + Motheraadhar + "',@vchUser_name='" + UserName + "',@vchPassword='" + Password + "',@Receipt_no='" + ReceiptNo + "',@vchGuardianName='" + txtGuardianName.Text + "',@intGuardianNumber='" + txtGuardianNumber.Text + "',@dtstart_date='" + dtstartdate + "',@dtend_date='" + dtenddate + "'";
+
+
+
+                    // int str = sExecuteQuery(instrquery1);
+
+                    string str = sExecuteScalar(instrquery1);
+
+                    // if (str != -1)
+                    if (str != "" || str != null)
+                    {
+                        ViewState["StudentIDConcession"] = str;
+                        string display = "Student Profile Submit!";
+                        MessageBox(display);
+                        btnSubmit.Text = "Submit";
+                        //ButN6.Visible = false;
+                        // Clear();
+                        fGrid();
+
+                    }
+                    else
+                    {
+                        MessageBox("ooopppsss!Student Profile submission Failed");
+
+                    }
+
+
+
+                    TabPanel1.Visible = true;
+                    TabPanel1.Enabled = true;
+
 
                 }
-
-
-
-                TabPanel1.Visible = true;
-                TabPanel1.Enabled = true;
-
-
             }
 
             catch (Exception Ex)
@@ -368,113 +404,132 @@ public partial class frmAdmStudentProfile : DBUtility
         {
             try
             {
-
-
-                string GRNo = Convert.ToString(txtGRNo.Text);
-                string StandId = DropDownList2.SelectedItem.Value;
-                string DiviId = DropDownList3.SelectedItem.Value;
-                string rollno = Convert.ToString(TextBox1.Text);
-                string Fname = Convert.ToString(txt1.Text);
-                string Mname = Convert.ToString(txt2.Text);
-                string lname = Convert.ToString(txt3.Text);
-                string Fathername = Convert.ToString(txt4.Text);
-                string Mothername = Convert.ToString(txt5.Text);
-                string Emailid = Convert.ToString(txt6.Text);
-                string Dobnm = null;
-                if (!String.IsNullOrEmpty(txt7.Text))
-
-                    Dobnm = Convert.ToDateTime(txt7.Text).ToString("MM/dd/yyyy");
-
-                string cast = Convert.ToString(txt9.SelectedValue);
-                string subcast = Convert.ToString(txt10.Text);
-                string gender = Convert.ToString(txt11.SelectedItem.Value);
-                string filnmn = null;
-                if (ViewState["Filename1"] != null)
+                if (GetStudentIDNumber(Convert.ToInt32(ViewState["StudentID"])) != Convert.ToString(txtStudentID.Text))
                 {
-                    filnmn = ViewState["Filename1"].ToString();
-                }
-
-                //if (txt14.Text != "")
-                //{
-                string mothno = Convert.ToString(txt14.Text);
-                //}
-                //if (txt13.Text != "")
-                //{
-                string fathno = Convert.ToString(txt13.Text);
-                //}
-
-
-
-                string Preadd = Convert.ToString(txt34.Text);
-                string paradd = Convert.ToString(txt35.Text);
-
-                string Bloodgp = Convert.ToString(txt44.Text);
-                string healthdis = Convert.ToString(DropDownList1.SelectedItem.Value);
-                string Descip = Convert.ToString(txt45.Text);
-                string Updateby = Convert.ToString(Session["User_id"]);
-                
-                string vchUpdated_IP = GetSystemIP();
-                string insertdt = DateTime.Now.ToString("MM/dd/yyyy");
-
-                string Studentaadhar = Convert.ToString(txtstdaadhar.Text);
-                string Fatheraadhar = Convert.ToString(txtfatheraadhar.Text);
-                string Motheraadhar = Convert.ToString(txtmotheraadhar.Text);
-                string StuID_Number = Convert.ToString(txtStudentID.Text);
-                string BirthPlace = Convert.ToString(txtPlaceOfBirth.Text);
-                string BusAlert = Convert.ToString(txtSMSMobile.Text);
-                //string dtAdm = Convert.ToString(txtAdmissionDate.Text);
-                string dtAdm = null;
-                if (!String.IsNullOrEmpty(txtAdmissionDate.Text))
-
-                    dtAdm = Convert.ToDateTime(txtAdmissionDate.Text).ToString("MM/dd/yyyy");
-                string Mothertongue = Convert.ToString(txtMothertounge.Text);
-                string Religion = Convert.ToString(txtReligion.Text);
-                string FirstLang = Convert.ToString(txtFirstLanguage.Text);
-                string SecondLang = Convert.ToString(txtSecondLanguage.Text);
-                string ThirdLang = Convert.ToString(txtThirdLanguage.Text);
-                string FatherOccu = Convert.ToString(txtFatherOccupation.Text);
-                string MotherOccu = Convert.ToString(txtMotherOccupation.Text);
-                string FatherDesign = Convert.ToString(txtFatherDesignation.Text);
-                string MotherDesign = Convert.ToString(txtMotherDesignation.Text);
-                string FatherIncome = Convert.ToString(txtFatherIncome.Text);
-                string MotherIncome = Convert.ToString(txtMotherIncome.Text);
-                string Nationality = Convert.ToString(txtNationality.Text);
-                string LandMark = Convert.ToString(txtLandmark.Text);
-                string usrrname = Convert.ToString(txtUserName.Text);
-                string passsword = Convert.ToString(txtPassword.Text);
-                string Pincode = Convert.ToString(txtPincode.Text);
-                getCountry();
-                string CountryID = DdlCountryName.SelectedItem.Value;
-                getState();
-                string StateID = DdlStateName.SelectedItem.Value;
-                getCity();
-                string CityID = DdlCityName.SelectedItem.Value;
-                string ReceiptNo = Convert.ToString(txtreceiptno.Text);
-
-                string instrquery1 = "Execute dbo.usp_Profile @command='UpdateStudentProfile',@intGRNo='" + GRNo + "',@intstanderd_id='" + StandId + "',@intDivision_id='" + DiviId + "',@intRollNo='" + rollno + "',@vchStudentFirst_name='" + Fname + "',@vchStudentMiddle_name='" + Mname + "'," +
-                                      "@vchStudentLast_name='" + lname + "',@vchFatherName='" + Fathername + "',@vchMotherName='" + Mothername + "',@vchGender='" + gender + "',@intHomePhoneNo1='" + fathno + "',@intHomePhoneNo2='" + mothno + "',@dtDOB='" + Dobnm + "',@dtActivationDate='" + insertdt + "',@vchActivestatus=1,@intActivationBy='" + Session["User_id"] + "'," +
-                                      "@intStudentID_Number='" + StuID_Number + "',@vchplaceofBirth='" + BirthPlace + "',@intBusAlert1='" + BusAlert + "',@dtAdmission='" + dtAdm + "',@vchMothertongue='" + Mothertongue + "',@vchReligion='" + Religion + "',@vchFirstLanguage='" + FirstLang + "',@vchSecondLanguage='" + SecondLang + "'," +
-                                      "@vchThirdLanguage='" + ThirdLang + "',@vchFatherOccupation='" + FatherOccu + "',@vchMotherOccupation='" + MotherOccu + "',@vchFatherDesignation='" + FatherDesign + "',@vchMotherDesignation='" + MotherDesign + "',@intFatherIncome='" + FatherIncome + "',@intMotherIncome='" + MotherIncome + "',@vchNationality='" + Nationality + "',@vchLandMark='" + LandMark + "',@vchPincode='" + Pincode + "'," +
-                                      "@intCountry_id='" + CountryID + "',@intState_id='" + StateID + "',@intCity_id='" + CityID + "'," +
-                                      "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intUpdate_id='" + Updateby + "',@vchUpdated_IP='" + vchUpdated_IP + "',@intschool_id='" + Session["school_id"] + "',@intstudent_id='" + Session["intStudent_id"] + "',@vchaadhar_no='" + Studentaadhar + "',@vchEmergencyConPerson1='" + Fatheraadhar + "',@intEmergencyContat1='" + Motheraadhar + "',@vchUser_name='" + usrrname.Trim() + "',@vchPassword='" + Session["txtpassword"] + "',@Receipt_no='" + ReceiptNo + "'";
-
-                int str = sExecuteQuery(instrquery1);
-
-                if (str != -1)
-                {
-                    fGrid();
-                    btnSubmit.Text = "Submit";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Student Profile Updated!');window.location ='frmAdmStudentProfile.aspx';", true);
-                    //string display = "Student Profile Updated!";
-                    //MessageBox(display);
-                    // Button1.Enabled = false;
-                   // Clear();
-                   
+                    if (StudentIDNumberExits(Convert.ToInt32(ViewState["StudentID"])))
+                        MessageBox("Student Id Number already exits");
+                    else
+                        updatestudent();
                 }
                 else
                 {
-                    MessageBox("ooopppsss!Student Profile updation Failed");
+                    string GRNo = Convert.ToString(txtGRNo.Text);
+                    string StandId = DropDownList2.SelectedItem.Value;
+                    string DiviId = DropDownList3.SelectedItem.Value;
+                    string rollno = Convert.ToString(TextBox1.Text);
+                    string Fname = Convert.ToString(txt1.Text);
+                    string Mname = Convert.ToString(txt2.Text);
+                    string lname = Convert.ToString(txt3.Text);
+                    string Fathername = Convert.ToString(txt4.Text);
+                    string Mothername = Convert.ToString(txt5.Text);
+                    string Emailid = Convert.ToString(txt6.Text);
+                    string Dobnm = null;
+                    if (!String.IsNullOrEmpty(txt7.Text))
 
+                        Dobnm = Convert.ToDateTime(txt7.Text).ToString("MM/dd/yyyy");
+
+                    string cast = Convert.ToString(txt9.SelectedValue);
+                    string subcast = Convert.ToString(txt10.Text);
+                    string gender = Convert.ToString(txt11.SelectedItem.Value);
+                    string filnmn = null;
+                    if (ViewState["Filename1"] != null)
+                    {
+                        filnmn = ViewState["Filename1"].ToString();
+                    }
+
+                    //if (txt14.Text != "")
+                    //{
+                    string mothno = Convert.ToString(txt14.Text);
+                    //}
+                    //if (txt13.Text != "")
+                    //{
+                    string fathno = Convert.ToString(txt13.Text);
+                    //}
+
+
+
+                    string Preadd = Convert.ToString(txt34.Text);
+                    string paradd = Convert.ToString(txt35.Text);
+
+                    string Bloodgp = Convert.ToString(txt44.Text);
+                    string healthdis = Convert.ToString(DropDownList1.SelectedItem.Value);
+                    string Descip = Convert.ToString(txt45.Text);
+                    string Updateby = Convert.ToString(Session["User_id"]);
+
+                    string vchUpdated_IP = GetSystemIP();
+                    string insertdt = DateTime.Now.ToString("MM/dd/yyyy");
+
+                    string Studentaadhar = Convert.ToString(txtstdaadhar.Text);
+                    string Fatheraadhar = Convert.ToString(txtfatheraadhar.Text);
+                    string Motheraadhar = Convert.ToString(txtmotheraadhar.Text);
+                    string StuID_Number = Convert.ToString(txtStudentID.Text);
+                    string BirthPlace = Convert.ToString(txtPlaceOfBirth.Text);
+                    string BusAlert = Convert.ToString(txtSMSMobile.Text);
+                    //string dtAdm = Convert.ToString(txtAdmissionDate.Text);
+                    string dtAdm = null;
+                    if (!String.IsNullOrEmpty(txtAdmissionDate.Text))
+
+                        dtAdm = Convert.ToDateTime(txtAdmissionDate.Text).ToString("MM/dd/yyyy");
+                    string Mothertongue = Convert.ToString(txtMothertounge.Text);
+                    string Religion = Convert.ToString(txtReligion.Text);
+                    string FirstLang = Convert.ToString(txtFirstLanguage.Text);
+                    string SecondLang = Convert.ToString(txtSecondLanguage.Text);
+                    string ThirdLang = Convert.ToString(txtThirdLanguage.Text);
+                    string FatherOccu = Convert.ToString(txtFatherOccupation.Text);
+                    string MotherOccu = Convert.ToString(txtMotherOccupation.Text);
+                    string FatherDesign = Convert.ToString(txtFatherDesignation.Text);
+                    string MotherDesign = Convert.ToString(txtMotherDesignation.Text);
+                    string FatherIncome = Convert.ToString(txtFatherIncome.Text);
+                    string MotherIncome = Convert.ToString(txtMotherIncome.Text);
+                    string Nationality = Convert.ToString(txtNationality.Text);
+                    string LandMark = Convert.ToString(txtLandmark.Text);
+                    string usrrname = Convert.ToString(txtUserName.Text);
+                    string passsword = Convert.ToString(txtPassword.Text);
+                    string Pincode = Convert.ToString(txtPincode.Text);
+                    //getCountry();
+                    string CountryID = DdlCountryName.SelectedItem.Value;
+                    //getState();
+                    string StateID = DdlStateName.SelectedItem.Value;
+                    //getCity();
+                    string CityID = DdlCityName.SelectedItem.Value;
+                    string ReceiptNo = Convert.ToString(txtreceiptno.Text);
+                    string GuardianNm = Convert.ToString(txtGuardianName.Text);
+                    string GuardianNumber = Convert.ToString(txtGuardianNumber.Text);
+
+                    string dtstartdate = "";
+                    if (!String.IsNullOrEmpty(txtstartdate.Text))
+                        dtstartdate = Convert.ToDateTime(txtstartdate.Text).ToString("MM/dd/yyyy");
+
+                    string dtenddate = "";
+                    if (!String.IsNullOrEmpty(txtenddate.Text))
+                        dtenddate = Convert.ToDateTime(txtenddate.Text).ToString("MM/dd/yyyy");
+
+
+                    string instrquery1 = "Execute dbo.usp_Profile @command='UpdateStudentProfile',@intGRNo='" + GRNo + "',@intstanderd_id='" + StandId + "',@intDivision_id='" + DiviId + "',@intRollNo='" + rollno + "',@vchStudentFirst_name='" + Fname + "',@vchStudentMiddle_name='" + Mname + "'," +
+                                          "@vchStudentLast_name='" + lname + "',@vchFatherName='" + Fathername + "',@vchMotherName='" + Mothername + "',@vchGender='" + gender + "',@intHomePhoneNo1='" + fathno + "',@intHomePhoneNo2='" + mothno + "',@dtDOB='" + Dobnm + "',@dtActivationDate='" + insertdt + "',@vchActivestatus=1,@intActivationBy='" + Session["User_id"] + "'," +
+                                          "@intStudentID_Number='" + StuID_Number + "',@vchplaceofBirth='" + BirthPlace + "',@intBusAlert1='" + BusAlert + "',@dtAdmission='" + dtAdm + "',@vchMothertongue='" + Mothertongue + "',@vchReligion='" + Religion + "',@vchFirstLanguage='" + FirstLang + "',@vchSecondLanguage='" + SecondLang + "'," +
+                                          "@vchThirdLanguage='" + ThirdLang + "',@vchFatherOccupation='" + FatherOccu + "',@vchMotherOccupation='" + MotherOccu + "',@vchFatherDesignation='" + FatherDesign + "',@vchMotherDesignation='" + MotherDesign + "',@intFatherIncome='" + FatherIncome + "',@intMotherIncome='" + MotherIncome + "',@vchNationality='" + Nationality + "',@vchLandMark='" + LandMark + "',@vchPincode='" + Pincode + "'," +
+                                          "@intCountry_id='" + CountryID + "',@intState_id='" + StateID + "',@intCity_id='" + CityID + "'," +
+                                          "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + serverpath + "',@vchProfile='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intUpdate_id='" + Updateby + "',@vchUpdated_IP='" + vchUpdated_IP + "',@intschool_id='" + Session["school_id"] + "',@intstudent_id='" + Session["intStudent_id"] + "',@vchaadhar_no='" + Studentaadhar + "',@vchEmergencyConPerson1='" + Fatheraadhar + "',@intEmergencyContat1='" + Motheraadhar + "',@vchUser_name='" + usrrname.Trim() + "',@vchPassword='" + Session["txtpassword"] + "',@Receipt_no='" + ReceiptNo + "',@vchGuardianName='" + txtGuardianName.Text + "',@intGuardianNumber='" + GuardianNumber + "',@dtstart_date='" + dtstartdate + "',@dtend_date='" + dtenddate + "'";
+
+                    int str = sExecuteQuery(instrquery1);
+
+                    if (str != -1)
+                    {
+                        fGrid();
+                        btnSubmit.Text = "Submit";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Student Profile Updated!');window.location ='frmAdmStudentProfile.aspx';", true);
+                        //string display = "Student Profile Updated!";
+                        //MessageBox(display);
+                        // Button1.Enabled = false;
+                        // Clear();
+
+                    }
+                    else
+                    {
+                        MessageBox("ooopppsss!Student Profile updation Failed");
+
+                    }
                 }
             }
             catch
@@ -482,6 +537,132 @@ public partial class frmAdmStudentProfile : DBUtility
 
 
             }
+        }
+    }
+    private void updatestudent()
+    {
+        try
+        {
+             string GRNo = Convert.ToString(txtGRNo.Text);
+                    string StandId = DropDownList2.SelectedItem.Value;
+                    string DiviId = DropDownList3.SelectedItem.Value;
+                    string rollno = Convert.ToString(TextBox1.Text);
+                    string Fname = Convert.ToString(txt1.Text);
+                    string Mname = Convert.ToString(txt2.Text);
+                    string lname = Convert.ToString(txt3.Text);
+                    string Fathername = Convert.ToString(txt4.Text);
+                    string Mothername = Convert.ToString(txt5.Text);
+                    string Emailid = Convert.ToString(txt6.Text);
+                    string Dobnm = null;
+                    if (!String.IsNullOrEmpty(txt7.Text))
+
+                        Dobnm = Convert.ToDateTime(txt7.Text).ToString("MM/dd/yyyy");
+
+                    string cast = Convert.ToString(txt9.SelectedValue);
+                    string subcast = Convert.ToString(txt10.Text);
+                    string gender = Convert.ToString(txt11.SelectedItem.Value);
+                    string filnmn = null;
+                    if (ViewState["Filename1"] != null)
+                    {
+                        filnmn = ViewState["Filename1"].ToString();
+                    }
+
+                    //if (txt14.Text != "")
+                    //{
+                    string mothno = Convert.ToString(txt14.Text);
+                    //}
+                    //if (txt13.Text != "")
+                    //{
+                    string fathno = Convert.ToString(txt13.Text);
+                    //}
+
+
+
+                    string Preadd = Convert.ToString(txt34.Text);
+                    string paradd = Convert.ToString(txt35.Text);
+
+                    string Bloodgp = Convert.ToString(txt44.Text);
+                    string healthdis = Convert.ToString(DropDownList1.SelectedItem.Value);
+                    string Descip = Convert.ToString(txt45.Text);
+                    string Updateby = Convert.ToString(Session["User_id"]);
+
+                    string vchUpdated_IP = GetSystemIP();
+                    string insertdt = DateTime.Now.ToString("MM/dd/yyyy");
+
+                    string Studentaadhar = Convert.ToString(txtstdaadhar.Text);
+                    string Fatheraadhar = Convert.ToString(txtfatheraadhar.Text);
+                    string Motheraadhar = Convert.ToString(txtmotheraadhar.Text);
+                    string StuID_Number = Convert.ToString(txtStudentID.Text);
+                    string BirthPlace = Convert.ToString(txtPlaceOfBirth.Text);
+                    string BusAlert = Convert.ToString(txtSMSMobile.Text);
+                    //string dtAdm = Convert.ToString(txtAdmissionDate.Text);
+                    string dtAdm = null;
+                    if (!String.IsNullOrEmpty(txtAdmissionDate.Text))
+
+                        dtAdm = Convert.ToDateTime(txtAdmissionDate.Text).ToString("MM/dd/yyyy");
+                    string Mothertongue = Convert.ToString(txtMothertounge.Text);
+                    string Religion = Convert.ToString(txtReligion.Text);
+                    string FirstLang = Convert.ToString(txtFirstLanguage.Text);
+                    string SecondLang = Convert.ToString(txtSecondLanguage.Text);
+                    string ThirdLang = Convert.ToString(txtThirdLanguage.Text);
+                    string FatherOccu = Convert.ToString(txtFatherOccupation.Text);
+                    string MotherOccu = Convert.ToString(txtMotherOccupation.Text);
+                    string FatherDesign = Convert.ToString(txtFatherDesignation.Text);
+                    string MotherDesign = Convert.ToString(txtMotherDesignation.Text);
+                    string FatherIncome = Convert.ToString(txtFatherIncome.Text);
+                    string MotherIncome = Convert.ToString(txtMotherIncome.Text);
+                    string Nationality = Convert.ToString(txtNationality.Text);
+                    string LandMark = Convert.ToString(txtLandmark.Text);
+                    string usrrname = Convert.ToString(txtUserName.Text);
+                    string passsword = Convert.ToString(txtPassword.Text);
+                    string Pincode = Convert.ToString(txtPincode.Text);
+                    getCountry();
+                    string CountryID = DdlCountryName.SelectedItem.Value;
+                    getState();
+                    string StateID = DdlStateName.SelectedItem.Value;
+                    getCity();
+                    string CityID = DdlCityName.SelectedItem.Value;
+                    string ReceiptNo = Convert.ToString(txtreceiptno.Text);
+                    string GuardianNm = Convert.ToString(txtGuardianName.Text);
+                    string GuardianNumber = Convert.ToString(txtGuardianNumber.Text);
+
+                    string dtstartdate = "";
+                    if (!String.IsNullOrEmpty(txtstartdate.Text))
+                        dtstartdate = Convert.ToDateTime(txtstartdate.Text).ToString("MM/dd/yyyy");
+
+                    string dtenddate = "";
+                    if (!String.IsNullOrEmpty(txtenddate.Text))
+                        dtenddate = Convert.ToDateTime(txtenddate.Text).ToString("MM/dd/yyyy");
+
+
+                    string instrquery1 = "Execute dbo.usp_Profile @command='UpdateStudentProfile',@intGRNo='" + GRNo + "',@intstanderd_id='" + StandId + "',@intDivision_id='" + DiviId + "',@intRollNo='" + rollno + "',@vchStudentFirst_name='" + Fname + "',@vchStudentMiddle_name='" + Mname + "'," +
+                                          "@vchStudentLast_name='" + lname + "',@vchFatherName='" + Fathername + "',@vchMotherName='" + Mothername + "',@vchGender='" + gender + "',@intHomePhoneNo1='" + fathno + "',@intHomePhoneNo2='" + mothno + "',@dtDOB='" + Dobnm + "',@dtActivationDate='" + insertdt + "',@vchActivestatus=1,@intActivationBy='" + Session["User_id"] + "'," +
+                                          "@intStudentID_Number='" + StuID_Number + "',@vchplaceofBirth='" + BirthPlace + "',@intBusAlert1='" + BusAlert + "',@dtAdmission='" + dtAdm + "',@vchMothertongue='" + Mothertongue + "',@vchReligion='" + Religion + "',@vchFirstLanguage='" + FirstLang + "',@vchSecondLanguage='" + SecondLang + "'," +
+                                          "@vchThirdLanguage='" + ThirdLang + "',@vchFatherOccupation='" + FatherOccu + "',@vchMotherOccupation='" + MotherOccu + "',@vchFatherDesignation='" + FatherDesign + "',@vchMotherDesignation='" + MotherDesign + "',@intFatherIncome='" + FatherIncome + "',@intMotherIncome='" + MotherIncome + "',@vchNationality='" + Nationality + "',@vchLandMark='" + LandMark + "',@vchPincode='" + Pincode + "'," +
+                                          "@intCountry_id='" + CountryID + "',@intState_id='" + StateID + "',@intCity_id='" + CityID + "'," +
+                                          "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + serverpath + "',@vchProfile='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intUpdate_id='" + Updateby + "',@vchUpdated_IP='" + vchUpdated_IP + "',@intschool_id='" + Session["school_id"] + "',@intstudent_id='" + Session["intStudent_id"] + "',@vchaadhar_no='" + Studentaadhar + "',@vchEmergencyConPerson1='" + Fatheraadhar + "',@intEmergencyContat1='" + Motheraadhar + "',@vchUser_name='" + usrrname.Trim() + "',@vchPassword='" + Session["txtpassword"] + "',@Receipt_no='" + ReceiptNo + "',@vchGuardianName='" + txtGuardianName.Text + "',@intGuardianNumber='" + GuardianNumber + "',@dtstart_date='" + dtstartdate + "',@dtend_date='" + dtenddate + "'";
+
+                    int str = sExecuteQuery(instrquery1);
+
+                    if (str != -1)
+                    {
+                        fGrid();
+                        btnSubmit.Text = "Submit";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Student Profile Updated!');window.location ='frmAdmStudentProfile.aspx';", true);
+                        //string display = "Student Profile Updated!";
+                        //MessageBox(display);
+                        // Button1.Enabled = false;
+                        // Clear();
+
+                    }
+                    else
+                    {
+                        MessageBox("ooopppsss!Student Profile updation Failed");
+
+                    }
+        }
+        catch (Exception ex)
+        {
         }
     }
     public void Clear()
@@ -517,7 +698,7 @@ public partial class frmAdmStudentProfile : DBUtility
             int cast = Convert.ToInt32(txt9.SelectedItem.Value);
 
             string query2 = "Execute dbo.usp_Profile @command='getCast'";
-            bool st2 = sBindDropDownList(DropDownList3, query2, "vchCategory", "vchCast");
+            bool st2 = sBindDropDownList(txt9, query2, "vchCategory", "vchCast");
         }
         catch
         {
@@ -617,7 +798,7 @@ public partial class frmAdmStudentProfile : DBUtility
 
             string instrquery1 = "Execute dbo.usp_Profile @command='UpdateStudentProfile',@intGRNo='" + GRNo + "',@intstanderd_id='" + StandId + "',@intDivision_id='" + DiviId + "',@intRollNo='" + rollno + "',@vchStudentFirst_name='" + Fname + "',@vchStudentMiddle_name='" + Mname + "'," +
                                   "@vchStudentLast_name='" + lname + "',@vchFatherName='" + Fathername + "',@vchMotherName='" + Mothername + "',@vchGender='" + gender + "',@intHomePhoneNo1='" + fathno + "',@intHomePhoneNo2='" + mothno + "',@dtDOB='" + Dobnm + "',@dtActivationDate='" + insertdt + "',@vchUser_name='" + Fname + "',@vchPassword='" + Fname + "',@vchActivestatus=1,@intActivationBy='" + Session["User_id"] + "'," +
-                                   "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intUpdate_id='" + Updateby + "',@vchUpdated_IP='" + vchUpdated_IP + "',@intschool_id='" + Session["school_id"] + "',@intstudent_id='" + idv1.Text + "'";
+                                   "@vchCast='" + cast + "',@vchsubcast='" + subcast + "',@vchEmail='" + Emailid + "',@vchpresentAddress='" + Preadd + "',@vchpermanentAddress='" + paradd + "',@vchImageURL='" + serverpath + "',@vchProfile='" + filnmn + "',@chrBloodGrp='" + Bloodgp + "',@vchHandicapedStatus='" + healthdis + "',@vchDescription='" + Descip + "',@intUpdate_id='" + Updateby + "',@vchUpdated_IP='" + vchUpdated_IP + "',@intschool_id='" + Session["school_id"] + "',@intstudent_id='" + idv1.Text + "'";
 
             int str = sExecuteQuery(instrquery1);
 
@@ -645,7 +826,8 @@ public partial class frmAdmStudentProfile : DBUtility
         {
 
             //String savePath = "C:/inetpub/wwwroot/Rajasthan/TraffordSchool/TraffordSchool/image/";
-            String savePath = "E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/image/";
+           // String savePath = "E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image/";
+            String savePath = "D:/Application Live/Mumbai/Android Demo/SKSchoolApi/SKSchoolApi/image/";
 
             if (FileUpload1.HasFile)
             {
@@ -658,12 +840,12 @@ public partial class frmAdmStudentProfile : DBUtility
                 {
 
                     //FileUpload1.SaveAs("C:/inetpub/wwwroot/Rajasthan/TraffordSchool/TraffordSchool/image/" + FileUpload1.FileName);
-                    FileUpload1.SaveAs("E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
+                    FileUpload1.SaveAs("D:/Application Live/Mumbai/Android Demo/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
                     string file = FileUpload1.PostedFile.FileName;
 
                     //imgViewFile.ImageUrl = "http://eserveshiksha.co.in/TraffordSchoolApi/image/" + file;
                     //http://122.170.4.112:81/api/
-                    imgViewFile.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
+                    imgViewFile.ImageUrl = "http://VClassrooms.com/vclassroomsSchoolDemoAPI/image/" + file;
                     Button1.Text = "Change Image";
 
                     //Button8.Visible = true;
@@ -695,13 +877,15 @@ public partial class frmAdmStudentProfile : DBUtility
         try
         {
             Session["intStudent_id"] = Convert.ToString(grvDetail.DataKeys[e.NewEditIndex].Value);
+            ViewState["StudentID"] = Convert.ToString(grvDetail.DataKeys[e.NewEditIndex].Value);
+            ViewState["StudentIDConcession"] = Convert.ToString(grvDetail.DataKeys[e.NewEditIndex].Value);
            string strQry = "";
            strQry = "exec usp_Profile @command='editStudent',@intStudent_id='" + Convert.ToString(Session["intStudent_id"]) + "',@intschool_id='" + Session["school_id"] + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
             dsObj = sGetDataset(strQry);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
                 string file = Convert.ToString(dsObj.Tables[0].Rows[0]["vchprofile"]);
-                imgViewFile.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
+                imgViewFile.ImageUrl = "http://VClassrooms.com/vclassroomsSchoolDemoAPI/image/" + file;
                 txtGRNo.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intGRNo"]);
                 DropDownList2.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intstanderd_id"]);
                 getDivision();
@@ -714,8 +898,8 @@ public partial class frmAdmStudentProfile : DBUtility
                 txt5.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchMotherName"]);
                 txt6.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchEmail"]);
                 txt7.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtDOB"]);
-                //getCast();
-               // txt9.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["vchCast"]);
+                getCast();
+                txt9.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["vchCast"]);
                 txt10.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchsubcast"]);
                 txt11.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchGender"]);
                 txt13.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intHomePhoneNo1"]);
@@ -771,8 +955,24 @@ public partial class frmAdmStudentProfile : DBUtility
                 DdlStateName.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intState_id"]);
                 getCity();
                 DdlCityName.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intCity_id"]);
+
+                txtstartdate.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtstart_date"]);
+                txtenddate.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtend_date"]);
+
+
+                String savePath = Convert.ToString(dsObj.Tables[0].Rows[0]["vchImageURL"]);
+
+                imgViewFile.ImageUrl = savePath + Convert.ToString(dsObj.Tables[0].Rows[0]["vchProfile"]);
+
+                //fillConcessionGrid();
+                //fillTransportGrid();
+                //GridView1.Visible = true;
+                //GridView2.Visible = true;
+
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch
@@ -960,4 +1160,397 @@ public partial class frmAdmStudentProfile : DBUtility
         }
     }
 
+    //protected void ddlexamstdsub_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    if (ddlexamstdsub.SelectedValue == "1")
+    //    {
+    //        Transport.Visible = false;
+    //        Concession.Visible = true;
+    //        fillConcessionGrid();
+    //    }
+    //    else if (ddlexamstdsub.SelectedValue == "2")
+    //    {
+    //        Concession.Visible = false;
+    //        Transport.Visible = true;
+    //        fillTransportGrid();
+    //    }
+    //}
+
+    //protected void btnSaveConcession_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string concessionId = drpconcession.SelectedValue;
+    //        string dtStartDate = Convert.ToDateTime(TextBox3.Text).ToString("MM/dd/yyyy");
+    //        string dtEndDate = Convert.ToDateTime(TextBox4.Text).ToString("MM/dd/yyyy");
+    //        string studentID = Convert.ToString(ViewState["StudentIDConcession"]);
+    //        if (studentID != "")
+    //        {
+    //            if (btnSaveConcession.Text == "Save")
+    //            {
+    //                string query = "usp_ConcessionTransportDetails @command='CheckConcessionExits',@intStudent_id='" + studentID + "',@Date='" + dtStartDate + "'";
+    //                dsObj = sGetDataset(query);
+    //                if (dsObj.Tables[0].Rows.Count > 0)
+    //                {
+    //                    MessageBox("Record already exits between this date....");
+    //                }
+    //                else
+    //                {
+    //                    string strQry = "usp_ConcessionTransportDetails @command='insertConcession',@intStudent_id='" + studentID + "',@intconcession_id='" + concessionId + "',@dtfrom_date='" + dtStartDate + "',@dtto_date='" + dtEndDate + "'" +
+    //                        ",@intInsertedBy='" + Session["User_id"] + "',@insertIP='" + GetSystemIP() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "',@intSchool_id='" + Session["School_id"] + "'";
+
+
+    //                    int str = sExecuteQuery(strQry);
+
+    //                    if (str > 0)
+    //                    {
+    //                        fillConcessionGrid();
+    //                        MessageBox("Concession Added Successfully...");
+    //                    }
+
+    //                }
+    //            }
+    //            else
+    //            {
+    //                //string query = "usp_ConcessionTransportDetails @command='CheckConcessionExitsorNot',@intStudent_id='" + studentID + "',@dtfrom_date='" + dtStartDate + "',@dtto_date='" + dtEndDate + "'";
+    //                //dsObj = sGetDataset(query);
+    //                //if (dsObj.Tables[0].Rows.Count > 0)
+    //                //{
+    //                //    MessageBox("Record already exits between this date....");
+    //                //}
+    //                {
+    //                    string strQry = "usp_ConcessionTransportDetails @command='UpdateTransport',@int_ID='" + ViewState["int_ID"] + "',@intFeetype_id='0',@intFee_id='0',@dtfrom_date='" + dtStartDate + "',@dtto_date='" + dtEndDate + "'" +
+    //                            ",@intUpdatedBy='" + Session["User_id"] + "',@UpdatedIP='" + GetSystemIP() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "',@intSchool_id='" + Session["School_id"] + "'";
+
+
+    //                    int str = sExecuteQuery(strQry);
+
+    //                    if (str > 0)
+    //                    {
+    //                        MessageBox("Concession Updated Successfully...");
+    //                        btntransport.Text = "Save";
+    //                        fillConcessionGrid();
+    //                    }
+
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            MessageBox("Please Select Student....");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
+    //}
+
+    //protected void btntransport_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string transportid = drptransport.SelectedValue;
+    //        string dtStartDate = Convert.ToDateTime(TextBox5.Text).ToString("MM/dd/yyyy");
+    //        string dtEndDate = Convert.ToDateTime(TextBox6.Text).ToString("MM/dd/yyyy");
+    //        string studentID = Convert.ToString(ViewState["StudentIDConcession"]);
+    //        if (studentID != "")
+    //        {
+    //            if (btntransport.Text == "Save")
+    //            {
+    //                string query = "usp_ConcessionTransportDetails @command='CheckTransportExits',@intStudent_id='" + studentID + "',@Date='" + dtStartDate + "',@intRoute_id='" + transportid + "'";
+    //                dsObj = sGetDataset(query);
+    //                if (dsObj.Tables[0].Rows.Count > 0)
+    //                {
+    //                    MessageBox("Record already exits between this date....");
+    //                }
+    //                else
+    //                {
+    //                    string strQry = "usp_ConcessionTransportDetails @command='InsertTransport',@intStudent_id='" + studentID + "',@intFeetype_id='0',@intFee_id='0',@intRoute_id='" + transportid + "',@dtfrom_date='" + dtStartDate + "',@dtto_date='" + dtEndDate + "'" +
+    //                        ",@intInsertedBy='" + Session["User_id"] + "',@insertIP='" + GetSystemIP() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "',@intSchool_id='" + Session["School_id"] + "'";
+
+
+    //                    int str = sExecuteQuery(strQry);
+
+    //                    if (str > 0)
+    //                    {
+    //                        fillTransportGrid();
+    //                        MessageBox("Transport Area Added Successfully...");
+    //                    }
+
+    //                }
+    //            }
+    //            else
+    //            {
+    //                //string query = "usp_ConcessionTransportDetails @command='CheckTransportRecordExitsOrNot',@intStudent_id='" + studentID + "',@dtfrom_date='" + dtStartDate + "',@dtto_date='" + dtEndDate + "'";
+    //                //dsObj = sGetDataset(query);
+    //                //if (dsObj.Tables[0].Rows.Count > 0)
+    //                //{
+    //                //    MessageBox("Record already exits between this date....");
+    //                //}
+    //                {
+    //                    string strQry = "usp_ConcessionTransportDetails @command='UpdateTransport',@int_ID='" + ViewState["int_ID"] + "',@intFeetype_id='0',@intFee_id='0',@intRoute_id='" + transportid + "',@dtfrom_date='" + dtStartDate + "',@dtto_date='" + dtEndDate + "'" +
+    //                            ",@intUpdatedBy='" + Session["User_id"] + "',@UpdatedIP='" + GetSystemIP() + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "',@intSchool_id='" + Session["School_id"] + "'";
+
+
+    //                    int str = sExecuteQuery(strQry);
+
+    //                    if (str > 0)
+    //                    {
+    //                        MessageBox("Transport Area Updated Successfully...");
+    //                        btntransport.Text = "Save";
+    //                        fillTransportGrid();
+    //                    }
+
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            MessageBox("Please Select Student....");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
+    //}
+
+
+    //protected void fillConcessionGrid()
+    //{
+    //    string strQry = "usp_ConcessionTransportDetails @command='selectconcessiondetails',@intStudent_id='" + Convert.ToString(ViewState["StudentIDConcession"]) + "',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+    //    dsObj = sGetDataset(strQry);
+    //    if (dsObj.Tables[0].Rows.Count > 0)
+    //    {
+    //        GridView1.DataSource = dsObj;
+    //        GridView1.DataBind();
+    //    }
+    //}
+
+    //protected void fillTransportGrid()
+    //{
+    //    string strQry = "usp_ConcessionTransportDetails @command='selectTransportdetails',@intStudent_id='" + Convert.ToString(ViewState["StudentIDConcession"]) + "',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
+    //    dsObj = sGetDataset(strQry);
+    //    if (dsObj.Tables[0].Rows.Count > 0)
+    //    {
+    //        GridView2.DataSource = dsObj;
+    //        GridView2.DataBind();
+    //    }
+    //}
+
+
+    ////protected void btnConcessionAdd_Click(object sender, EventArgs e)
+    ////{
+    ////    try
+    ////    {
+    ////        ID +=1;
+    ////        CreatedDataTable();
+
+    ////        int DrpConcession=Convert.ToInt32(drpconcession.SelectedValue);
+    ////        string concessionName = Convert.ToString(drpconcession.SelectedItem);
+    ////        //DateTime FromDt=Convert.ToDateTime(txtconcessionstartdt.Text);
+    ////        //DateTime toDate= Convert.ToDateTime(txtConcessionToDate.Text);
+
+    ////        bool Record = AddRecord(ID, DrpConcession, concessionName, FromDt, toDate);
+    ////        if (Record == true)
+    ////        {
+    ////            _bindData();
+    ////        }
+    ////    }
+    ////    catch (Exception ex)
+    ////    {
+    ////    }
+           
+    ////}
+
+    ////protected bool CreatedDataTable()
+    ////{
+    ////    bool result = false;
+    ////    try
+    ////    {
+    ////        bool CheckResult=false;
+    ////        CheckResult = ContainColumn("ConcessionType", dtConcession);
+    ////        if (CheckResult == false)
+    ////        {
+    ////            dtConcession.Columns.AddRange(new DataColumn[5] { new DataColumn("Id"), new DataColumn("ConcessionType"),
+    ////       new DataColumn("ConcessionName"), new DataColumn("dtStartDate"),new DataColumn("dtToDate") });
+    ////            result = true;
+    ////        }
+    ////        return result;
+    ////    }
+    ////    catch (Exception)
+    ////    {
+    ////        return result;
+    ////    }
+    ////}
+
+    ////private bool ContainColumn(string columnName, DataTable table)
+    ////{
+    ////    bool ColumnExit = false;
+    ////    DataColumnCollection columns = table.Columns;        
+    ////    if (columns.Contains(columnName))
+    ////    {
+    ////        ColumnExit = true;
+    ////    }
+
+    ////    return ColumnExit;
+    ////}
+
+    ////protected bool AddRecord(int id, int ConcessionType, string ConcessionName, DateTime dtStartDate, DateTime dtToDate)
+    ////{
+    ////    bool isRecordAdded = false;
+    ////    try
+    ////    {
+    ////        dtConcession.Rows.Add(id, ConcessionType,ConcessionName, dtStartDate, dtToDate);
+    ////        isRecordAdded = true;
+    ////        ViewState["dtConcession"] = dtConcession;
+    ////         return isRecordAdded;
+    ////    }
+    ////    catch (Exception ex)
+    ////    {
+    ////        return isRecordAdded;
+    ////    }
+    ////}
+    ////protected void _bindData()
+    ////{
+    ////    try
+    ////    {
+    ////        GridView1.DataSource = ViewState["dtConcession"] as DataTable;
+    ////        GridView1.DataBind();
+    ////    }
+    ////    catch (Exception ex)
+    ////    {
+    ////    }
+    ////}
+
+
+    //protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    //{
+    //    try
+    //    {
+    //        ViewState["int_ID"] = Convert.ToString(GridView2.DataKeys[e.RowIndex].Value);
+    //        string strQry1 = "";
+    //        strQry1 = "exec usp_ConcessionTransportDetails @command='DeleteTransport',@intStudent_id='" + Convert.ToString(Session["intStudent_id"]) + "',@int_ID='" + Convert.ToString(ViewState["int_ID"]) + "',@intDeletedBy='" + Session["User_id"] + "',@deletedIP='" + GetSystemIP() + "'";
+    //        if (sExecuteQuery(strQry1) != -1)
+    //        {
+    //            MessageBox("Record Deleted Successfully!");
+    //            fillTransportGrid();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
+    //}
+    //protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
+    //{
+    //    try
+    //    {
+    //        ViewState["int_ID"] = Convert.ToString(GridView2.DataKeys[e.NewEditIndex].Value);
+    //        string strQry = "";
+    //        strQry = "exec usp_ConcessionTransportDetails @command='EditTransport',@intStudent_id='" + Convert.ToString(Session["intStudent_id"]) + "',@int_ID='" + Convert.ToString(ViewState["int_ID"]) + "'";
+    //        dsObj = sGetDataset(strQry);
+    //        if (dsObj.Tables[0].Rows.Count > 0)
+    //        {
+    //            drptransport.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intArea_Id"]);
+    //            drptransport.Enabled = false;
+    //            TextBox5.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtfrom_date"]);
+    //            TextBox6.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtto_date"]);
+    //            btntransport.Text = "Update";
+    //            fillTransportGrid();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
+    //}
+
+    //protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    //{
+    //    try
+    //    {
+    //        ViewState["int_ID"] = Convert.ToString(GridView1.DataKeys[e.RowIndex].Value);
+    //        string strQry1 = "";
+    //        strQry1 = "exec usp_ConcessionTransportDetails @command='DeleteTransport',@intStudent_id='" + Convert.ToString(Session["intStudent_id"]) + "',@int_ID='" + Convert.ToString(ViewState["int_ID"]) + "',@intDeletedBy='" + Session["User_id"] + "',@deletedIP='" + GetSystemIP() + "'";
+    //        if (sExecuteQuery(strQry1) != -1)
+    //        {
+    //            MessageBox("Record Deleted Successfully!");
+    //            fillConcessionGrid();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
+    //}
+    //protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    //{
+    //    try
+    //    {
+
+    //        ViewState["int_ID"] = Convert.ToString(GridView1.DataKeys[e.NewEditIndex].Value);
+    //        string strQry = "";
+    //        strQry = "exec usp_ConcessionTransportDetails @command='EditConcession',@intStudent_id='" + Convert.ToString(Session["intStudent_id"]) + "',@int_ID='" + Convert.ToString(ViewState["int_ID"]) + "'";
+    //        dsObj = sGetDataset(strQry);
+    //        if (dsObj.Tables[0].Rows.Count > 0)
+    //        {
+    //            drpconcession.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intConcession_id"]);
+    //            drpconcession.Enabled = false;
+    //            TextBox3.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtfrom_date"]);
+    //            TextBox4.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["dtto_date"]);
+    //            btnSaveConcession.Text = "Update";
+    //            fillConcessionGrid();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //    }
+    //}
+
+    protected bool StudentIDNumberExits(int intStudentID=0)
+    {
+        bool Result = true;
+        try
+        {
+            string StudentIDNumber = txtStudentID.Text;
+            string strQry = "Execute dbo.usp_Profile @command='CheckStudentIDNumber',@intSchool_id='" + Session["School_id"] + "',@intStudentID_Number='" + StudentIDNumber.Trim() + "'";
+            DataSet ds = new DataSet();
+            ds= sGetDataset(strQry);
+            //int NoOfRecords = 0;
+            //NoOfRecords = sExecuteQuery(strQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        catch (Exception ex)
+        {
+            return true;
+        }
+    }
+
+    private string GetStudentIDNumber(int StudentId)
+    {
+        string StudentIDNumber = txtStudentID.Text;
+        string strQry = "Execute dbo.usp_Profile @command='GetStudentIDNumber',@intSchool_id='" + Session["School_id"] + "',@intStudentID_Number='" + StudentIDNumber.Trim() + "',@intStudent_id='" + StudentId + "'";
+        string studentIdnumber = sExecuteScalar(strQry);
+        return studentIdnumber;
+    }
+
+    protected void txtStudentID_TextChanged(object sender, EventArgs e)
+    {
+        if (Convert.ToString(ViewState["StudentID"]) != "")
+        {
+            if (StudentIDNumberExits(Convert.ToInt32(ViewState["StudentID"])))
+                MessageBox("Student Id Number already exits");
+        }
+        else
+        {
+            if (StudentIDNumberExits(Convert.ToInt32(ViewState["StudentID"])))
+            MessageBox("Student Id Number already exits");
+        }
+    }
 }

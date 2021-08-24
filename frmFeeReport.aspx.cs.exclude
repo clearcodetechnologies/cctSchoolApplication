@@ -1,0 +1,416 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.ReportSource;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using CrystalDecisions.Shared;
+using System.IO;
+using System.Globalization;
+
+public partial class frmFeeReport : DBUtility
+{
+    DataSet dtst = new DataSet();
+    DataSet dsObj = new DataSet();
+    string strQry = "";
+    ReportDocument crystalReport = new ReportDocument();
+    ConnectionInfo connectionInfo = new ConnectionInfo();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            int _intStudent_id=0;
+             int _intStudFee_id=0;
+             int _intSchool_Id=0;
+           _intStudent_id= Convert.ToInt32(Request.QueryString["intStudent_id"]);
+           _intStudFee_id = Convert.ToInt32(Request.QueryString["intStudFee_id"]);
+           _intSchool_Id = Convert.ToInt32(Request.QueryString["intSchool_Id"]);
+
+           if (_intStudent_id != 0 && _intStudFee_id != 0 && _intSchool_Id != 0)
+           {
+               strQry = "exec usp_Addfee @command='Receipt',@intStudFee_id='" + Convert.ToString(_intStudFee_id) + "',@intSchool_id='" + Convert.ToString(_intSchool_Id) + "'";
+               dsObj = sGetDataset(strQry);
+               Session["rptFee"] = dsObj;
+           }
+           else
+           {
+               Session["rptFee"] = null;
+           }
+
+
+            if (Session["rptFee"] != null)
+            {
+                dtst = (DataSet)Session["rptFee"];
+
+                string reportPath = Server.MapPath("frmFeeRecpt.rpt");
+                crystalReport.Load(reportPath);
+
+                TextObject name = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text54"];
+                //TextObject fathername = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text55"];
+                TextObject classname = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text66"];
+                TextObject sectionname = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text67"];
+                // TextObject mnthfee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text56"];
+                TextObject admfee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text57"];
+                TextObject examfee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text58"];
+                TextObject monthlyfee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text127"];
+                TextObject sessionfeei = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text60"];
+                TextObject sessionfeeiv = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text46"];
+                TextObject sessionfeeii = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text62"];
+                TextObject sessionfeeiii = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text59"];
+                TextObject transportfee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text41"];
+                TextObject latefee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text63"];
+                TextObject totalfee = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text76"];
+                TextObject totalfeeWord = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text14"];
+                TextObject overalldis = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text69"];
+                
+
+                TextObject nameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text37"];
+                //TextObject fathernameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text34"];
+                TextObject classnameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text34"];
+                TextObject sectionnameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text33"];
+                //TextObject mnthfeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text30"];
+                TextObject admfeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text86"];
+                TextObject examfeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text85"];
+                TextObject monthlyfeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text83"];
+                TextObject sessionfeeiguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text82"];
+                TextObject sessionfeeivguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text48"];
+                TextObject sessionfeeiiguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text80"];
+                TextObject sessionfeeiiiguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text79"];
+                TextObject transportfeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text56"];
+                TextObject latefeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text78"];
+                TextObject totalfeeguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text77"];
+                TextObject overalldisguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text112"];
+
+                //TextObject Srno = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text122"];
+                //TextObject Srnoguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text40"];
+
+                TextObject printdate = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text25"];
+                TextObject printdateguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text42"];
+
+                TextObject totalfeeWordguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text74"];
+
+                TextObject mnthname = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text125"];
+                TextObject mnthnameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text28"];
+
+                TextObject transmnthname = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text102"];
+                TextObject transmnthnameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text90"];
+
+                TextObject receiptno = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text50"];
+                TextObject receiptnoguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text51"];
+
+                // TextObject transmnthname = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text127"];
+                // TextObject transmnthnameguard = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text128"];
+
+
+                if (dtst.Tables[0].Rows.Count > 0)
+                {
+                    name.Text = Convert.ToString(dtst.Tables[0].Rows[0]["student_name"]);
+                    nameguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["student_name"]);
+                    //fathernameoff.Text = Convert.ToString(dtst.Tables[0].Rows[0]["fatherName"]);
+                    // fathername.Text = Convert.ToString(dtst.Tables[0].Rows[0]["fatherName"]);
+                    classname.Text = Convert.ToString(dtst.Tables[0].Rows[0]["vchStandard_name"]);
+                    classnameguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["vchStandard_name"]);
+                    sectionname.Text = Convert.ToString(dtst.Tables[0].Rows[0]["vchDivisionName"]);
+                    sectionnameguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["vchDivisionName"]);
+                    //Srno.Text = Convert.ToString(dtst.Tables[0].Rows[0]["Receipt_Id"]);
+                    //Srnoguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["Receipt_Id"]);
+                    //printdate.Text = Convert.ToString(dtst.Tables[0].Rows[0]["feeFate"]);
+                    //printdateguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["feeFate"]);
+                    //receiptno.Text = Convert.ToString(dtst.Tables[0].Rows[0]["Receipt_no"]);
+                    //receiptnoguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["Receipt_no"]);
+
+
+                    // mnthfee.Text = "0";
+                    // mnthfeeguard.Text = "0";
+                    admfee.Text = "0";
+                    examfee.Text = "0";
+                    monthlyfee.Text = "0";
+                    sessionfeei.Text = "0";
+                    sessionfeeii.Text = "0";
+                    sessionfeeiii.Text = "0";
+                    sessionfeeiv.Text = "0";
+                    transportfee.Text = "0";
+                    latefee.Text = "0";
+                    totalfee.Text = "0";
+                    overalldis.Text = "0";
+
+                   
+                    admfeeguard.Text = "0";
+                    examfeeguard.Text = "0";
+                    monthlyfeeguard.Text = "0";
+                    sessionfeeiguard.Text = "0";
+                    sessionfeeiiguard.Text = "0";
+                    sessionfeeiiiguard.Text = "0";
+                    sessionfeeivguard.Text = "0";
+                    transportfeeguard.Text = "0";
+                    latefeeguard.Text = "0";
+                    totalfeeguard.Text = "0";
+                    overalldisguard.Text = "0";
+
+                    
+                    //int sum = 0;
+                    //int transsum = 0;
+                    //int examsum = 0;
+                    int latecharges = 0;
+                    int Monthlyfees = 0;
+                    int transportfees = 0;
+
+                    for (int i = 0; i < dtst.Tables[0].Rows.Count; i++)
+                    {
+                        //if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper() == "ADMISSION FEE")
+                        //{
+                        if (new string[] { "ADMISSION FEE", "ADMISSION  FEE" }.Contains(Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper()))
+                        {
+
+                            admfee.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            admfeeguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+
+                        //if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]) == "Exam fee")
+                        //{
+                        else if (new string[] { "EXAMINATION FEE", "EXAM FEE" }.Contains(Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper()))
+                        {
+
+                            examfee.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            examfeeguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+
+
+                        else if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper() == "MONTHLY FEE")
+                        {
+                            Monthlyfees += Convert.ToInt32(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                            
+                            //monthlyfee.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchAmount"]);
+                            //monthlyfeeguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchAmount"]);
+
+                            monthlyfee.Text = Monthlyfees.ToString();
+                            monthlyfeeguard.Text = Monthlyfees.ToString();
+
+                           // mnthname.Text = Convert.ToString(dtst.Tables[0].Rows[i]["Month"]);
+                            //mnthnameguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["Month"]);
+
+                            string monthlist = Convert.ToString(dtst.Tables[0].Rows[i]["Month"]);
+
+                            monthlist = monthlist.Trim().TrimStart(','); 
+
+                            string[] array = monthlist.Split(new string[] { "," },
+                                  StringSplitOptions.None);
+
+                            List<string> month = new List<string>();
+                            month = array.OrderBy(s => DateTime.ParseExact(s, "MMM", new CultureInfo("en-US"))).ToList();
+
+                            mnthname.Text = String.Join(",", month);
+                            mnthnameguard.Text = String.Join(",", month);
+
+                        }
+
+                        //if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]) == "Session Charges I")
+                        //{
+                        else if (new string[] { "SESSION CHARGES I", "SESSION CHARGES I", "SESSION CHARGES -I", "SESSION CHARGES I", "SESSION CHARGES-I" }.Contains(Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper()))
+                        {
+                            sessionfeei.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            sessionfeeiguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+
+                        //if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]) == "Session Charges II")
+                        //{
+                        else if (new string[] { "SESSION CHARGES II", "SESSION FEE II", "SESSION CHARGES -II", "SESSION CHARGES II" }.Contains(Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper()))
+                        {
+
+                            sessionfeeii.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            sessionfeeiiguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+
+                        //if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]) == "Session Charges III")
+                        //{
+                        else if (new string[] { "SESSION CHARGES III", "SESSION FEE III", "SESSION CHARGES -III", "SESSION CHARGES III" }.Contains(Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper()))
+                        {
+                            sessionfeeiii.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            sessionfeeiiiguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+                        else if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper() == "SESSION CHARGES IV")
+                        {
+
+                            sessionfeeiv.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            sessionfeeivguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+                        else if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]).ToUpper() == "TRANSPORT FEE")
+                        {
+
+                            transportfees += Convert.ToInt32(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            //transportfee.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchAmount"]);
+                            //transportfeeguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchAmount"]);
+
+                            transportfee.Text = transportfees.ToString();
+                            transportfeeguard.Text = transportfees.ToString();
+
+                            //mnthname.Text = Convert.ToString(dtst.Tables[0].Rows[i]["Month"]);
+                            //mnthnameguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["Month"]);
+
+                            string monthlist = Convert.ToString(dtst.Tables[0].Rows[i]["Month"]);
+                         
+                            monthlist = monthlist.Trim().TrimStart(',');
+
+                            string[] array = monthlist.Split(new string[] { "," },
+                                  StringSplitOptions.None);
+
+
+                            List<string> month = new List<string>();
+                            month = array.OrderBy(s => DateTime.ParseExact(s, "MMM", new CultureInfo("en-US"))).ToList();
+
+                            mnthname.Text = String.Join(",", month);
+                            mnthnameguard.Text = String.Join(",", month);
+                        }
+
+
+                        try
+                        {
+                            latecharges += Convert.ToInt32(dtst.Tables[0].Rows[i]["vchLate_charges"]);
+                            latefee.Text = latecharges.ToString();
+
+                            latefeeguard.Text = latecharges.ToString();
+                        }
+                        catch(Exception ex)
+                        {
+                        }
+
+                        if (Convert.ToString(dtst.Tables[0].Rows[i]["Fee_Name"]) == "vchNetDetail_amt")
+                        {
+
+                            totalfee.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+
+                            totalfeeguard.Text = Convert.ToString(dtst.Tables[0].Rows[i]["vchNetDetail_amt"]);
+                        }
+                    }
+
+                    try
+                    {
+                        overalldis.Text = Convert.ToString(dtst.Tables[0].Rows[0]["overallDiscount"]);
+                        overalldisguard.Text = Convert.ToString(dtst.Tables[0].Rows[0]["overallDiscount"]);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
+                    // mnthfeeguard.Text = "0";
+                    //admfee.Text = "0";
+                    //examfee.Text = "0";
+                    //monthlyfee.Text = "0";
+                    //sessionfeei.Text = "0";
+                    //sessionfeeii.Text = "0";
+                    //sessionfeeiii.Text = "0";
+                    //sessionfeeiv.Text = "0";
+                    //transportfee.Text = "0";
+                    //latefee.Text = "0";
+                    //totalfee.Text = "0";
+
+                    totalfee.Text = Convert.ToString(Convert.ToInt64(admfee.Text) + Convert.ToInt64(monthlyfee.Text) + Convert.ToInt64(examfee.Text) + Convert.ToInt64(sessionfeei.Text) + Convert.ToInt64(sessionfeeii.Text) + Convert.ToInt64(sessionfeeiii.Text) + Convert.ToInt64(sessionfeeiv.Text) + Convert.ToInt64(transportfee.Text) - Convert.ToInt32(overalldis.Text));
+                    totalfeeguard.Text = totalfee.Text;
+                    int number = int.Parse(totalfee.Text);
+
+                    totalfeeWord.Text = ConvertNumbertoWords(number);
+                    totalfeeWordguard.Text = ConvertNumbertoWords(number);
+
+                    totalfeeWord.Text = totalfeeWord.Text + " Only";
+                    totalfeeWordguard.Text = totalfeeWordguard.Text + " Only";
+
+
+                }
+
+                ////string reportPath = Server.MapPath("CrystalFeeReport.rpt");
+
+                ////crystalReport.SetDataSource(dtst.Tables);
+
+                //CrystalReportViewer1.ReportSource = crystalReport;
+                //CrystalReportViewer1.DataBind();
+                //CrystalReportViewer1.RefreshReport();
+
+                crystalReport.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, false, string.Empty);
+            }
+        }
+        catch(Exception ex)
+        {
+            this.LogError(ex);
+        }
+
+        ///
+    }
+
+  
+    private void LogError(Exception ex)
+    {
+        string message = string.Format("Time: {0}", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"));
+        message += Environment.NewLine;
+        message += "-----------------------------------------------------------";
+        message += Environment.NewLine;
+        message += string.Format("Message: {0}", ex.Message);
+        message += Environment.NewLine;
+        message += string.Format("StackTrace: {0}", ex.StackTrace);
+        message += Environment.NewLine;
+        message += string.Format("Source: {0}", ex.Source);
+        message += Environment.NewLine;
+        message += string.Format("TargetSite: {0}", ex.TargetSite.ToString());
+        message += Environment.NewLine;
+        message += "-----------------------------------------------------------";
+        message += Environment.NewLine;
+        string path = Server.MapPath("~/ErrorLog/ErrorLog.txt");
+        using (StreamWriter writer = new StreamWriter(path, true))
+        {
+            writer.WriteLine(message);
+            writer.Close();
+        }
+    }
+
+    public static string ConvertNumbertoWords(int number)
+    {
+        if (number == 0)
+            return "ZERO";
+        if (number < 0)
+            return "minus " + ConvertNumbertoWords(Math.Abs(number));
+        string words = "";
+        if ((number / 1000000) > 0)
+        {
+            words += ConvertNumbertoWords(number / 1000000) + " MILLION ";
+            number %= 1000000;
+        }
+        if ((number / 1000) > 0)
+        {
+            words += ConvertNumbertoWords(number / 1000) + " THOUSAND ";
+            number %= 1000;
+        }
+        if ((number / 100) > 0)
+        {
+            words += ConvertNumbertoWords(number / 100) + " HUNDRED ";
+            number %= 100;
+        }
+        if (number > 0)
+        {
+            if (words != "")
+                words += "AND ";
+            var unitsMap = new[] { "ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN" };
+            var tensMap = new[] { "ZERO", "TEN", "TWENTY", "THIRTY", "FORTY", "FIFTY", "SIXTY", "SEVENTY", "EIGHTY", "NINETY" };
+
+            if (number < 20)
+                words += unitsMap[number];
+            else
+            {
+                words += tensMap[number / 10];
+                if ((number % 10) > 0)
+                    words += " " + unitsMap[number % 10];
+            }
+        }
+        return words;
+    }
+}

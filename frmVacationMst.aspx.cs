@@ -464,6 +464,8 @@ public partial class frmVacationMst : DBUtility
                 txtNoOfdays.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intNoOfDay"]);
                 TabContainer1.ActiveTabIndex = 2;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
 
         }

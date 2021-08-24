@@ -33,7 +33,7 @@ public partial class frmPromotionDemotion : DBUtility
             strQry = "exec usp_PromotionDemotion @command='fillAcademicYear',@intSchool_Id='" + Convert.ToString(Session["School_Id"]) + "'";
             sBindDropDownList(ddlAcademiYear, strQry, "AcademicYear", "intAcademic_id");           
            // sBindDropDownList(ddlToAcademiYear, strQry, "AcademicYear", "intAcademic_id");
-            ddlAcademiYear.SelectedValue = "1";
+            ddlAcademiYear.SelectedValue = "2";
         }
         catch
         {

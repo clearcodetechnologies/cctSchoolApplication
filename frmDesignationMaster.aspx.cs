@@ -53,7 +53,8 @@ public partial class frmDesignationMaster : DBUtility
         try
         {
             strQry = "";
-            strQry = "exec usp_DesignationMaster  @type='FillRole',@intSchool_id='" + Session["School_Id"] + "'";
+            strQry = "exec usp_tblDepartment_Mst @type='FillDeptRole',@intSchool_id='" + Session["School_Id"] + "'";
+            //strQry = "exec usp_DesignationMaster  @type='FillRole',@intSchool_id='" + Session["School_Id"] + "'";
             sBindDropDownList(ddlRole, strQry, "vchRole", "intRole_Id");
         }
         catch
@@ -193,7 +194,7 @@ public partial class frmDesignationMaster : DBUtility
                 FillDepartment();
                 ddlDept.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intDepartment"]);
                 txtDesignation.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchDesignation"]);
-                TBC.ActiveTabIndex = 1;
+                //TBC.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
             }
         }

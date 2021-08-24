@@ -15,6 +15,7 @@ public partial class FrmAdminProfile : DBUtility
 {
     DataSet dsObj1 = new DataSet();
     DataSet dsObj = new DataSet();
+    //string serverpath = "http://192.168.1.150/TraffordWebApi/image/";
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -135,7 +136,7 @@ public partial class FrmAdminProfile : DBUtility
                     Button7.Visible = false;
                     Button3.Visible = false;
                     Button8.Visible = false;
-                    ButP2.Visible = false;
+                    //ButP2.Visible = false;
                     TextBox18.Visible = false;
 
                     Label1.Text = dr[1].ToString();
@@ -213,7 +214,7 @@ public partial class FrmAdminProfile : DBUtility
                     string src11 = dr[52].ToString();
                     //String savePath = "~/images/Profile/Admins/";
                     //String savePath = "http://eserveshiksha.co.in/TraffordSchoolApi/image/";
-                    String savePath = "http://192.168.1.150/SKPSchoolApi/image/";
+                    String savePath = "http://192.168.1.150/vclassroomsDemoAPI/image/";
                     
                     AdminImg.ImageUrl = savePath + src11;
 
@@ -245,7 +246,7 @@ public partial class FrmAdminProfile : DBUtility
             TabPanel3.Visible = true;
             TabPanel3.Enabled = true;
             ButN1.Visible = false;
-            ButP2.Visible = false;
+            //ButP2.Visible = false;
             ButN2.Visible = false;
             Button3.Visible = false;
             TabContainer1.ActiveTabIndex = 0;
@@ -450,19 +451,19 @@ public partial class FrmAdminProfile : DBUtility
         try
         {
 
-            String savePath = "E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/";
+            String savePath = "E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image";
 
 
             if (FileUpload1.HasFile)
             {
 
-                FileUpload1.SaveAs("E:/Application UAT live/wwwroot/NPST/Uttarakhand/SKP new back up/SKSchoolApi/SKSchoolApi/image/" + FileUpload1.FileName);
+                FileUpload1.SaveAs("E:/Application UAT live/wwwroot/Mumbai/vclassrooms Demo/Demo API/SKSchoolApi/SKSchoolApi/image" + FileUpload1.FileName);
                 string file = FileUpload1.PostedFile.FileName;
 
-                AdminImg.ImageUrl = "http://192.168.1.150/SKPSchoolApi/image/" + file;
+                AdminImg.ImageUrl = "http://192.168.1.150/vclassroomsDemoAPI/image/" + file;
                 Button1.Text = "Change Image";
                 Button8.Visible = true;
-                ViewState["Filename1"] = savePath + file;
+                ViewState["Filename1"] = file;
             }
 
         }
@@ -587,7 +588,7 @@ public partial class FrmAdminProfile : DBUtility
                                      "@vchPercent2='" + txtPe2 + "',@vchMajorSubject2='" + txtMaSv2 + "',@vchDegree3='" + txtDev3 + "',@vchInstitution3='" + txtInv3 + "',@vchtxtUniversity3='" + txtUnv3 + "'," +
                                      "@intPassingYear3='" + txtPaYv3 + "',@vchPercent3='" + txtPe3 + "',@vchMajorSubject3='" + txtMaSv3 + "',@vchDegree4='" + txtDev4 + "',@vchInstitution4='" + txtInv4 + "'," +
                                      "@vchtxtUniversity4='" + txtUnv4 + "',@intPassingYear4='" + txtPaYv4 + "',@vchPercent4='" + txtPe4 + "',@vchMajorSubject4='" + txtMaSv4 + "',@vchDegree5='" + txtDev5 + "'," +
-                                     "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "'";
+                                     "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "',@vchProfile='"+filnmn1+"'";
             int str = sExecuteQuery(instrquery1);
 
             if (str != -1)
@@ -869,8 +870,7 @@ public partial class FrmAdminProfile : DBUtility
                                  "@vchPercent2='" + txtPe2 + "',@vchMajorSubject2='" + txtMaSv2 + "',@vchDegree3='" + txtDev3 + "',@vchInstitution3='" + txtInv3 + "',@vchtxtUniversity3='" + txtUnv3 + "'," +
                                  "@intPassingYear3='" + txtPaYv3 + "',@vchPercent3='" + txtPe3 + "',@vchMajorSubject3='" + txtMaSv3 + "',@vchDegree4='" + txtDev4 + "',@vchInstitution4='" + txtInv4 + "'," +
                                  "@vchtxtUniversity4='" + txtUnv4 + "',@intPassingYear4='" + txtPaYv4 + "',@vchPercent4='" + txtPe4 + "',@vchMajorSubject4='" + txtMaSv4 + "',@vchDegree5='" + txtDev5 + "'," +
-                                 "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "'," +
-                                 "@intTeacher_id='" + lab2.Text + "',@dtTimeToContact='" + TimeTocon + "'";
+                                 "@vchInstitution5='" + txtInv5 + "',@vchtxtUniversity5='" + txtUnv5 + "',@intPassingYear5='" + txtPaYv5 + "',@vchPercent5='" + txtPe5 + "',@vchMajorSubject5='" + txtMaSv5 + "',@vchProfile='"+filnmn1+"'";
         int str = sExecuteQuery(instrquery1);
 
         if (str != -1)

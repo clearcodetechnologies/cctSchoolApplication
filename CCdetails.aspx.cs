@@ -152,7 +152,7 @@ public partial class CCdetails : DBUtility
         try
         {
             //ViewState["intID"] = this.grdTrans.DataKeys[e.RowIndex].Values[3].ToString();
-            ViewState["StudentID"] = this.grdTrans.DataKeys[e.RowIndex].Values[1].ToString();
+            ViewState["StudentID"] = this.grdTrans.DataKeys[e.RowIndex].Values[0].ToString();
             strQry = "";
             // strQry = "exec [usp_SchoolFeeCollectionNew_SP] @type='delete',@intID='" + Convert.ToString(ViewState["intID"]) + "',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
             strQry = "exec usp_CharCertificate @command='Deletestudent',@intstudent_id='" + Convert.ToString(ViewState["StudentID"]) + "',@intAcademic_id='" + Convert.ToString(Session["AcademicID"]) + "'";
@@ -161,7 +161,7 @@ public partial class CCdetails : DBUtility
             {
                 // FillTransGrid();
                 fillgrid();
-                MessageBox("Transaction Deleted Successfully!");
+                MessageBox("Record Deleted Successfully!");
 
             }
         }

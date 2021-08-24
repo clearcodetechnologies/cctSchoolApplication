@@ -1,0 +1,62 @@
+CREATE Procedure usp_transport
+(
+@command varchar(100)=null,
+@intArea_Id int=null,
+@IsConcession int=null,
+@intSchool_Id int=null,
+@intAcademic_id int=null,
+@intTransport_id int=null,
+@dtStart_date varchar(10)=null,
+@dtEnd_date varchar(10)=null,
+@numAmout varchar(10)=null,
+@Startday int=null,
+@Dueday int=null,
+@intID int=null
+)
+As
+Begin
+ if @command='insertTransportMaster'
+ Begin
+ insert into tbltransport_master(intArea_Id,intSchool_Id,intAcademic_id,intActiveFlg)
+ values(@intArea_Id,@intSchool_Id,@intAcademic_id,'1')
+ select @@IDENTITY as intTransport_id
+ End
+  if @command='insertTransportMasterDetails'
+ Begin
+ insert into tbltransport_masterdetails(intTransport_id,dtStart_date,dtEnd_date,IsConcession,numAmout,Startday,Dueday,intActive_flg)
+ values(@intTransport_id,@dtStart_date,@dtEnd_date,@IsConcession,@numAmout,@Startday,@Dueday,'1')
+ End
+ if @command='SelectTransportDetails'
+ Begin
+ select tbltransport_master.intTransport_id, vchArea_Name,tbltransport_master.intArea_Id ,CONVERT(date, dtStart_date) as dtStart_date,
+ CONVERT(date, dtEnd_date) as dtEnd_date,Startday,Dueday,numAmout,
+ case  when IsConcession=1 then 'Yes' else 'No' end as IsConcession,
+  IsConcession as concession
+ from tbltransport_master
+inner join tbltransport_masterdetails on tbltransport_masterdetails.intTransport_id= tbltransport_master.intTransport_id
+inner join tblArea_master on tblArea_master.intArea_Id=tblTransport_master.intArea_Id
+where tbltransport_master.intSchool_Id=@intSchool_Id and tblTransport_master.intAcademic_id=@intAcademic_id
+and (tbltransport_master.intTransport_id=@intTransport_id or @intTransport_id=0 or @intTransport_id=null or @intTransport_id='' )
+and (tbltransport_master.intArea_Id=@intArea_Id or @intArea_Id=0 or @intArea_Id=null or @intArea_Id='' )
+ End
+ if @command='UpdateTransportDetails'
+ Begin
+  update tbltransport_masterdetails set dtStart_date=@dtStart_date,dtEnd_date=@dtEnd_date,IsConcession=@IsConcession,
+ numAmout=@numAmout,Startday=@Startday,Dueday=@Dueday
+ where intID=@intID
+ End
+ if @command='DeleteTransportDetails'
+ Begin
+  update tbltransport_masterdetails set intActive_flg=0
+  where intID=@intID
+ End
+ if @command='CheckRecordExits'
+ Begin
+  select * from tbltransport_masterdetails
+ inner join tbltransport_master on tbltransport_master.intTransport_id=tblTransport_masterDetails.intTransport_id
+ where intActive_flg=1 and intAcademic_id=@intAcademic_id and intSchool_Id=@intSchool_Id
+ and (CONVERT(date, @dtStart_date) between CONVERT(date, dtStart_date) and CONVERT(date, dtEnd_date) or
+ CONVERT(date, @dtEnd_date) between CONVERT(date, dtStart_date) and CONVERT(date, dtEnd_date))
+  and intArea_Id=@intArea_Id
+ End
+End

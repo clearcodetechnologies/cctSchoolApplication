@@ -61,7 +61,7 @@
             text-align: left;
             margin-top: 10px;
         }
-        .efficacious_send
+        .vclassrooms_send
         {
             width: 40% !important;
             background: #3498db !important;
@@ -78,7 +78,7 @@
             float: left;
             text-align: center !important;
         }
-        .efficacious_send_Plus
+        .vclassrooms_send_Plus
         {
             width: 26% !important;
             background: #3498db !important;
@@ -218,7 +218,7 @@
         function GetDynamicTextBox(value) {
             alert(value);
             return '<tr><td><input name = "DynamicTextBox" type="text" style="margin-left:10px" class="input-blue" value = "' + value + '" /></td><td><asp:FileUpload ID="FileUploadDoc" Style="font-size: 11px;" runat="server" /></td>' +
-                    '<td><input type="button" value="x" class="efficacious_send_Plus" style="width:18%; margin-right:10px; " onclick = "RemoveTextBox(this)" /></td></tr>'
+                    '<td><input type="button" value="x" class="vclassrooms_send_Plus" style="width:18%; margin-right:10px; " onclick = "RemoveTextBox(this)" /></td></tr>'
         }
         function AddTextBox() {
             var div = document.createElement('DIV');
@@ -308,7 +308,7 @@
             display: none;
         }
         .mGrid th{ text-align:center !important;}
-        .efficacious span {
+        .vclassrooms span {
             display: block;
             height: auto;
             padding: 10px 0px;
@@ -405,11 +405,11 @@
                     Width="99%" >
                     <asp:TabPanel ID="View" HeaderText="View" runat="server" >
                         <ContentTemplate>
-                            <center>
-                                <div class="efficacious">
+                             
+                                <div class="vclassrooms">
                                     <table width="90%" style="margin-top: 15px;">
                                         <tr>
-                                            <td align="center">
+                                            <td align="">
                                                 <table runat="server" id="filtertable" width="40%">
                                                     <tr runat="server">
                                                     <td runat="server">
@@ -702,7 +702,7 @@
                                      <li> <a href="pdf/CLASS-12/CLASS XI MATHEMATICS.pdf" target="_blank"><i  class="fa fa-file-pdf-o"></i> asdsad </a> </li>--%>
                                     </ul>
                                 </div>
-                            </center>
+                             
                         </ContentTemplate>
                     </asp:TabPanel>
                     <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Topic Details" CssClass="d-none">
@@ -719,15 +719,15 @@
                                                 Width="100%">
                                                 <asp:TabPanel ID="TabPanel2" runat="server" HeaderText="New">
                                                     <ContentTemplate>
-                                                        <center>
-                                                            <table width="50%">
+                                                         
+                                                            <table width="50%" style="margin-left:2%;">
                                                                 <tr>
                                                                     <td align="left" >
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:Label ID="lblSTD" runat="server" Text="STD"></asp:Label></div>
                                                                     </td>
                                                                     <td align="left" width="50%">
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:DropDownList ID="ddlSTD" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSTD_SelectedIndexChanged">
                                                                             </asp:DropDownList>
                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="Topic"
@@ -739,7 +739,7 @@
                                                                 </tr>
                                                                 <tr id="trTopicDiv" runat="server" visible="False">
                                                                     <td align="left"  runat="server">
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:Label ID="lblDIV" runat="server" Text="DIV"></asp:Label></div>
                                                                     </td>
                                                                     <td align="left" runat="server">
@@ -753,11 +753,11 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" >
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:Label ID="Label2" runat="server" Text="Subject"></asp:Label></div>
                                                                     </td>
                                                                     <td align="left">
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:DropDownList ID="ddlSubject" runat="server" AutoPostBack="True">
                                                                             </asp:DropDownList>
                                                                         </div>
@@ -769,11 +769,11 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" >
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:Label ID="lblTopic" runat="server" Text="Topic Name"></asp:Label></div>
                                                                     </td>
                                                                     <td align="left">
-                                                                        <div class="efficacious">
+                                                                        <div class="vclassrooms">
                                                                             <asp:TextBox ID="txtTopicNm" CssClass="input-blue" TextMode="MultiLine" Height="68px"
                                                                                 runat="server" Width="303px"></asp:TextBox><%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2"
                                                                                     ValidationGroup="Topic" ControlToValidate="txtTopicNm" runat="server" Display="None"
@@ -792,21 +792,21 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="center" valign="top">
-                                                                        <div class="efficacious" style="display: none">
-                                                                            <asp:Button ID="btnClear" runat="server" CssClass="efficacious_send" 
+                                                                        <div class="vclassrooms" style="display: none">
+                                                                            <asp:Button ID="btnClear" runat="server" CssClass="vclassrooms_send" 
                                                                                 OnClick="btnClear_Click" Text="Clear" />
                                                                         </div>
                                                                     </td>
                                                                     <td align="center">
-                                                                        <div class="efficacious">
-                                                                            <asp:Button ID="btnSubmit" runat="server" CssClass="efficacious_send" 
+                                                                        <div class="vclassrooms">
+                                                                            <asp:Button ID="btnSubmit" runat="server" CssClass="vclassrooms_send" 
                                                                                 OnClick="btnSubmit_Click" OnClientClick="return TopicValidation();" 
                                                                                 Text="Submit" ValidationGroup="Topic" />
                                                                         </div>
                                                                     </td>
                                                                 </tr>
                                                             </table>
-                                                        </center>
+                                                         
                                                     </ContentTemplate>
                                                 </asp:TabPanel>
                                                 <asp:TabPanel ID="TabPanel4" runat="server" HeaderText="Details">
@@ -815,31 +815,31 @@
                                                             <table width="100%">
                                                                 <tr>
                                                                     <td width="100%">
-                                                                        <div id="efficacious" class="efficacious" style="width: 90%">
+                                                                        <div id="vclassrooms" class="vclassrooms" style="width: 80%; margin:auto;">
                                                                             <table width="90%">
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td style="width:10%;">
                                                                                         <asp:Label ID="lbl" runat="server" Text="STD" Style="position: relative; top: 5px;
-                                                                                            text-align: right;"></asp:Label>
+                                                                                            text-align: center;"></asp:Label>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td style="width:20%;">
                                                                                         <asp:DropDownList ID="ddlSTD2" runat="server" AutoPostBack="True" 
                                                                                             OnSelectedIndexChanged="ddlSTD2_SelectedIndexChanged">
                                                                                         </asp:DropDownList>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <asp:Label ID="Label3" runat="server" Text="DIV" Visible="False" Style="position: relative; top: 5px;
-                                                                                            text-align: right; left: 0px;"></asp:Label>
+                                                                                    <td style="width:10%;">
+                                                                                        <asp:Label ID="Label3" runat="server" Text="DIV" Visible="" Style="position: relative; top: 5px;
+                                                                                            text-align: center; left: 0px;"></asp:Label>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <asp:DropDownList ID="ddlDIV2" runat="server" AutoPostBack="True"  Visible="False" OnSelectedIndexChanged="ddlDIV2_SelectedIndexChanged">
+                                                                                    <td style="width:20%;">
+                                                                                        <asp:DropDownList ID="ddlDIV2" runat="server" AutoPostBack="True"  Visible="" OnSelectedIndexChanged="ddlDIV2_SelectedIndexChanged">
                                                                                         </asp:DropDownList>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <asp:Label ID="Label4" runat="server" Style="position: relative; top: 5px; text-align: right;"
+                                                                                    <td style="width:10%;">
+                                                                                        <asp:Label ID="Label4" runat="server" Style="position: relative; top: 5px; text-align: center;"
                                                                                             Text="Subject"></asp:Label>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td style="width:20%;">
                                                                                         <asp:DropDownList ID="ddlSub1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSub1_SelectedIndexChanged">
                                                                                         </asp:DropDownList>
                                                                                     </td>
@@ -852,7 +852,7 @@
                                                                     <td>
                                                                         <asp:GridView ID="grvTopic" runat="server" AllowPaging="True" AllowSorting="True"
                                                                             AutoGenerateColumns="False" CssClass="table  tabular-table " DataKeyNames="intTopic_id"
-                                                                            EmptyDataText="Record not Found." OnRowDeleting="grvTopic_RowDeleting" Width="100%"
+                                                                            EmptyDataText="Record not Found." OnRowDeleting="grvTopic_RowDeleting" Width="96%" style="margin:0 auto;"
                                                                             OnRowEditing="grvTopic_RowEditing" OnPageIndexChanging="grvTopic_PageIndexChanging">
                                                                             <AlternatingRowStyle CssClass="alt" />
                                                                             <Columns>
@@ -906,9 +906,9 @@
                                 Width="100%">
                                 <asp:TabPanel ID="TabPanel3" runat="server" HeaderText="New">
                                     <ContentTemplate>
-                                        <div class="efficacious">
-                                            <center>
-                                                <table width="50%">
+                                        <div class="vclassrooms">
+                                           
+                                                <table width="50%" style="margin-left:2%;">
                                                     <tr>
                                                         <td width="50%">
                                                             <asp:Label ID="lblTopicName0" runat="server" Text="STD"></asp:Label>
@@ -995,7 +995,7 @@
                                                                 <table width="100%">
                                                                 </table>
                                                             </div>
-                                                            <input id="btnAdd" type="button" class="efficacious_send_Plus" style="width: 18%"
+                                                            <input id="btnAdd" type="button" class="vclassrooms_send_Plus" style="width: 18%"
                                                                 value="+" onclick="AddTextBox()" />
                                                             <br />
                                                         </td>
@@ -1009,12 +1009,12 @@
                                                                 <asp:PostBackTrigger ControlID="btnPost" />
                                                             </Triggers>
                                                             </asp:UpdatePanel>
-                                                            <asp:Button ID="btnPost" runat="server" CssClass="efficacious_send" OnClick="Post"
+                                                            <asp:Button ID="btnPost" runat="server" CssClass="vclassrooms_send" OnClick="Post"
                                                                 Text="Submit" ValidationGroup="Syll" Width="50%" />
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </center>
+                                            
                                         </div>
                                     </ContentTemplate>
                                 </asp:TabPanel>
@@ -1024,32 +1024,32 @@
                                             <table width="100%">
                                                 <tr>
                                                     <td>
-                                                        <div id="efficacious" class="efficacious" style="width: 100%">
-                                                            <table width="90%">
+                                                        <div id="vclassrooms" class="vclassrooms" style="width: 100%">
+                                                            <table width="70%" style="margin:0 auto;">
                                                                 <tr>
                                                                 
-                                                                    <td>
-                                                                        <asp:Label ID="Label5" runat="server" Style="position: relative; top: -5px; text-align: right; left: 0px;"
+                                                                    <td style="width:10%;">
+                                                                        <asp:Label ID="Label5" runat="server" Style="position: relative; top: -5px; text-align: center; left: 0px;"
                                                                             Text="STD"></asp:Label>
                                                                     </td>
-                                                                    <td>
+                                                                    <td style="width:20%;">
                                                                         <asp:DropDownList ID="ddlSTD4" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSTD4_SelectedIndexChanged">
                                                                         </asp:DropDownList>
                                                                     </td>
-                                                                    <td>
-                                                                        <asp:Label ID="Label6" runat="server" Style="position: relative; top: -5px; text-align: right;"
-                                                                            Text="DIV" Visible="False"></asp:Label>
+                                                                    <td style="width:10%;">
+                                                                        <asp:Label ID="Label6" runat="server" Style="position: relative; top: -5px; text-align: center;"
+                                                                            Text="DIV" Visible=""></asp:Label>
                                                                     </td>
-                                                                    <td>
+                                                                    <td style="width:20%;">
                                                                         <asp:DropDownList ID="ddlDIV4" runat="server" AutoPostBack="True" 
-                                                                            Visible="False" OnSelectedIndexChanged="ddlDIV4_SelectedIndexChanged">
+                                                                            Visible="" OnSelectedIndexChanged="ddlDIV4_SelectedIndexChanged">
                                                                         </asp:DropDownList>
                                                                     </td>
-                                                                    <td>
-                                                                        <asp:Label ID="Label7" runat="server" Style="position: relative; top: -5px; text-align: right;"
+                                                                    <td style="width:10%;">
+                                                                        <asp:Label ID="Label7" runat="server" Style="position: relative; top: -5px; text-align: center;"
                                                                             Text="Subject"></asp:Label>
                                                                     </td>
-                                                                    <td>
+                                                                    <td style="width:20%;">
                                                                         <asp:DropDownList ID="ddlSub4" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSub4_SelectedIndexChanged">
                                                                         </asp:DropDownList>
                                                                     </td>
@@ -1062,7 +1062,7 @@
                                                     <td>
                                                         <asp:GridView ID="grvSyllabus" runat="server" AllowPaging="True" AllowSorting="True"
                                                             DataKeyNames="id" AutoGenerateColumns="False" CssClass="table  tabular-table "
-                                                            EmptyDataText="Record not Found." Width="100%" PageSize="12" OnRowDeleting="grvSyllabus_RowDeleting"
+                                                            EmptyDataText="Record not Found." Width="96%" style="margin-left:2%;" PageSize="12" OnRowDeleting="grvSyllabus_RowDeleting"
                                                             OnPageIndexChanging="grvSyllabus_PageIndexChanging" Visible="false" >
                                                             <AlternatingRowStyle CssClass="alt" />
                                                             <Columns>
@@ -1189,7 +1189,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" align="center">
-                                                            <div class="efficacious">
+                                                            <div class="vclassrooms">
                                                                 <table width="100%">
                                                                     <tr>
                                                                         <td width="60%" align="right" valign="middle">
@@ -1210,7 +1210,7 @@
                                                                             &#160;&#160;
                                                                         </td>
                                                                         <td align="center" valign="top">
-                                                                            <asp:Button ID="btnAddS" runat="server" CssClass="efficacious_send" OnClick="btnAddS_Click"
+                                                                            <asp:Button ID="btnAddS" runat="server" CssClass="vclassrooms_send" OnClick="btnAddS_Click"
                                                                                 OnClientClick="return SyllabusValidation();" Text="Add" Width="60px" />
                                                                         </td>
                                                                     </tr>

@@ -35,6 +35,9 @@ public partial class rptResult_I_V : DBUtility
                 crystalReport.Load(reportPath);
 
                 //{Code By Me
+                TextObject Heading = (TextObject)crystalReport.ReportDefinition.Sections["Section1"].ReportObjects["Text1"];
+                Heading.Text = "ACHIEVEMENT RECORD ACADEMIC YEAR (" + Session["AcademicYearName"] + ")";
+
                 //Student Profile
                 TextObject AdmnNo = (TextObject)crystalReport.ReportDefinition.Sections["Section2"].ReportObjects["Text4"];
                 TextObject Studentnm = (TextObject)crystalReport.ReportDefinition.Sections["Section2"].ReportObjects["Text8"];

@@ -89,7 +89,7 @@
             height: 110px;
         }
         .school-logo{ width:90px; margin:5px 20px; height:80px; float:left; background:#fff; border:1px solid #d9d2ca;}
-.efficacious-log { width:262px; height:80px; float:left; margin:5px 32px 0 258px;}
+.vclassrooms-log { width:262px; height:80px; float:left; margin:5px 32px 0 258px;}
 .school-login { width:320px; height:auto; float:left; margin-left:20px;}
 .login-logout {
 width: 100PX;
@@ -126,7 +126,7 @@ font-family: Verdana, Geneva, sans-serif;
         .export:hover
         {
         }
-        .efficacious label
+        .vclassrooms label
         {
             display: block;
             height: auto;
@@ -140,7 +140,7 @@ font-family: Verdana, Geneva, sans-serif;
             width: 120px;
             color: #000;
         }
-        #efficacious
+        #vclassrooms
         {
             background: #e5e5e5;
             border-radius: 7px;
@@ -149,7 +149,7 @@ font-family: Verdana, Geneva, sans-serif;
             width: 90%;
             margin-bottom: 5px;
         }
-        .efficacious span
+        .vclassrooms span
         {
             display: block;
             height: auto;
@@ -164,7 +164,7 @@ font-family: Verdana, Geneva, sans-serif;
             width: 120px;
             color: #000;
         }
-        .efficacious input, form.winner-inside textarea
+        .vclassrooms input, form.winner-inside textarea
         {
             display: block;
             border: 1px solid #3498db;
@@ -179,8 +179,8 @@ font-family: Verdana, Geneva, sans-serif;
             outline:none;
         }
         
-         .efficacious input[type="image"]{ margin:0px}
-        .efficacious input.winner-inside
+         .vclassrooms input[type="image"]{ margin:0px}
+        .vclassrooms input.winner-inside
         {
             width: 100%;
             background: #ffff;
@@ -190,7 +190,7 @@ font-family: Verdana, Geneva, sans-serif;
             color: #fff;
             margin-top: 10px; outline:none;
         }
-        .efficacious select
+        .vclassrooms select
         {
             width: 100%;
             border: 1px solid #3498db;
@@ -202,7 +202,7 @@ font-family: Verdana, Geneva, sans-serif;
             font-size: 13px;
             margin-bottom: 10px; outline:none;
         }
-        .efficacious textarea
+        .vclassrooms textarea
         {
             width: 100%;
             border: 1px solid #3498db;
@@ -214,12 +214,12 @@ font-family: Verdana, Geneva, sans-serif;
             font-size: 13px;
             margin-bottom: 10px;
         }
-        .efficacious input[type="image"]
+        .vclassrooms input[type="image"]
         {
             border: 0px;
             padding: 0px;
         }
-        .efficacious input.efficacious_send
+        .vclassrooms input.vclassrooms_send
         {
             width: 100px;
             background: #3498db;
@@ -236,19 +236,19 @@ font-family: Verdana, Geneva, sans-serif;
             float: left;
             text-align: center;
         }
-        .efficacious input[type=checkbox]:checked + label:after
+        .vclassrooms input[type=checkbox]:checked + label:after
         {
             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
             filter: alpha(opacity=100);
             opacity: 1;
         }
-        .efficacious input[type=checkbox]:checked + label:after
+        .vclassrooms input[type=checkbox]:checked + label:after
         {
             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
             filter: alpha(opacity=100);
             opacity: 1;
         }
-        .efficacious input[type=checkbox], input[type=radio]
+        .vclassrooms input[type=checkbox], input[type=radio]
         {
             display: block;
             width: 1.1em;
@@ -260,7 +260,7 @@ font-family: Verdana, Geneva, sans-serif;
             line-height: 1em;
             font-size: 14px;
         }
-        .efficacious label
+        .vclassrooms label
         {
             display: inline;
             float: left;
@@ -269,7 +269,7 @@ font-family: Verdana, Geneva, sans-serif;
             text-indent: 20px;
             white-space: nowrap;
         }
-        .efficacious input[type=checkbox] + label
+        .vclassrooms input[type=checkbox] + label
         {
             display: block;
             width: 1.1em;
@@ -281,7 +281,7 @@ font-family: Verdana, Geneva, sans-serif;
             line-height: 1em;
             font-size: 14px;
         }
-        .efficacious input[type=checkbox]:checked + label::before
+        .vclassrooms input[type=checkbox]:checked + label::before
         {
             content: "\2714";
             color: #fff;
@@ -292,7 +292,7 @@ font-family: Verdana, Geneva, sans-serif;
             margin-right: 6px;
             margin-left: -20px;
         }
-        .efficacious input[type=radio] + label
+        .vclassrooms input[type=radio] + label
         {
             display: block;
             width: 8em;
@@ -1188,7 +1188,7 @@ font-family: Verdana, Geneva, sans-serif;
                 <div class="school-logo">
                     <img src="images/school-pic.png" width="90" height="80" />
                     <asp:Label ID="lblDate" Text="" Visible="false" runat="server"></asp:Label></div>
-                <div class="efficacious-log">
+                <div class="vclassrooms-log">
                     <img src="images/logo-esmarts.png" width="231" height="80" /></div>
                 <div class="school-login">
                     <div class="login-logout">

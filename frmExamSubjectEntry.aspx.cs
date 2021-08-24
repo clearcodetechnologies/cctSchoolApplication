@@ -153,6 +153,7 @@ public partial class frmExamSubjectEntry : DBUtility
     {
         text1.Text = "";
         Standard_id.ClearSelection();
+        ddlSubCat.ClearSelection();
     }
     protected void SubReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {

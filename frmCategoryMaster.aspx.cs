@@ -95,6 +95,9 @@ public partial class frmCategoryMaster : DBUtility
                 txtName.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchCategory"]);
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
             }
         }
         catch

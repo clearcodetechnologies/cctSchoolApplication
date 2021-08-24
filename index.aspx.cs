@@ -12,16 +12,17 @@ using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
 using System.Data.SqlClient;
 
-
-public partial class login_index : System.Web.UI.Page
+public partial class index : System.Web.UI.Page
 {
     string strUserType = "";
     DataSet dsObj = new DataSet();
     DataSet dsObjSC = new DataSet();
     SqlDataAdapter daObj = new SqlDataAdapter();
+    SqlDataAdapter daObja = new SqlDataAdapter();
     SqlDataAdapter daObjSC = new SqlDataAdapter();
     DataSet dsObj1 = new DataSet();
     SqlDataAdapter daObj1 = new SqlDataAdapter();
+    DataSet dsObja = new DataSet();
     string strCOn = System.Configuration.ConfigurationManager.ConnectionStrings["esmsSKP"].ConnectionString;
     SqlConnection sqlcon;
     SqlCommand sqlcom = new SqlCommand();
@@ -36,118 +37,115 @@ public partial class login_index : System.Web.UI.Page
             Session["Standard_id"] = "";
             Session["Division_id"] = "";
             Session["AcademicID"] = "";
-            fillSchool();
-            //fillRole();
+            //fillSchool();
+            FillAcademicYear();
         }
-        
     }
     protected void drpSchool_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string strSC = "exec [usp_usermaster] @command='selectShoolCollegeType',@intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "'";
+        //string strSC = "exec [usp_usermaster] @command='selectShoolCollegeType',@intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "'";
+        string strSC = "exec [usp_usermaster] @command='selectShoolCollegeType',@intSchool_id='1'";
         daObjSC = new SqlDataAdapter(strSC, strCOn);
         daObjSC.Fill(dsObjSC);
         if (dsObjSC.Tables[0].Rows.Count > 0)
         {
             Session["schoolCollegeType"] = Convert.ToString(dsObjSC.Tables[0].Rows[0]["intType"]);
         }
-        if (Convert.ToString(Session["schoolCollegeType"]) == "School")
-        {
-            fillYear();
-        }
-        else if (Convert.ToString(Session["schoolCollegeType"]) == "College")
-        {
-            fillYear();
-        }
-        else if (Convert.ToString(Session["schoolCollegeType"]) == "Institute")
-        {
-            fillYear();
-        }
-        else
-        {
-            fillYear();
-        }
-        
-    }
-    protected void fillYear()
-    {
-        string strQry1 = "";
-        strQry1 = "exec [usp_usermaster] @command='fillYear',@intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "'";
-        daObj1 = new SqlDataAdapter(strQry1, strCOn);
-        daObj1.Fill(dsObj1);
-        if (dsObj1.Tables[0].Rows.Count > 0)
-        {
-            drpYear.DataTextField = "AcademicYear";
-            drpYear.DataValueField = "intAcademic_id";
-            drpYear.DataSource = dsObj1;
-            drpYear.DataBind();
-            drpYear.Items.Insert(0, "---Select Year----");
-        }
-        else
-        {
-            drpYear.DataSource = dsObj1;
-            drpYear.DataBind();
-            drpYear.Items.Insert(0, "---Select Year----");
-        }
+        //if (Convert.ToString(Session["schoolCollegeType"]) == "School")
+        //{
+        //    fillRole();
+        //    FillAcademicYear();
+        //}
+        //else if (Convert.ToString(Session["schoolCollegeType"]) == "College")
+        //{
+        //    fillRole();
+        //    FillAcademicYear();
+        //}
+        //else if (Convert.ToString(Session["schoolCollegeType"]) == "Institute")
+        //{
+        //    fillRole();
+        //    FillAcademicYear();
+        //}
+        //else
+        //{
+        //    fillRole();
+        //    FillAcademicYear();
+        //}
 
     }
-    protected void drpYear_SelectedIndexChanged(object sender, EventArgs e)
+    //protected void fillSchool()
+    //{
+    //    string strQry1 = "";
+    //    strQry1 = "exec [usp_usermaster] @command='fillSchool',@intSchool_id='1'";
+    //    daObj1 = new SqlDataAdapter(strQry1, strCOn);
+    //    daObj1.Fill(dsObj1);
+    //    if (dsObj1.Tables[0].Rows.Count > 0)
+    //    {
+    //        drpSchool.DataTextField = "vchSchool_name";
+    //        drpSchool.DataValueField = "intSchool_id";           
+    //        drpSchool.DataSource = dsObj1;
+    //        drpSchool.DataBind();
+    //        drpSchool.Items.Insert(0, "---Select School----");
+    //    }
+    //    else
+    //    {
+    //        drpSchool.DataSource = dsObj1;
+    //        drpSchool.DataBind();
+    //        drpSchool.Items.Insert(0, "---Select School----");
+    //    }
+    //}
+    public void FillAcademicYear()
     {
-        string strSC = "exec [usp_usermaster] @command='fillYear',@intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "'";
-        daObjSC = new SqlDataAdapter(strSC, strCOn);
-        daObjSC.Fill(dsObjSC);
-        fillRole();
-    }
-    protected void fillSchool()
-    {
-        string strQry1 = "";
-        strQry1 = "exec [usp_usermaster] @command='fillSchool',@intSchool_id='1'";
-        daObj1 = new SqlDataAdapter(strQry1, strCOn);
-        daObj1.Fill(dsObj1);
-        if (dsObj1.Tables[0].Rows.Count > 0)
+        try
         {
-            drpSchool.DataTextField = "vchSchool_name";
-            drpSchool.DataValueField = "intSchool_id";
-            //Session["schoolCollegeType"] = Convert.ToString(dsObj1.Tables[0].Rows[0]["intType"]);           
-            drpSchool.DataSource = dsObj1;
-            drpSchool.DataBind();
-            drpSchool.Items.Insert(0, "---Select School----");
-        }
-        else
-        {
-            drpSchool.DataSource = dsObj1;
-            drpSchool.DataBind();
-            drpSchool.Items.Insert(0, "---Select School----");
-        }
+            string strQrya = "";
+            strQrya = "exec usp_usermaster @command='FillYear',@intSchool_Id='1'";
+            daObja = new SqlDataAdapter(strQrya, strCOn);
+            daObja.Fill(dsObja);
+            if (dsObja.Tables[0].Rows.Count > 0)
+            {
+                ddlAcademiYr.DataTextField = "AcademicYear";
+                ddlAcademiYr.DataValueField = "intAcademic_id";
 
-    }
-    protected void fillRole()
-    {
-        string strQry = "";
-        strQry = "exec [usp_usermaster] @command='fillRole',@intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "'";
-        daObj = new SqlDataAdapter(strQry, strCOn);
-        daObj.Fill(dsObj);
-        if (dsObj.Tables[0].Rows.Count > 0)
-        {
-            drpUserType.DataTextField = "vchRole";
-            drpUserType.DataValueField = "intRole_Id";
-           
-            drpUserType.DataSource = dsObj;
-            drpUserType.DataBind();
-            drpUserType.Items.Insert(0, "---Select Role----");
+                ddlAcademiYr.DataSource = dsObja;
+                ddlAcademiYr.DataBind();
+                ddlAcademiYr.Items.Insert(0, "---Academic Year----");
+            }
+            else
+            {
+                ddlAcademiYr.DataSource = dsObja;
+                ddlAcademiYr.DataBind();
+                ddlAcademiYr.Items.Insert(0, "---Academic Year----");
+            }
         }
-        else
+        catch
         {
-            drpUserType.DataSource = dsObj;
-            drpUserType.DataBind();
-            drpUserType.Items.Insert(0, "---Select Role----");
-        }
-        
-    }
 
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        
+        }
     }
+    //protected void fillRole()
+    //{
+    //    string strQry = "";
+    //    strQry = "exec [usp_usermaster] @command='fillRole',@intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "'";
+    //    daObj = new SqlDataAdapter(strQry, strCOn);
+    //    daObj.Fill(dsObj);
+    //    if (dsObj.Tables[0].Rows.Count > 0)
+    //    {
+    //        drpUserType.DataTextField = "vchRole";
+    //        drpUserType.DataValueField = "intRole_Id";
+
+    //        drpUserType.DataSource = dsObj;
+    //        drpUserType.DataBind();
+    //        drpUserType.Items.Insert(0, "---Select Role----");
+    //    }
+    //    else
+    //    {
+    //        drpUserType.DataSource = dsObj;
+    //        drpUserType.DataBind();
+    //        drpUserType.Items.Insert(0, "---Select Role----");
+    //    }
+    //}
+
     public static string GetSystemIP()
     {
         string retStr = "";
@@ -164,43 +162,30 @@ public partial class login_index : System.Web.UI.Page
         }
         return retStr;
     }
-    protected void btnSubmit_Click1(object sender, EventArgs e)
+    protected void btnSubmit_Click(object sender, EventArgs e)
     {
         string strQry = "";
-        string usertyrpe_id = "";
-        string userName = "";
-        HttpContext.Current.Session["strUserType"]=Convert.ToString(drpUserType.SelectedValue.Trim());
-        Session["YearName"] = Convert.ToString(drpYear.SelectedItem.Text.Trim());
-        Session["AcademicID"] = Convert.ToString(drpYear.SelectedValue.Trim());
-       
-        strQry = "exec [usp_usermaster] @command='select',@username='" + Convert.ToString(txtUserName.Text.Trim()) + "',@password='" + Convert.ToString(txtPassword.Text.Trim()) + "' , @intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "',@usertype='" + Convert.ToString(drpUserType.SelectedValue.Trim()) + "',@intAcademic_id='" + Convert.ToString(drpYear.SelectedValue.Trim()) + "'";
+        //HttpContext.Current.Session["strUserType"] = Convert.ToString(drpUserType.SelectedValue.Trim());
+        HttpContext.Current.Session["strUserType"] = "5";
+        //strQry = "exec [usp_usermaster] @command='select',@username='" + Convert.ToString(txtUserName.Text.Trim()) + "',@password='" + Convert.ToString(txtPassword.Text.Trim()) + "' , @intSchool_id='" + Convert.ToString(drpSchool.SelectedValue.Trim()) + "',@usertype='" + Convert.ToString(drpUserType.SelectedValue.Trim()) + "'";
+        strQry = "exec [usp_usermaster] @command='select',@username='" + Convert.ToString(txtUserName.Text.Trim()) + "',@password='" + Convert.ToString(txtPassword.Text.Trim()) + "' , @intSchool_id='1',@usertype='5'";
         daObj = new SqlDataAdapter(strQry, strCOn);
         daObj.Fill(dsObj);
-
         if (dsObj.Tables[0].Rows.Count > 0)
         {
             Session["School_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intSchool_id"]);
             Session["UserType_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intUserType_id"]);
-            usertyrpe_id = Convert.ToString(dsObj.Tables[0].Rows[0]["intUserType_id"]);
-            Session["UserName"] = Convert.ToString(dsObj.Tables[0].Rows[0]["vchUser_name"]);
-            userName = Convert.ToString(dsObj.Tables[0].Rows[0]["vchUser_name"]);
-            if (usertyrpe_id == "1")
-            {
-                Session["Student_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStudent_id"]);
-                Session["Standard_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStandard_id"]);
-                Session["Division_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intDivision_id"]);
-            }
-            else if (usertyrpe_id == "2")
-            {
-                Session["Student_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStudent_id"]);
-                Session["Standard_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStandard_id"]);
-                Session["Division_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intDivision_id"]);
-            }
-            else
-            {
-
-            }
-
+            Session["User_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intUser_id"]);
+            //Session["Student_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStudent_id"]);
+            //Session["Standard_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intStandard_id"]);
+            //Session["Division_id"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intDivision_id"]);
+            Session["AcademicID"] = Convert.ToString(dsObj.Tables[0].Rows[0]["intAcademic_id"]);
+            Session["Transporter"] = "1";
+            Session["usertype"] = "1";
+            Session["userid"] = "1";
+            Session["UserName"] = "admin";
+            Session["LastName"] = "admin";
+            Session["intOrg_id"] = "1";
             Session["IP"] = GetSystemIP();
             sqlcon = new SqlConnection(strCOn);
 
@@ -243,40 +228,36 @@ public partial class login_index : System.Web.UI.Page
                     }
                     else
                     {
-                        //Response.Redirect("LoginDetails.aspx", false);
-                        //Response.Redirect("frmStudentAllotment.aspx", false);
                         Response.Redirect("AdminDB.aspx", false);
                     }
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "3")
                 {
                     Response.Redirect("TeacherDB.aspx", false);
-                    //Response.Redirect("frmMonthlyAttendance.aspx", false);
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "4")
                 {
                     Response.Redirect("StaffDB.aspx", false);
-                    //Response.Redirect("frmMonthlyAttendance.aspx", false);
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "1" || Convert.ToString(Session["UserType_id"]) == "2")
                 {
-                    Response.Redirect("studentDB.aspx", false);                                 
+                    Response.Redirect("studentDB.aspx", false);
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "10")
-                {                 
-                     Response.Redirect("AdminDB.aspx", false);                  
+                {
+                    Response.Redirect("AdminDB.aspx", false);
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "9")
                 {
-                    Response.Redirect("StaffDB.aspx", false);                  
+                    Response.Redirect("StaffDB.aspx", false);
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "8")
                 {
-                    Response.Redirect("TeacherDB.aspx", false);                  
-                }               
+                    Response.Redirect("TeacherDB.aspx", false);
+                }
                 else if (Convert.ToString(Session["UserType_id"]) == "6" || Convert.ToString(Session["UserType_id"]) == "7")
                 {
-                    Response.Redirect("studentDB.aspx", false);                               
+                    Response.Redirect("studentDB.aspx", false);
                 }
                 else if (Convert.ToString(Session["UserType_id"]) == "15")
                 {
@@ -310,4 +291,5 @@ public partial class login_index : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
         }
     }
+
 }

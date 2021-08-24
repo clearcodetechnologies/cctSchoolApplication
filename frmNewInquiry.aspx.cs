@@ -221,6 +221,8 @@ public partial class frmNewInquiry : DBUtility
                 txtAmount.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intAmount"]);
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

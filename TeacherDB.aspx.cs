@@ -104,7 +104,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice1.Visible = true;
                     }
                     if (k == 1)
@@ -112,7 +112,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice2.Visible = true;
                     }
                     if (k == 2)
@@ -120,7 +120,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice3.Visible = true;
                     }
                     if (k == 3)
@@ -128,7 +128,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice4.Visible = true;
                     }
                     if (k == 4)
@@ -136,7 +136,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice5.Visible = true;
                     }
                     if (k == 5)
@@ -144,7 +144,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice6.Visible = true;
                     }
                     if (k == 6)
@@ -152,7 +152,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice7.Visible = true;
                     }
                     if (k == 7)
@@ -160,7 +160,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice8.Visible = true;
                     }
                     if (k == 8)
@@ -168,7 +168,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice9.Visible = true;
                     }
                     if (k == 9)
@@ -176,7 +176,7 @@ public partial class TeacherDB : DBUtility
                         lblSubject10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue Date"]);
-                        lblEndDate10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
+                        //lblEndDate10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End Date"]);
                         Notice10.Visible = true;
                     }
                 }

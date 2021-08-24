@@ -236,15 +236,15 @@ public partial class login_contact : DBUtility
             if (result1 != -1)
             {
                 MailAddress mailfrom = new MailAddress(email);
-                MailAddress mailto = new MailAddress("info@efficacious.co.in");
+                MailAddress mailto = new MailAddress("info@vclassrooms.in");
                 MailMessage newmsg = new MailMessage(mailfrom, mailto);
 
                 newmsg.Subject = "New Enquiry";
-                newmsg.Body = "Site Name:-" + "E-Smarts" + " " + "School Name:-" + schoolnm + " " + "Contact Name:-" + contacnm + " " + "Address:-" + address + " " + "City:-" + city + " " + "State:-" + state + " " + "TelePhone No:-" + tele + " " + "Email Id:-" + email + " " + "Remark:-" + Remark;
+                newmsg.Body = "Site Name:-" + "VClassrooms" + " " + "School Name:-" + schoolnm + " " + "Contact Name:-" + contacnm + " " + "Address:-" + address + " " + "City:-" + city + " " + "State:-" + state + " " + "TelePhone No:-" + tele + " " + "Email Id:-" + email + " " + "Remark:-" + Remark;
 
-                SmtpClient smtps = new SmtpClient("mail.efficacious.co.in", 25);
+                SmtpClient smtps = new SmtpClient("mail.vclassrooms.in", 25);
                 smtps.UseDefaultCredentials = false;
-                smtps.Credentials = new NetworkCredential("info@efficacious.co.in", "info@2017");
+                smtps.Credentials = new NetworkCredential("info@vclassrooms.in", "info@2017");
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
                 System.Security.Cryptography.X509Certificates.X509Certificate certificate,
                 System.Security.Cryptography.X509Certificates.X509Chain chain,
@@ -295,16 +295,16 @@ public partial class login_contact : DBUtility
     {
         string Reemail = Convert.ToString(txtEmail.Text);
         MailMessage mailmsg = new MailMessage();
-        mailmsg.From = new MailAddress("info@efficacious.co.in");
+        mailmsg.From = new MailAddress("info@vclassrooms.in");
         MailAddress mailto = new MailAddress(Reemail);
-        MailAddress mailfrom = new MailAddress("info@efficacious.co.in");
+        MailAddress mailfrom = new MailAddress("info@vclassrooms.in");
         MailMessage newmsg = new MailMessage(mailfrom, mailto);
 
         newmsg.Subject = "Enquiry";
         newmsg.Body = "Dear Sir/ Mam," + "                                                                                                                                                                                " +
 
-"About Efficacious" + "                                                                                                                                                                                          " +
-"Efficacious is the synonym to Efficient. Efficacious India Limited (EIL) an ISO 9001:2008 was incorporated in 2012 with a very clear vision of finding IT enabled solution to eradicate the problems being faced by the Common Man. The whole concept was conceptualized, a hard core financial professional having entrepreneurial vision to provide enterprise solutions to niche markets. EIL was born out of the ambition to tap the needs in niche segments in the IT sector and create opportunities no one has crafted before in these avenues." +
+"About vclassrooms" + "                                                                                                                                                                                          " +
+"vclassrooms is the synonym to Efficient. vclassrooms India Limited (EIL) an ISO 9001:2008 was incorporated in 2012 with a very clear vision of finding IT enabled solution to eradicate the problems being faced by the Common Man. The whole concept was conceptualized, a hard core financial professional having entrepreneurial vision to provide enterprise solutions to niche markets. EIL was born out of the ambition to tap the needs in niche segments in the IT sector and create opportunities no one has crafted before in these avenues." +
 
 "We thank you for showing interest in our product. As per your request our representative will contact you soon. " + "                               " +
 
@@ -314,12 +314,12 @@ public partial class login_contact : DBUtility
 
 "Thanks & Regards" + "                                                                                                                                                                 " +
 
-"Efficacious India Limited" + "                                                                                                                                                                   " +
-"L: +91 – 22 – 27816136/37,   www.efficacious.co.in  1402, G Square Business Centre, Plot 25 & 26, Sector 30, Opp. Sanpada Station, Vashi, Navi Mumbai – 400703";
+"vclassrooms India Limited" + "                                                                                                                                                                   " +
+"L: +91 – 22 – 27816136/37,   www.vclassrooms.in  1402, G Square Business Centre, Plot 25 & 26, Sector 30, Opp. Sanpada Station, Vashi, Navi Mumbai – 400703";
 
-        SmtpClient smtps = new SmtpClient("mail.efficacious.co.in", 25);
+        SmtpClient smtps = new SmtpClient("mail.vclassrooms.in", 25);
         smtps.UseDefaultCredentials = false;
-        smtps.Credentials = new NetworkCredential("info@efficacious.co.in", "info@2017");
+        smtps.Credentials = new NetworkCredential("info@vclassrooms.in", "info@2017");
         System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate(object s,
                 System.Security.Cryptography.X509Certificates.X509Certificate certificate,
                 System.Security.Cryptography.X509Certificates.X509Chain chain,

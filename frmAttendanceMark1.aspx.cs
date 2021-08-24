@@ -370,7 +370,7 @@ public partial class frmAttendanceMark1 : DBUtility
                        
                         string msgParent = "Your Child Name: " + strStudentName + " User Name: " + strUserName + " Password: " + strPassword + " please use mobile application, Thank you.";
                         POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");    
-                    //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                    //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
                         //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobileNo + "&sender=EFFICA&message=" + msgParent + "&format=json&custom=1,2&flash=0", "");
                         //POST("http://103.231.41.62/HttpPush/SendMessage.aspx?user=effica&pwd=effica&sender=ESMART&mobile=91" + strMobileNo.Trim() + "&msg=Your child " + strStudentName.Trim() + " is absent today in school&alert=1", "");
                        // strQry = "Messaging_SP @type='Insert',@uesr_type='" + Convert.ToString(Session["strUserType"]) + "',@student_id=0,@mobile='" + strMobileNo.Trim() + "',@msgCount='" + 1 + "',@message='" + msgParent.Trim() + "',@InsertedBy='" + Session["User_Id"] + "',@insertIP='" + GetSystemIP() + "'";
@@ -430,7 +430,7 @@ public partial class frmAttendanceMark1 : DBUtility
                     string strMobileNo = Convert.ToString(dsObj.Tables[0].Rows[i]["intMobileNo"]);
                     //strMobileNo = "9831109717";
                     string msgParent = "" + str + " these Students are absent as on " + strDate + ". for Class " + drpStandard.SelectedItem.Text.Trim() + "";
-                    POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                    POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobileNo + "&message=" + msgParent.Trim() + "&senderid=CMSBKP&accusage=1", "");
                     //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobileNo + "&sender=EFFICA&message=" + msgParent + "&format=json&custom=1,2&flash=0", "");
                     //strname = strname.Trim(",".ToCharArray());
                     //lblmsg.Text = "Selected UserIds: <b>" + str + "</b><br/>" + "Selected UserNames: <b>" + strname + "</b>";

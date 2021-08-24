@@ -196,7 +196,7 @@ public partial class CharacterCertificate2 : DBUtility
         }
         try
         {
-             vchStream = Convert.ToString(ddlstream.Text).ToUpper();
+            // vchStream = Convert.ToString(ddlstream.Text).ToUpper();
             }
         catch 
         { 
@@ -225,7 +225,7 @@ public partial class CharacterCertificate2 : DBUtility
         try
         {
         //string vchappSec = Convert.ToString(txtmothername.Text);
-     vchappStream = Convert.ToString(ddlappstream.Text);
+     //vchappStream = Convert.ToString(ddlappstream.Text);
             }
         catch 
         { 
@@ -378,12 +378,12 @@ public partial class CharacterCertificate2 : DBUtility
             string vchMotherName = Convert.ToString(txtmothername.Text);
             string vchclass = Convert.ToString(txtclass.Text);
 	        string vchSec = Convert.ToString(txtSec.Text);
-	        string vchStream = Convert.ToString(ddlstream.Text);
+	      //  string vchStream = Convert.ToString(ddlstream.Text);
 	        string intRollno = Convert.ToString(txtRollno.Text);
 	        string vchYear = Convert.ToString(txtyear.Text);
 	        string vchappclass = Convert.ToString(ddlappclass.SelectedValue);
 	        //string vchappSec = Convert.ToString(txtmothername.Text);
-	        string vchappStream = Convert.ToString(ddlappstream.Text);
+	      //  string vchappStream = Convert.ToString(ddlappstream.Text);
 	        string intAISSCERollno = Convert.ToString(txtAISSCERollno.Text);
 	        string vchappYear = Convert.ToString(txtappyear.Text);
 	        string dtDOB = Convert.ToDateTime(txtDOB.Text).ToString("dd/MMMM/yyyy"); //Convert.ToString(txtDOBword.Text);
@@ -395,8 +395,8 @@ public partial class CharacterCertificate2 : DBUtility
 
 
             string instrquery1 = "Execute dbo.usp_CharCertificate @command='Insertcharcertificate',@intStudent_id='" + ddlStudent.SelectedValue + "',@vchStudent_name='" + vchStudent_name + "',@vchFatherName='" + vchFatherName + "',@dtDOB='" + dtDOB + "'," +
-                                  "@vchMotherName='" + vchMotherName + "',@vchclass='" + vchclass + "',@vchSec='" + vchSec + "',@vchStream='" + vchStream + "',@intRollno='" + intRollno + "',@vchYear='" + vchYear + "',@vchappclass='" + vchappclass + "'," +
-                                  "@vchappStream='" + vchappStream + "',@intAISSCERollno='" + intAISSCERollno + "',@vchappYear='" + vchappYear + "',@vchPreparedby='" + vchPreparedby + "'," +
+                                  "@vchMotherName='" + vchMotherName + "',@vchclass='" + vchclass + "',@vchSec='" + vchSec + "',@vchStream='',@intRollno='" + intRollno + "',@vchYear='" + vchYear + "',@vchappclass='" + vchappclass + "'," +
+                                  "@vchappStream='',@intAISSCERollno='" + intAISSCERollno + "',@vchappYear='" + vchappYear + "',@vchPreparedby='" + vchPreparedby + "'," +
                                   "@intInserted_by='" + Session["User_id"] + "',@InseretIP='" + GetSystemIP() + "',@intAcademic_id='" + Session["AcademicID"] + "'";
 
 

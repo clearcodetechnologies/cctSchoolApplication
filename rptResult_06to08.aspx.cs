@@ -40,6 +40,9 @@ public partial class rptResult_I_V : DBUtility
                 crystalReport.Load(reportPath);
 
                 //{Code Ny me
+                TextObject Heading = (TextObject)crystalReport.ReportDefinition.Sections["Section1"].ReportObjects["Text1"];
+                Heading.Text = "ACHIEVEMENT RECORD ACADEMIC YEAR (" + Session["AcademicYearName"] + ")";
+
                 //Student Profile
                 TextObject AdmnNo = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text4"];
                 TextObject Studentnm = (TextObject)crystalReport.ReportDefinition.Sections["Section3"].ReportObjects["Text8"];
@@ -331,7 +334,8 @@ public partial class rptResult_I_V : DBUtility
 
                 //strQry = "Execute dbo.usp_Profile @command='ShowProfile' ,@intStudent_id='" + dsObjgrade.Tables[0].Rows[0 + i]["student_id"] + "',@intschool_id='" + Convert.ToString(Session["School_id"]) + "',@intStandard_id='" + Convert.ToString(Session["standard_idnum"]) + "'";
 
-                strQry = "Execute dbo.spStudentResult @intStudent_id='" + dsObjgrade.Tables[0].Rows[0 + i]["student_id"] + "',@intschool_id='" + Convert.ToString(Session["School_id"]) + "',@intStandard_id='" + Convert.ToString(Session["standard_idnum"]) + "'";
+                //strQry = "Execute dbo.spStudentResult @intStudent_id='" + dsObjgrade.Tables[0].Rows[0 + i]["student_id"] + "',@intschool_id='" + Convert.ToString(Session["School_id"]) + "',@intStandard_id='" + Convert.ToString(Session["standard_idnum"]) + "'";
+                strQry = "Execute dbo.sp_StudetntAnnualResult @intStudent_id='" + dsObjgrade.Tables[0].Rows[0 + i]["student_id"] + "',@intStandard_id='" + Convert.ToString(Session["standard_idnum"]) + "'";
                 //strQry = "Execute dbo.usp_Profile @command='ShowProfile' ,@intUser_id='" + Convert.ToString(ddlStudent.SelectedValue) + "',@intschool_id='" + Convert.ToString(Session["School_id"]) + "'";
                 dsObj = sGetDataset(strQry);
                 if (dsObj.Tables[0].Rows.Count > 0)

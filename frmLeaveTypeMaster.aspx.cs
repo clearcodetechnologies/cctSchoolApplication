@@ -29,7 +29,8 @@ public partial class frmLeaveTypeMaster : DBUtility
         try
         {
             strQry = "";
-            strQry = "exec usp_tblDepartment_Mst @type='FillRole',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
+            strQry = "exec usp_tblDepartment_Mst @type='FillDeptRole',@intSchool_id='" + Session["School_Id"] + "'";
+            //strQry = "exec usp_tblDepartment_Mst @type='FillRole',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
             sBindDropDownList(ddlRole, strQry, "vchRole", "intRole_Id");
             sBindDropDownList(drpRole, strQry, "vchRole", "intRole_Id");
 
@@ -66,7 +67,7 @@ public partial class frmLeaveTypeMaster : DBUtility
             txtName.Focus();
             return;
         }
-        if (btnSubmit.Text == "Submit")
+        if (btnUpdate.Text == "Submit")
         {
             strQry = "usp_LeaveTypeMaster @command='CheckExist',@intRole_Id='" + Convert.ToString(ddlRole.SelectedValue) + "',@vchLeaveType_name='" + Convert.ToString(txtName.Text.Trim()) + "',@intSchool_id='" + Convert.ToString(Session["School_id"]) + "'";
             dsObj = sGetDataset(strQry);
@@ -102,7 +103,7 @@ public partial class frmLeaveTypeMaster : DBUtility
                     fGrid();
                     MessageBox("Record Updated Successfully!");
                     TabContainer1.ActiveTabIndex = 0;
-                    btnSubmit.Text = "Submit";
+                    btnUpdate.Text = "Submit";
                 }
             }
         }
@@ -120,7 +121,9 @@ public partial class frmLeaveTypeMaster : DBUtility
                 ddlRole.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intRole_Id"]);
                 txtName.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchLeaveType_name"]);
                 TabContainer1.ActiveTabIndex = 1;
-                btnSubmit.Text = "Update";
+                btnUpdate.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

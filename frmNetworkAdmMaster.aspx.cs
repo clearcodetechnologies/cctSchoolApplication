@@ -152,8 +152,11 @@ public partial class frmNetworkAdmMaster : DBUtility
                 drpAdmin.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intAdmin_id"]);
                 txtMobile.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intMobileNo"]);
 
-                TBC.ActiveTabIndex = 1;
+                //TBC.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

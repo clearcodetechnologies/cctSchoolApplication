@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" CodeFile="frmAttendanceMarkAdmin.aspx.cs" Inherits="frmAttendanceMarkAdmin" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
- <script language="javascript">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script language="javascript">
      function checkDate() {
          var idate = document.getElementById("<%=txtDate.ClientID %>").value;
          var myDate = new Date(idate);
@@ -39,189 +39,67 @@
             }
         }
     </script>
-    <style type="text/css">
-        .style1
-        {
-            width: 100%;
-            font-family: Verdana;
-        }
-        .style1 select {
-            display: block;
-            border: 1px solid #3498db;
-            width: 133%;
-            padding: 5px;
-            height: auto !important;
-            -webkit-border-radius: 7px;
-            -moz-border-radius: 7px;
-            border-radius: 0px;
-            padding: 6px 0px;
-            font-size: 13px;
-            text-align: left;
-            margin-top: 10px;
-            margin-right: 30px;
-        }
-        .inputf
-        {
-            width: 140px;
-            height: auto;
-            padding: 4px;
-            border: 1px solid green;
-        }
-        .inputfCheck
-        {
-            width: 100px;
-            height: auto;
-            padding: 4px;
-            border: 1px solid #078DB9;
-        }
-        .selectf
-        {
-            width: 133px;
-            height: auto;
-            padding: 4px;
-            border: 1px solid #078DB9;
-        }
-        .search
-        {
-            border: 1px solid #078DB9 !important;
-            padding: 3px;
-        }
-        .efficacious_Submit
-        {
-            border-style: none;
-            border-color: inherit;
-            border-width: medium;
-            width: 130% !important;
-            background: #3498db;
-            font-size: 12px;
-            color: #fff;
-            margin: 0px auto;
-            padding: 3px;
-            cursor: pointer;
-            height: 30px;
-            float: right;
-            position: relative;
-            left: 14px;
-            text-align: center;
-        }
-        .modalPopup
-        {
-            background-color: #696969;
-            filter: alpha(opacity=40);
-            opacity: 0.7;
-            xindex: -1;
-        }
-        .td, th {
-            padding: 0;
-            padding-right:300px;
-        }
-        button, html input[type=button], input[type=reset], input[type=submit] {
-            -webkit-appearance: button;
-            cursor: pointer;
-            /* top: -4px; */
-        }
-    </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
- <div class="clearfix">
-    </div>
-<div class="content-header pd-0">       
-        <ul class="top_nav1 sp">
-        <li><a >Attendance <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>                  
-             <li><a href="frmTeacherAttendance.aspx">Teacher Attendance</a></li>
-            <li><a href="frmStaffAttendance.aspx">Staff Attendance</a></li>
-            <li><a href="frmStudentAttendance.aspx">Student Attendance</a></li>
-            <li class="active1"><a href="frmAttendanceMarkAdmin.aspx">Admin Attendance Mark</a></li>   
-            <li><a href="frmAttendanceMarkTeacher.aspx">Teacher Attendance Mark</a></li>   
-            <li><a href="frmAttendanceMarkStaff.aspx">Staff Attendance Mark</a></li>   
-            <li><a href="frmAttendanceMark.aspx">Student Attendance Mark</a></li>            
-        </ul>
-    </div>
-<section class="content">
- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <center>
-                <table>
-                    <tr>
-                        <td align="left">
-                            <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle" runat="server" ActiveTabIndex="0"
-                                Width="850px" Visible="false">
-                                <asp:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1"><HeaderTemplate>Mark Attendance</HeaderTemplate></asp:TabPanel>
-                                <asp:TabPanel ID="TabPanel2" runat="server" HeaderText="TabPanel2" 
-                                    Visible="False"></asp:TabPanel>
-                            </asp:TabContainer>
-                            <table width="100%">
-                                <tr>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6">
-                                        <table width="100%" style="padding-right:30px;">
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="Label3" runat="server" style="padding-right: 30px;" Text="Date"></asp:Label></td>
-                                                <td align="left">
-                                                   <asp:TextBox ID="txtDate" runat="server" AutoPostBack="True" CssClass="selectf" Font-Names="Verdana" ForeColor="Black" OnTextChanged="txtDate_TextChanged" style="padding-right: 30px;"></asp:TextBox>
-                                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtDate">
-                                                    </asp:CalendarExtender></td>
-                                                <td>
-                                                    
-                                                </td>
-                                                <td align="center">
-                                                    
-                                                </td>
-                                                <td style="padding-left:20px;">                                                    
-                                                    &nbsp;</td>
-                                                <td>
-                                                    &nbsp;</td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td>
-                                        &nbsp;&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <asp:GridView ID="grdMarkAttendance" runat="server" AutoGenerateColumns="False" CssClass="table  tabular-table"
-                                            DataKeyNames="intAdmin_id,FCMToken"
-                                            EmptyDataText="No Records Found" Width="100%">
-                                            <Columns>
-                                                <asp:TemplateField HeaderText="Edit" Visible="False">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    
+     <%-- <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">   Mark Attendance </h1>
+          </div>  
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Attendance</a></li>
+              <li class="breadcrumb-item active"> Mark Attendance</li>
+            </ol>
+          </div> 
+        </div> 
+      </div> 
+    </div> --%>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+        <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                  <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Mark Attendance</a>
+                    </li>
+                   
+                  </ul>
+                </div>
+                    <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-five-tabContent">
+                      <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
+                           <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                  <asp:Label ID="Label2" CssClass="col-form-label" runat="server" Text="Date"></asp:Label>
+                                  <asp:TextBox ID="txtDate" runat="server" CssClass="form-control" AutoPostBack="True" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
+                                  <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtDate">
+                                                    </asp:CalendarExtender>
+                                   
+                                </div>
+                             </div>
+                                 <div class="col-lg-3 col-md-4 col-sm-6"> 
+                                                                
+                                    <asp:Button ID="btnUpdate" runat="server" OnClick="btnUpdate_Click"  CssClass="btn btn-danger btn-sm mt-18"  Text="Update" Visible="False" />
+                               <asp:Button ID="btnSMS" runat="server" CssClass="btn btn-danger btn-sm mt-18" Text="SMS" Visible="False"  OnClick="btnSMS_Click" />
+                                </div>
+
+
+                                </div>
+                         
+                        <div class="col-lg-12 col-md-12">
+                             <asp:GridView ID="grdMarkAttendance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                                        CssClass="table table table-hover table-bordered cus-table tabular-table " PageSize="20" DataKeyNames="intAdmin_id,FCMToken"
+                                            EmptyDataText="No Records Found">
+                                        <Columns>
+                                           <asp:TemplateField HeaderText="Edit" Visible="False">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblTestID" runat="server" Text='<%#Eval("intAdmin_id") %>'></asp:Label>
                                                     </ItemTemplate>
@@ -254,10 +132,9 @@
                                                         </asp:DropDownList>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                            </Columns>
-                                            <AlternatingRowStyle CssClass="alt" />
-                                        </asp:GridView>
-                                        <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                                        </Columns>
+                                    </asp:GridView>
+                             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
                                             <ProgressTemplate>
                                                 <asp:Image ID="Image1" runat="server" ImageUrl="~/images/waiting.gif"></asp:Image>
                                             </ProgressTemplate>
@@ -266,39 +143,33 @@
                                             PopupControlID="UpdateProgress1" BackgroundCssClass="modalPopup" DynamicServicePath=""
                                             Enabled="True">
                                         </asp:ModalPopupExtender>
-                                    </td>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <td valign="top">
-                                        <table>
-                                            <tr>
-                                                <td valign="top">
-                                                    <asp:Button ID="btnUpdate" runat="server" CssClass="efficacious_Submit" Text="Update"
-                                                        Visible="False" OnClick="btnUpdate_Click" style="top:1px;"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Button ID="btnSMS" runat="server" CssClass="efficacious_Submit" Text="SMS" Visible="False"
-                                                        OnClick="btnSMS_Click" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left">
-                            &nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </center>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-    </section>
+
+                            </div>
+                          </div>
+                     
+
+                      </div>
+                    </div>
+
+
+                 </div>
+            </div>
+         </div>
+       </div>
+     </section>  
+                    
+                                <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle d-none" runat="server" ActiveTabIndex="1">
+                                    <asp:TabPanel ID="tab" runat="server">
+                                  
+                                    </asp:TabPanel>
+                                    <asp:TabPanel runat="server"  ID="TabPanel1">
+                                         
+                                     
+                                    </asp:TabPanel>
+                                </asp:TabContainer>
+                            
+                </ContentTemplate>
+            </asp:UpdatePanel>
+         
 </asp:Content>
 

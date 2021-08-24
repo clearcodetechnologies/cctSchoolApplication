@@ -334,7 +334,7 @@ public partial class frmRoleWisePromotion : DBUtility
                     fGrid();
                     Clear();
                     MessageBox("Record Updated Successfully!");
-                    TBC.ActiveTabIndex = 0;
+                    //TBC.ActiveTabIndex = 0;
                     btnSubmit.Text = "Submit";
                 }
                 else
@@ -393,8 +393,10 @@ public partial class frmRoleWisePromotion : DBUtility
                 ddlSTD.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intstandard_id"]);
                 FillDivision();
                 ddlDIV.SelectedValue = Convert.ToString(dsObj.Tables[0].Rows[0]["intDivision_id"]);
-                TBC.ActiveTabIndex = 1;
+                //TBC.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

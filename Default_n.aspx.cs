@@ -50,7 +50,7 @@ public partial class _Default : DBUtility
                 mailmsg.From = new MailAddress(email);
                 mailmsg.To.Add(new MailAddress("Er.snehabhosale03@gmail.com"));
                 mailmsg.Subject = "New Enquiry";
-                //ajayp@efficacious.co.in
+                //ajayp@vclassrooms.in
                 mailmsg.Body = "School Name:-" + schoolnm + "<br>" + "Contact Name:-" + contacnm + "<br>" + "Address:-" + address + "<br>" + "City:-" + city + "<br>" + "State:-" + state + "<br>" + "Country:-" + country + "<br>" + "TelePhone No:-" + tele +"<br>"+ "Email Id:-" + email + "<br>" + "Remark:-" + Remark;
                 mailmsg.IsBodyHtml = true;
 

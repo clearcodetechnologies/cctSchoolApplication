@@ -444,9 +444,12 @@ public partial class frmHolidayMst : DBUtility
                     TabContainer1.ActiveTabIndex = 2;
                     btnSubmit.Text = "Update";
                     FillHolidayDataset();
-                }
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
 
             }
+
+        }
             catch 
             {
                 

@@ -75,8 +75,9 @@ public partial class frmColasticActivity : DBUtility
         ddlSection.ClearSelection();
         btnSubmit.Text = "Submit";
     }
-    protected void grvDetail_RowEditing1(object sender, GridViewEditEventArgs e)
+    protected void grvDetail_RowEditing(object sender, GridViewEditEventArgs e)
     {
+
         Session["intColasticActivityID"] = Convert.ToString(grvDetail.DataKeys[e.NewEditIndex].Value);
         strQry = "execute usp_tblColasticactivity @command='edit',@intSchool_id='" + Session["School_id"] + "',@intColasticActivity_id='" + Session["intColasticActivityID"].ToString() + "',@intAcademic_id='" + Session["AcademicID"].ToString() + "'";
         dsObj = sGetDataset(strQry);
@@ -87,6 +88,8 @@ public partial class frmColasticActivity : DBUtility
             txtDet.Text = dsObj.Tables[0].Rows[0]["vchDescription"].ToString();
             btnSubmit.Text = "update";
             TabContainer1.ActiveTabIndex = 1;
+            string script = "funcswitchtab()";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
         }
         if (ddlSection.SelectedValue == "1")
         {
@@ -96,10 +99,9 @@ public partial class frmColasticActivity : DBUtility
         {
             ddlSection.SelectedIndex = 2;
         }
-
-      
     }
-    protected void grvDetail_RowDeleting1(object sender, GridViewDeleteEventArgs e)
+
+    protected void grvDetail_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         ViewState["intColasticActivityID1"] = Convert.ToString(grvDetail.DataKeys[e.RowIndex].Value);
         strQry = "execute usp_tblColasticactivity @command='delete',@intSchool_id='" + Session["School_id"] + "',@intColasticActivity_id='" + ViewState["intColasticActivityID1"] + "',@intAcademic_id='" + Session["AcademicID"] + "'";

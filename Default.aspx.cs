@@ -50,9 +50,9 @@ public partial class _Default : DBUtility
                // ButSub1.Enabled = false;
  		MailMessage mailmsg = new MailMessage();
                 mailmsg.From = new MailAddress(email);
-                mailmsg.To.Add(new MailAddress("ajayp@efficacious.co.in"));
+                mailmsg.To.Add(new MailAddress("ajayp@vclassrooms.in"));
                 mailmsg.Subject = "New Enquiry";
-                //ajayp@efficacious.co.in
+                //ajayp@vclassrooms.in
                 mailmsg.Body = "School Name:-" + schoolnm + "<br>" + "Contact Name:-" + contacnm + "<br>" + "Address:-" + address + "<br>" + "City:-" + city + "<br>" + "State:-" + state + "<br>" + "Country:-" + country + "<br>" + "TelePhone No:-" + tele +"<br>"+ "Email Id:-" + email + "<br>" + "Remark:-" + Remark;
                 mailmsg.IsBodyHtml = true;
 
@@ -84,10 +84,10 @@ public partial class _Default : DBUtility
      string Reemail = Convert.ToString(txtEmail.Text);
 
      MailMessage mailmsg = new MailMessage();
-     mailmsg.From = new MailAddress("ajayp@efficacious.co.in");
+     mailmsg.From = new MailAddress("ajayp@vclassrooms.in");
      mailmsg.To.Add(new MailAddress(Reemail));
      mailmsg.Subject = "New Enquiry";
-     //ajayp@efficacious.co.in
+     //ajayp@vclassrooms.in
      mailmsg.Body = "Thank u For Ur Valuable FeedBack, Will Back To You Soon";
      mailmsg.IsBodyHtml = true;
 

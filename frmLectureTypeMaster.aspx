@@ -1,191 +1,122 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" CodeFile="frmLectureTypeMaster.aspx.cs" Inherits="frmLectureTypeMaster" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
- <style>
-        .mGrid th
-        {
-            text-align: center !important;
-        }
-    </style>
-    <script language="javascript" type="text/javascript">
-
-        function confirmMsg() {
-            var txt = document.getElementById("<%=txtLectureType.ClientID %>").value;
-            if (txt.trim() == '') {
-                alert('Please Enter Floor Name');
-                return false
-            }
-            else {
-                var btn = document.getElementById("<%=btnSubmit.ClientID %>").value;
-                if (btn == 'Submit') {
-                    var msg = confirm('Do You Really Want To Save Entered Record ?');
-                    if (msg) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                else {
-                    var msg = confirm('Do You Really Want To Update Entered Record ?');
-                    if (msg) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-            }
-        }
-
-    </script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+function funcswitchtab() {
+    $('#custom-tabs-five-overlay-dark-tab').trigger('click')
+    $("#custom-tabs-five-overlay-dark").addClass("active show");
+    $("#custom-tabs-five-overlay-tab").removeClass("active");
+    $("#custom-tabs-five-overlay").removeClass("show").removeClass("active");
+}         
+</script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<div class="content-header content-header1 pd-0">
-       
-        <ul class="top_navlg">
-        <li><a >Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-        <li><a >School Master <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-            <li><a href="frmSchoolEntry.aspx">School Master</a></li>
-             <li><a href="frmNetworkAdmMaster.aspx">SMS Master</a></li>
-            <li><a href="frmAcademicYearMaster.aspx">Academic Year Master</a></li>
-            <li><a href="frmCategoryMaster.aspx">Category Master</a></li>
-            <li class="active1"><a href="frmLectureTypeMaster.aspx">Lecture Type Master</a></li>
-            <li><a href="frmDepartmentMaster.aspx">Department Master</a></li>
-            <li><a href="frmDesignationMaster.aspx">Designation Master</a></li>
-            <li><a href="frmExamMaster.aspx">Exam Master</a></li>
-            <li><a href="frmExamType.aspx">Exam Type Master</a></li>
-            <li><a href="frmExamSubjectLink.aspx">Exam Passing Criteria</a></li>
-            <li><a href="frmLeaveTypeMaster.aspx">Leave Type Master</a></li>
-            <li><a href="frmHolidayTypeMaster.aspx">Holiday Type Master</a></li>
-            <li><a href="frmVacationTypeMaster.aspx">Vacation Type Master</a></li>
-            <li><a href="frmStatusMaster.aspx">Status Master</a></li>
-            <li><a href="frmSessionMaster.aspx">Session Master</a></li>
-            <li><a href="frmPeriod_Master.aspx">Period Master</a></li>
-            <li><a href="frmStandardMaster.aspx">Standard Master</a></li>
-            <li><a href="frmDivision_master.aspx">Division Master</a></li>
-            <li><a href="frmSubject_Entry.aspx">Subject Master</a></li>
-            <li><a href="frmAdmLectureAssign.aspx">Lecture Schedule</a></li>
-            <li><a href="FrmRouteMaster.aspx">Route Master</a></li>
-            <li><a href="frmBloodGroupMaster.aspx">Blood Group Master</a></li>
-            <li><a href="frmCountryMaster.aspx">Country Master</a></li>
-            <li><a href="frmStateMaster.aspx">State Master</a></li>
-            <li><a href="frmCityMaster.aspx">City Master</a></li>
-            <li><a href="frmAdmStudentProfile.aspx">Student Master</a></li>
-            <li><a href="FrmAdmTeacherProfile.aspx">Teacher Master</a></li>
-            <li><a href="FrmAdminStaffProfile.aspx">Staff Master</a></li>
-            <li><a href="FrmAdminMaster.aspx">Admin Master</a></li>
-        </ul>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    
+      <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">   Lecture Type Master </h1>
+          </div>  
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Master</a></li>
+              <li class="breadcrumb-item active"> Lecture Type Master</li>
+            </ol>
+          </div> 
+        </div> 
+      </div> 
+    </div> 
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+        <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                  <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Entry</a>
+                    </li> 
+                  </ul>
+                </div>
+                    <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-five-tabContent">
+                      <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
+                        <div class="col-lg-12 col-md-12">
+                             <asp:GridView ID="grvDetail" runat="server" AllowSorting="True" AutoGenerateColumns="False" onpageindexchanging="grvDetail_PageIndexChanging" 
+                                        CssClass="table table table-hover table-bordered cus-table tabular-table " PageSize="20" DataKeyNames="intLecture_type"
+                                        OnRowDeleting="grvDetail_RowDeleting" OnRowEditing="grvDetail_RowEditing">
+                                        <Columns>
+                                            <asp:BoundField DataField="vcLecture_type" HeaderText="Lecture Type" ReadOnly="True" />
+                                                                   
+                                            <asp:TemplateField HeaderText="Edit">
+                                                <ItemTemplate>
+                                                    <asp:ImageButton ID="ImgEdit" runat="server" CssClass="gbtn-edit" CommandName="Edit" CausesValidation="false"
+                                                        ImageUrl="~/images/edit.svg" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Delete">
+                                                <ItemTemplate>
+                                                    <asp:ImageButton ID="ImgDelete" runat="server" CssClass="gbtn-delete" CommandName="Delete" CausesValidation="false"
+                                                        OnClientClick="return confirm('Do You Really Want To Delete Selected Record?');" ImageUrl="~/images/delete.svg" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
 
-    </div>
- <section class="content">
- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <table width="100%">
-                <tr>
-                    <td align="left">
-                        <asp:TabContainer runat="server" CssClass="MyTabStyle" ID="TBC" Width="100%" 
-                            ActiveTabIndex="1">
-                            <asp:TabPanel runat="server" ID="TB1">
-                                <HeaderTemplate>
-                                    Details
-                                </HeaderTemplate>
-                                <ContentTemplate>
-                                    <center>
-                                        <table width="100%">
-                                            <tr>
-                                                <td align="left">
-                                                    <asp:GridView ID="grvDetail" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                                        CssClass="table  tabular-table " Width="50%" AllowPaging="True" 
-                                                        DataKeyNames="intLecture_type" onpageindexchanging="grvDetail_PageIndexChanging" 
-                                                        onrowdeleting="grvDetail_RowDeleting" onrowediting="grvDetail_RowEditing">
-                                                        <Columns>
-                                                         <asp:BoundField DataField="vcLecture_type" HeaderText="Lecture Type" ReadOnly="True" />
-                                                           
-                                                            <asp:TemplateField HeaderText="Edit">
-                                                                <ItemTemplate>
-                                                                    <asp:ImageButton ID="ImgEdit" CommandName="Edit" runat="server" ImageUrl="~/images/edit.png" />
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Floor_Id" Visible="False">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblId" Text='<%#Eval("intLecture_type") %>' runat="server"></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Delete" >
-                                                                <ItemTemplate>
-                                                                    <asp:ImageButton ID="ImgDelete" runat="server" CommandName="Delete" CausesValidation="true"
-                                                                        OnClientClick="return confirm('Do You Really Want To Delete Selected Record ?');"
-                                                                        ImageUrl="~/images/delete.png" />
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                        </Columns>
-                                                    </asp:GridView>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </center>
-                                </ContentTemplate>
-                            </asp:TabPanel>
-                            <asp:TabPanel runat="server" ID="TB2">
-                                <HeaderTemplate>
-                                    New Entry
-                                </HeaderTemplate>
-                                <ContentTemplate>
+                            </div>
+                          </div>
+                       <div class="tab-pane fade" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
+                     <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                              <div class="form-group">
+                                  <asp:Label ID="Label2" CssClass="col-form-label" runat="server" Text="Lecture Type"></asp:Label>
+                                  <asp:TextBox ID="txtLectureType" runat="server" CssClass="form-control" MaxLength="75" AutoComplete="Off"></asp:TextBox>
+                                   <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtLectureType"
+                                                                Display="None" ErrorMessage="Please Enter Lecture Type"></asp:RequiredFieldValidator>
                                    
-                                        <div class="efficacious">
-                                            <table width="37%" style="margin:0 0 0 2%;">
-                                                <tr>
-                                                    <td>
-                                                    </td>
-                                                    <td colspan="2">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left">
-                                                        <asp:Label ID="lbllectype" runat="server" Text="Lecture Type"></asp:Label>
-                                                    </td>
-                                                    <td align="left" colspan="2">
-                                                        <asp:TextBox ID="txtLectureType" runat="server" CssClass="input-blue" MaxLength="50" ToolTip="Enter Lecture Type Here "></asp:TextBox>
-                                                        <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender35" runat="server" TargetControlID="txtLectureType"
-                                                            FilterType="Custom, Numbers, UppercaseLetters, LowercaseLetters" 
-                                                            ValidChars=" " Enabled="True">
-                                                        </asp:FilteredTextBoxExtender>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td colspan="2">
-                                                        &nbsp;
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <asp:Button ID="btnSubmit" runat="server" CssClass="efficacious_send" 
-                                                            Text="Submit" onclick="btnSubmit_Click" />
-                                                    </td>
-                                                    <td align="right">
-                                                        <asp:Button ID="btnCancel" runat="server" CssClass="efficacious_send" 
-                                                            Text="Cancel" Visible="False" onclick="btnCancel_Click" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                   
-                                </ContentTemplate>
-                            </asp:TabPanel>
-                        </asp:TabContainer>
-                    </td>
-                </tr>
-            </table>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-</section>
+                                </div>
+                             </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6"> 
+                                  <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-success btn-sm mt-18"
+                                                                            OnClick="btnSubmit_Click" OnClientClick="return ConfirmInsertUpdate();" />
+                                
+                                    <asp:Button ID="btnClear" runat="server" OnClick="btnCancel_Click" Visible="False" CssClass="btn btn-danger btn-sm mt-18"  Text="Clear" CausesValidation="False" />
+                                </div>
+
+
+                                </div>
+                         </div>
+                           </div>
+
+                      </div>
+                    </div>
+
+
+                 </div>
+            </div>
+         </div>
+       </div>
+     </section>  
+                    
+                                <asp:TabContainer ID="TabContainer1" CssClass="MyTabStyle d-none" runat="server" ActiveTabIndex="1">
+                                    <asp:TabPanel ID="tab" runat="server">
+                                  
+                                    </asp:TabPanel>
+                                    <asp:TabPanel runat="server"  ID="TabPanel1">
+                                         
+                                     
+                                    </asp:TabPanel>
+                                </asp:TabContainer>
+                            
+                </ContentTemplate>
+            </asp:UpdatePanel>
+         
 </asp:Content>
-

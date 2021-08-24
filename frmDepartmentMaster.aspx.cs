@@ -38,7 +38,7 @@ public partial class frmDepartmentMaster : DBUtility
         try
         {
             strQry = "";
-            strQry = "exec usp_tblDepartment_Mst @type='FillRole',@intSchool_id='" + Session["School_Id"] + "'";
+            strQry = "exec usp_tblDepartment_Mst @type='FillDeptRole',@intSchool_id='" + Session["School_Id"] + "'";
             sBindDropDownList(ddlRole, strQry, "vchRole", "intRole_Id");
         }
         catch
@@ -170,8 +170,11 @@ public partial class frmDepartmentMaster : DBUtility
             {
                 ddlRole.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["intRole_Id"]);
                 txtDeptName.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchDepartment_name"]);
-                TBC.ActiveTabIndex = 1;
+                //TBC.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
             }
         }
         catch

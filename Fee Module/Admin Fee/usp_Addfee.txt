@@ -1,0 +1,148 @@
+CREATE procedure usp_Addfee
+(
+@command varchar(100)=null,
+@intStudent_id int=null,
+@intStandard_id int=null,
+@intDivision_id int=null,
+@intRoll_no int=null,
+@vchDiscount varchar(50)=null,
+@vchNet_amt varchar(50)=null,
+@vchRemark varchar(100)=null,
+@ModeOfPayment varchar(100)=null,
+@vchCheque_no varchar(50)=null,
+@vchBank_name varchar(100)=null,
+@intSchool_id int=null,
+@intAcademic_id int=null,
+@intInserted_by int=null,
+@vchInserted_ip varchar(100)=null,
+@intStudFee_id int=null,
+@intFeemaster_id int=null,
+@intNoOf_month int=null,
+@intMonth_id varchar(10)=null,
+@vchAmount varchar(10)=null,
+@intConcession_amt varchar(10)=null,
+@vchNetDetail_amt varchar(10)=null,
+@dtdate varchar(10)=null,
+@dtfrom_date varchar(10)=null,
+@dtto_date varchar(10)=null,
+@vchLate_charges varchar(15)=null
+)
+As
+Begin
+ if @command='AddFeeinMaster'
+ Begin
+ insert into tblStudent_Fee(intStudent_id,intStandard_id,intDivision_id,intRoll_no,
+ vchDiscount,vchNet_amt,vchRemark,ModeOfPayment,vchCheque_no,vchBank_name,intSchool_id,
+ intAcademic_id,intActive_flg,intInserted_by,dtInserted_date,vchInserted_ip)
+ values(@intStudent_id,@intStandard_id,@intDivision_id,@intRoll_no,@vchDiscount,
+ @vchNet_amt,@vchRemark,@ModeOfPayment,@vchCheque_no,@vchBank_name,@intSchool_id,
+ @intAcademic_id,'1',@intInserted_by,GETDATE(),@vchInserted_ip)
+ select  @@IDENTITY as intStudFee_id
+ End
+ if @command='InsertFeeDetails'
+ Begin
+ insert into tblStudentFee_details(intStudFee_id,intFeemaster_id,intNoOf_month,intMonth_id,vchAmount,vchLate_charges,
+ intConcession_amt,vchNetDetail_amt,intSchool_id,intAcademic_id,intActive_flg,dtpaid_date)
+ values(@intStudFee_id,@intFeemaster_id,@intNoOf_month,@intMonth_id,@vchAmount,@vchLate_charges,
+ @intConcession_amt,@vchNetDetail_amt,@intSchool_id,@intAcademic_id,'1',GETDATE())
+ End
+ if @command='CheckRecordsExits'
+ Begin
+ select * from tblStudentFee_details 
+ inner join tblStudent_Fee on tblStudent_Fee.intStudFee_id=tblStudentFee_details.intStudFee_id
+ where intStudent_id=@intStudent_id and intFeemaster_id=@intFeemaster_id
+ End
+ if @command='GetAllFeesStandardWise'
+ Begin
+  select feeMaster.intFeemaster_id,feeMaster.Fee_Name, 
+         typeMaster.frequency, 
+       case when feeMaster.vchconssion = 1 then 'Yes' else 'No' end as vchconssion ,
+       case when  convert(date,dtduetill_date) >= CONVERT(date, GETDATE()) then 'No' else 'Yes' end as vchLateCharge ,
+        feeMaster.vchfee from tblFee_master
+        feeMaster inner join tblFeetype_master typeMaster on
+        feeMaster.intFeetype_id = typeMaster.intFeetype_id inner join
+        tblstandard_master standardMaster  on feeMaster.intstandard_id = standardMaster.intstandard_id
+        where feeMaster.intActive_flg = 1 and feeMaster.intschool_id =@intschool_id
+        and feeMaster.intstandard_id = @intstandard_id
+  and ((CONVERT(date, @dtfrom_date) between CONVERT(date, dtstart_date) and CONVERT(date, dtduetill_date )) 
+  or ( CONVERT(date, @dtto_date) between CONVERT(date, dtstart_date) and CONVERT(date, dtduetill_date) ) 
+  or ( CONVERT(date, @dtto_date) >=  CONVERT(date, dtduetill_date) )  )
+ End
+ if @command='selectConcessionDetails'
+ Begin
+ select vchConcession_per,vchConcession_amt from tblStudentMaster_datails
+ inner join tblconcession_master on tblconcession_master.intConcession_id=tblStudentMaster_datails.intConcession_id
+ where @dtdate between CONVERT(date, dtfrom_date ) and CONVERT(date,dtto_date)
+ and intStudent_id=@intStudent_id
+ End
+ if @command='CheckRecordMonthWise'
+ Begin
+  select * from tblStudentFee_details 
+ inner join tblStudent_Fee on tblStudent_Fee.intStudFee_id=tblStudentFee_details.intStudFee_id
+  where intStudent_id=@intStudent_id and intFeemaster_id=@intFeemaster_id
+  and intMonth_id=@intMonth_id
+ End
+ if @command='GetDataFeeMasterWise'
+ Begin
+   select feeMaster.intFeemaster_id,feeMaster.Fee_Name,  typeMaster.frequency,   
+   case when feeMaster.vchconssion = 1 then 'Yes' else 'No' end as vchconssion ,
+   '' as month,
+    case when frequency =12 then
+ case when
+ DATEPART(DD,convert(date,dtduetill_date)) >= DATEPART(DD,CONVERT(date, @dtdate)) then 'No' else 'Yes' end
+ else
+    case when  DATEPART(DD,convert(date,dtduetill_date)) >=  DATEPART(DD,CONVERT(date, @dtdate))  then 'No' else 'Yes'end
+ end
+ as vchLateCharge,
+    feeMaster.vchfee from tblFee_master feeMaster 
+ inner join tblFeetype_master typeMaster on feeMaster.intFeetype_id = typeMaster.intFeetype_id
+  inner join tblstandard_master standardMaster  on feeMaster.intstandard_id = standardMaster.intstandard_id 
+  where feeMaster.intActive_flg = 1 and feeMaster.intschool_id = @intschool_id  and feeMaster.intFeemaster_id = @intFeemaster_id
+   and feeMaster.intstandard_id = @intstandard_id
+ End
+ if @command='CheckTransportFee'
+ Begin
+ select '0' as intFeemaster_id, 'Transport Fee' as Fee_Name, * from tblStudentMaster_datails
+  inner join tbl_FeesAssignArea on tbl_FeesAssignArea.intArea_Id=tblStudentMaster_datails.intRoute_id
+  where intStudent_id=@intStudent_id  and intActive_flg=1
+ End
+ if @command='SelectTransportRecords'
+ Begin
+ select cast('0' as int) as intFeemaster_id, 'Transport Fee' as Fee_Name,FORMAT(CONVERT(datetime, @dtdate),'MMM') as month,
+  numAmout as vchfee,
+  --case when DATEPART(dd,@dtdate) between startday and dueday then 'No' else 'Yes' end as vchLateCharge,
+   case when( (DATEPART(dd,GETDATE()) between startday and dueday) and (DATEPART(MONTH,@dtdate)=DATEPART(MONTH,GETDATE()) ) 
+  and (DATEPART(YEAR,@dtdate)=DATEPART(YEAR,GETDATE()) ) and (DATEPART(dd,@dtdate)<DATEPART(dd,GETDATE()) ) ) 
+   then 'Yes' else 'No' end as vchLateCharge,
+  case when isconcession =1 then 'Yes' else 'No' end as vchconssion
+    from tblStudentMaster_datails
+  inner join tblTransport_master on tblTransport_master.intArea_Id=tblStudentMaster_datails.intRoute_id
+  inner join tblTransport_masterDetails on tblTransport_masterDetails.intTransport_id=tblTransport_master.intTransport_id
+  where intStudent_id=@intStudent_id  and tblStudentMaster_datails.intActive_flg=1 
+  and  convert(date,@dtdate) >= CONVERT(date,dtfrom_date) and  convert(date,@dtdate) <=  CONVERT(date, dtto_date)   
+   and  convert(date,@dtdate) >= CONVERT(date,dtStart_date) and  convert(date,@dtdate) <=  CONVERT(date, dtEnd_date)
+ End
+ if @command='FeeDetails'
+ Begin
+  select tblStudent_Fee.intStudFee_id,CONCAT(vchStudentFirst_name, ' ', vchStudentLast_name) as student_name, vchStandard_name,vchDivisionName,
+ intRoll_no,ISNULL(Fee_Name,'Transport Fee') as Fee_Name ,intMonth_id,vchAmount,vchLate_charges,intConcession_amt,vchNetDetail_amt,intStudFee_DetailId,
+ vchDiscount as overallDiscount,vchNet_amt,vchRemark,ModeOfPayment  from tblStudent_Fee
+ inner join tblStudentFee_details on  tblStudentFee_details.intStudFee_id= tblStudent_Fee.intStudFee_id
+ inner join Student_Master on Student_Master.intStudent_id=tblStudent_Fee.intStudent_id
+ inner join tblstandard_master on tblstandard_master.intstandard_id = tblStudent_Fee.intStandard_id
+ inner join tblDivision_master on tblDivision_master.intDivision_id =tblStudent_Fee.intDivision_id
+ left join tblFee_master on tblFee_master.intFeemaster_id = tblStudentFee_details.intFeemaster_id
+ where ( tblStudent_Fee.intStudFee_id=@intStudFee_id or @intStudFee_id='' or @intStudFee_id='0' or @intStudFee_id=null)
+ and tblStudent_Fee.intSchool_id=@intSchool_id
+ End 
+ if @command='GetPaidFeeRecords'
+ Begin
+  select tblStudent_Fee.intStudFee_id,CONCAT(vchStudentFirst_name, ' ', vchStudentLast_name) as student_name, vchStandard_name,vchDivisionName,
+ intRoll_no, vchDiscount as overallDiscount,vchNet_amt,vchRemark,ModeOfPayment  from tblStudent_Fee
+ inner join Student_Master on Student_Master.intStudent_id=tblStudent_Fee.intStudent_id
+ inner join tblstandard_master on tblstandard_master.intstandard_id = tblStudent_Fee.intStandard_id
+ inner join tblDivision_master on tblDivision_master.intDivision_id =tblStudent_Fee.intDivision_id 
+ where ( tblStudent_Fee.intStudFee_id=@intStudFee_id or @intStudFee_id='' or @intStudFee_id='0' or @intStudFee_id=null)
+ and tblStudent_Fee.intSchool_id=@intSchool_id
+ End 
+End

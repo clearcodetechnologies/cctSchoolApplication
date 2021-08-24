@@ -96,6 +96,8 @@ public partial class frmVacationTypeMaster : DBUtility
                 txtName.Text = Convert.ToString(dsObj.Tables[0].Rows[0]["vchVacation_Type"]);
                 TabContainer1.ActiveTabIndex = 1;
                 btnSubmit.Text = "Update";
+                string script = "funcswitchtab()";
+                ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
         }
         catch

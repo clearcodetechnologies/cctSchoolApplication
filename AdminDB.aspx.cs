@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using System.Net;
 using System.Text;
 using System.IO;
+using System.Web.UI.DataVisualization.Charting;
+using System.Drawing;
 
 public partial class AdminDB : DBUtility
 {
@@ -18,8 +20,8 @@ public partial class AdminDB : DBUtility
     DataSet dsCal;
     DataTable dt = new DataTable();
     DataSet dsObj = new DataSet();
+    DataSet ds1= new DataSet();
     string TeacherCnt, StaffCnt,TeacherPresent,StaffPresent;
-
      DateTime dtcu = DateTime.Now;
             String strDateCu = "";
            
@@ -46,6 +48,9 @@ public partial class AdminDB : DBUtility
                 //fillBusDetails();
                 genderwiseStudent();
                 cumulativepers();
+                getStudentAttStatus();
+                getTeacherAttStatus();
+                getStaffAttStatus();
                 //Manager
                 if (Convert.ToString(Session["DepartmentID"]) == "9")
                 {
@@ -81,6 +86,141 @@ public partial class AdminDB : DBUtility
         
     }
 
+    public void getStudentAttStatus()
+    {
+        
+        //DataSet ds1 = service.getStudentAttStatusChart(Convert.ToInt32(Session["School_Id"]), Convert.ToInt32(Session["Academic_Id"]));
+        strQry = "exec [Dashboard_SP_Chart_Student]";
+        ds1 = sGetDataset(strQry);
+        DataTable ChartData = ds1.Tables[0];
+
+        //storing total rows count to loop on each Record  
+        string[] XPointMember = new string[ChartData.Rows.Count];
+        int[] YPointMember = new int[ChartData.Rows.Count];
+
+        if (ds1.Tables[0].Rows.Count > 0)
+        {
+            for (int count = 0; count < ChartData.Rows.Count; count++)
+            {
+                //storing Values for X axis  
+                XPointMember[count] = ChartData.Rows[count]["col1"].ToString();
+                //storing values for Y Axis  
+                YPointMember[count] = Convert.ToInt32(ChartData.Rows[count]["row1"]);
+            }
+        }
+        //binding chart control  
+        Chart1.Series[0].Points.DataBindXY(XPointMember, YPointMember);
+
+        //Setting width of line  
+        Chart1.Series[0].BorderWidth = 10;
+        //setting Chart type   
+        Chart1.Series[0].ChartType = SeriesChartType.Pie;
+        foreach (Series charts in Chart1.Series)
+        {
+            foreach (DataPoint point in charts.Points)
+            {
+                switch (point.AxisLabel)
+                {
+                    case "Total": point.Color = Color.RoyalBlue; break;
+                    case "Present": point.Color = Color.SaddleBrown; break;
+                    case "Absent": point.Color = Color.SpringGreen; break;
+                }
+                point.Label = string.Format("{0:0} - {1}", point.YValues[0], point.AxisLabel);
+            }
+        }
+        //Enabled 3D  
+        Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+        //con.Close();
+    }
+
+    public void getTeacherAttStatus()
+    {
+        strQry = "exec usp_NewAdminDashboard  @type='TeacherCountchart',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "'";
+        ds1 = sGetDataset(strQry);
+        DataTable ChartData = ds1.Tables[0];
+
+        //storing total rows count to loop on each Record  
+        string[] XPointMember = new string[ChartData.Rows.Count];
+        int[] YPointMember = new int[ChartData.Rows.Count];
+
+        if (ds1.Tables[0].Rows.Count > 0)
+        {
+            for (int count = 0; count < ChartData.Rows.Count; count++)
+            {
+                //storing Values for X axis  
+                XPointMember[count] = ChartData.Rows[count]["col1"].ToString();
+                //storing values for Y Axis  
+                YPointMember[count] = Convert.ToInt32(ChartData.Rows[count]["row1"]);
+            }
+        }
+        //binding chart control  
+        Chart2.Series[0].Points.DataBindXY(XPointMember, YPointMember);
+
+        //Setting width of line  
+        Chart2.Series[0].BorderWidth = 10;
+        //setting Chart type   
+        Chart2.Series[0].ChartType = SeriesChartType.Column;
+        foreach (Series charts in Chart2.Series)
+        {
+            foreach (DataPoint point in charts.Points)
+            {
+                switch (point.AxisLabel)
+                {
+                    case "Total": point.Color = Color.RoyalBlue; break;
+                    case "Present": point.Color = Color.SaddleBrown; break;
+                    case "Absent": point.Color = Color.SpringGreen; break;
+                }
+                point.Label = string.Format("{0:0} - {1}", point.YValues[0], point.AxisLabel);
+            }
+        }
+        //Enabled 3D  
+        Chart2.ChartAreas["ChartArea2"].Area3DStyle.Enable3D = true;
+        //con.Close();
+    }
+    public void getStaffAttStatus()
+    {
+        strQry = "exec usp_NewAdminDashboard  @type='StaffCountchart',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "'";
+        ds1 = sGetDataset(strQry);
+        DataTable ChartData = ds1.Tables[0];
+
+        //storing total rows count to loop on each Record  
+        string[] XPointMember = new string[ChartData.Rows.Count];
+        int[] YPointMember = new int[ChartData.Rows.Count];
+
+        if (ds1.Tables[0].Rows.Count > 0)
+        {
+            for (int count = 0; count < ChartData.Rows.Count; count++)
+            {
+                //storing Values for X axis  
+                XPointMember[count] = ChartData.Rows[count]["col1"].ToString();
+                //storing values for Y Axis  
+                YPointMember[count] = Convert.ToInt32(ChartData.Rows[count]["row1"]);
+            }
+        }
+        //binding chart control  
+        Chart3.Series[0].Points.DataBindXY(XPointMember, YPointMember);
+
+        //Setting width of line  
+        Chart3.Series[0].BorderWidth = 10;
+        //setting Chart type   
+        Chart3.Series[0].ChartType = SeriesChartType.RangeBar;
+        foreach (Series charts in Chart3.Series)
+        {
+            foreach (DataPoint point in charts.Points)
+            {
+                switch (point.AxisLabel)
+                {
+                    case "Total": point.Color = Color.RoyalBlue; break;
+                    case "Present": point.Color = Color.SaddleBrown; break;
+                    case "Absent": point.Color = Color.SpringGreen; break;
+                }
+                point.Label = string.Format("{0:0} - {1}", point.YValues[0], point.AxisLabel);
+            }
+        }
+        //Enabled 3D  
+        Chart3.ChartAreas["ChartArea3"].Area3DStyle.Enable3D = true;
+        //con.Close();
+    }
     public void cumulativepers()
     {
         try
@@ -138,36 +278,40 @@ public partial class AdminDB : DBUtility
 
     public void FillAttendanceCount()
     {
+        //lblStudentCnt.Text = "Student : " + "0";
+        //StaffCnt = "0";
+        //StaffPresent = "0";
+        //lblStaffCnt.Text = "Staff : " + "0";
+        //TeacherCnt = "0";
+        //TeacherPresent = "0";
+        //lblTeacherCnt.Text = "Teacher : " + "0";
+
         try
         {
-            strQry = "exec usp_NewAdminDashboard  @type='StudentCount',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "',@AcademicID='" + Convert.ToString(Session["AcademicID"]) + "'";            
+            strQry = "exec usp_NewAdminDashboard  @type='StudentCount',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "',@AcademicID='" + Convert.ToString(Session["AcademicID"]) + "'";
             dsObj = sGetDataset(strQry);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
                 lblStudentCnt.Text = "Student : " + Convert.ToString(dsObj.Tables[0].Rows[0]["Present"]) + " / " + Convert.ToString(dsObj.Tables[0].Rows[0]["Count"]);
             }
-            
-
-            strQry = "exec usp_NewAdminDashboard  @type='StaffCount',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "'";           
+            strQry = "exec usp_NewAdminDashboard  @type='StaffCount',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "'";
             dsObj = sGetDataset(strQry);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
                 StaffCnt = Convert.ToString(dsObj.Tables[0].Rows[0]["Count"]);
                 StaffPresent = Convert.ToString(dsObj.Tables[0].Rows[0]["Present"]);
             }
-
             lblStaffCnt.Text = "Staff : " + Convert.ToString(Convert.ToInt32(StaffPresent)) + " / " + Convert.ToString(Convert.ToInt32(StaffCnt));
 
-            strQry = "exec usp_NewAdminDashboard  @type='TeacherCount',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "'";            
+            strQry = "exec usp_NewAdminDashboard  @type='TeacherCount',@SchoolId='" + Convert.ToString(Session["School_Id"]) + "'";
             dsObj = sGetDataset(strQry);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
                 TeacherCnt = Convert.ToString(dsObj.Tables[0].Rows[0]["Count"]);
                 TeacherPresent = Convert.ToString(dsObj.Tables[0].Rows[0]["Present"]);
-
                 lblTeacherCnt.Text = "Teacher : " + Convert.ToString(Convert.ToInt32(TeacherPresent)) + " / " + Convert.ToString(Convert.ToInt32(TeacherCnt));
             }
-            
+
         }
         catch
         {
@@ -271,7 +415,7 @@ public partial class AdminDB : DBUtility
     {
         try
         {
-            strQry = "usp_NewAdminDashboard @type='NoticeBoard',@SchoolId='" + Session["School_id"] + "'";
+            strQry = "usp_NewAdminDashboard @type='NoticeBoard',@SchoolId='" + Session["School_id"] + "',@AcademicID='" + Session["AcademicID"] + "'";
             dsObj = sGetDataset(strQry);
             if (dsObj.Tables[0].Rows.Count > 0)
             {
@@ -282,80 +426,91 @@ public partial class AdminDB : DBUtility
                         lblSubject1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate1.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice1.Visible = true;
+                        NoticeImage1.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 1)
                     {
                         lblSubject2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate2.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice2.Visible = true;
+                        NoticeImage2.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
+
                     }
                     if (k == 2)
                     {
                         lblSubject3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate3.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice3.Visible = true;
+                        NoticeImage3.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 3)
                     {
                         lblSubject4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate4.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice4.Visible = true;
+                        NoticeImage4.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 4)
                     {
                         lblSubject5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate5.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice5.Visible = true;
+                        NoticeImage5.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 5)
                     {
                         lblSubject6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate6.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice6.Visible = true;
+                        NoticeImage6.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 6)
                     {
                         lblSubject7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate7.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice7.Visible = true;
+                        NoticeImage7.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 7)
                     {
                         lblSubject8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate8.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice8.Visible = true;
+                        NoticeImage8.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 8)
                     {
                         lblSubject9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate9.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice9.Visible = true;
+                        NoticeImage9.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                     if (k == 9)
                     {
                         lblSubject10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Subject"]);
                         lblNotice10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Notice"]);
                         lblIssueDate10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["Issue_Date"]);
-                        lblEndDate10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
+                        //lblEndDate10.Text = Convert.ToString(dsObj.Tables[0].Rows[k]["End_Date"]);
                         Notice10.Visible = true;
+                        NoticeImage10.ImageUrl = Convert.ToString(dsObj.Tables[0].Rows[k]["ImageUrl"]);
                     }
                 }
             }
@@ -758,9 +913,9 @@ public partial class AdminDB : DBUtility
                         string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert1"]);
                         //string strMobile2 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert2"]);
                         //strMobile1 = "8080847070";
-                        POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                      //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
-                        //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                        //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                     }
                 }
                 MessageBox("Message Send Successfully.");
@@ -778,8 +933,8 @@ public partial class AdminDB : DBUtility
                         {
                             string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert1"]);
                             //string strMobile2 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert2"]);
-                            // POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
-                            POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                            // POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                          //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
                         }
@@ -799,9 +954,9 @@ public partial class AdminDB : DBUtility
                             {
                                 string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert1"]);
                                 //string strMobile2 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert2"]);
-                                 POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                                // POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
-                              //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                              //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                                 //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                             }
                         }
@@ -825,8 +980,8 @@ public partial class AdminDB : DBUtility
                                 {
                                     string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert1"]);
                                     //string strMobile2 = Convert.ToString(dsObj.Tables[i].Rows[0]["intBusAlert2"]);
-                                    //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
-                                     POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                                    //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                                    // POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
                                 }
@@ -849,10 +1004,10 @@ public partial class AdminDB : DBUtility
                                 {
                                     string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intBusAlert1"]);
                                     //string strMobile2 = Convert.ToString(dsObj.Tables[i].Rows[0]["intBusAlert2"]);
-                                    POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                                  //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
-                                    //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                                    //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                                     //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                                 }
                             }
@@ -871,10 +1026,10 @@ public partial class AdminDB : DBUtility
                     for (int i = 0; i <= dsObj.Tables[0].Rows.Count - 1; i++)
                     {
                         string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intmobileNo"]);
-                        POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                      //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
-                        //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                        //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                         //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                     }
                 }
@@ -891,10 +1046,10 @@ public partial class AdminDB : DBUtility
                         for (int i = 0; i <= dsObj.Tables[0].Rows.Count - 1; i++)
                         {
                             string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intmobileNo"]);
-                            POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                          //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
-                            //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                            //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                             //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                         }
                     }
@@ -910,10 +1065,10 @@ public partial class AdminDB : DBUtility
                         {
 
                             string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intmobileNo"]);
-                             POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                           //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
-                            //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                            //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                             // POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                         }
                     }
@@ -932,10 +1087,10 @@ public partial class AdminDB : DBUtility
                         for (int i = 0; i <= dsObj.Tables[0].Rows.Count - 1; i++)
                         {
                             string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intmobileNo"]);
-                            POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                          //  POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
-                            //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                            //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                             //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                         }
                     }
@@ -951,10 +1106,10 @@ public partial class AdminDB : DBUtility
                         {
 
                             string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intmobileNo"]);
-                            POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                         //   POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
 
-                            //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                            //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                             //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                         }
                     }
@@ -992,9 +1147,9 @@ public partial class AdminDB : DBUtility
                     for (int i = 0; i <= dsObj.Tables[0].Rows.Count - 1; i++)
                     {
                         string strMobile1 = Convert.ToString(dsObj.Tables[0].Rows[i]["intmobileNo"]);
-                        POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                       // POST("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
 
-                        //POST("http://e-smartsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
+                        //POST("http://VClassroomsociety.com/submitsms.jsp?user=Efficas&key=1d9796cef6XX&mobile=" + strMobile1 + "&message=" + txtNotice.Text.Trim() + "&senderid=CMSBKP&accusage=1", "");
                         //POST("http://alerts.justnsms.com/api/v3/?method=sms&api_key=Ad68553890184f28bf0a8c8951f3a665f&to=" + strMobile1 + "&sender=EFFICA&message=" + txtNotice.Text.Trim() + "&format=json&custom=1,2&flash=0", "");
                     }
                 }

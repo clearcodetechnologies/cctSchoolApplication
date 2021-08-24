@@ -61,7 +61,7 @@ public partial class frmMarksEntry : DBUtility
                     {
                         lblName.Visible = false;
                         lblGetName.Visible = false;
-                        MainTab.Tabs[1].Visible = false;
+                        //MainTab.Tabs[1].Visible = false;
                         ddlSTD2.Visible = false;
                         ddlDIV2.Visible = false;
                         ddlStudent2.Visible = false;

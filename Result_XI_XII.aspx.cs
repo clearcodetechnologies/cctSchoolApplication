@@ -223,6 +223,7 @@ public partial class Result_XI_XII : DBUtility
                     Session["Exam_idnum"] = ddlExam.SelectedValue.ToString();
                     Session["standard_id"] = ddlSTD.SelectedItem.ToString();
                     Session["standard_idnum"] = ddlSTD.SelectedValue.ToString();
+                    Session["AcademicYearName"] = Convert.ToString(dsObj.Tables[1].Rows[0]["AcademicYear"]);
                     Response.Redirect("rptResult_11Sci.aspx", true);
                 }
                 catch (Exception ex)
@@ -242,6 +243,7 @@ public partial class Result_XI_XII : DBUtility
                 Session["Exam_idnum"] = ddlExam.SelectedValue.ToString();
                 Session["standard_id"] = ddlSTD.SelectedItem.ToString();
                 Session["standard_idnum"] = ddlSTD.SelectedValue.ToString();
+                Session["AcademicYearName"] = Convert.ToString(dsObj.Tables[1].Rows[0]["AcademicYear"]);
                 Response.Redirect("rptResult_11Sci.aspx", true);
 
         }

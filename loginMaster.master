@@ -10,7 +10,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 
-    <title>E-SMARTs</title>
+    <title>VClassrooms</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -53,10 +53,10 @@
         <div class="minibar_container">
             <div class="top-social">
                 <div class="contact">
-                   <a href="https://www.facebook.com/efficacioustech?fref=ts" target="_blank" > <img src="img/social-icon/facebook.jpg"  title="efficacious facebook" /></a>
-                     <a href="https://www.linkedin.com/company/efficacious?" target="_blank" > <img src="img/social-icon/linkedin.jpg" title="efficacious linkedin" /></a>
-                   <a href="https://plus.google.com/109018947605678135012/photos" target="_blank" >   <img src="img/social-icon/googleplus.jpg" title="efficacious googleplus" /></a>
-                    <a href="https://twitter.com/EfficaciousTec" target="_blank" >  <img src="img/social-icon/twitter.jpg" title="efficacious twitter" /></a>
+                   <a href="https://www.facebook.com/vclassroomstech?fref=ts" target="_blank" > <img src="img/social-icon/facebook.jpg"  title="vclassrooms facebook" /></a>
+                     <a href="https://www.linkedin.com/company/vclassrooms?" target="_blank" > <img src="img/social-icon/linkedin.jpg" title="vclassrooms linkedin" /></a>
+                   <a href="https://plus.google.com/109018947605678135012/photos" target="_blank" >   <img src="img/social-icon/googleplus.jpg" title="vclassrooms googleplus" /></a>
+                    <a href="https://twitter.com/vclassroomsTec" target="_blank" >  <img src="img/social-icon/twitter.jpg" title="vclassrooms twitter" /></a>
                 </div>
                 <div class="top-link">
                     <ul class="eff">
@@ -114,15 +114,15 @@
                 <div class="email">
                     <div class="call-number">
                         <img align="left" style="padding-right: 10px;" src="img/social-icon/call.png" />:
-                        +91-22-27816136/37</div>
+                        +91-8355861316</div>
                     <div class="clearfix">
                     </div>
                     <div class="email-info">
                         <img align="left" style="padding-right: 10px;" src="img/social-icon/email.png" />:
-                        info@efficacious.co.in</div>
+                        info@vclassrooms.in</div>
                 </div>
-                <div class="efficacious-logo">
-                    <img src="img/logo/efficacious-log.png" width="200" height="70" alt="efficacious" /></div>
+                <div class="vclassrooms-logo">
+                    <img src="img/logo/vclassrooms-log.png" width="200" height="70" alt="vclassrooms" /></div>
             </div>
             <div class="clearfix">
             </div>
@@ -139,7 +139,7 @@
         <div class="footer">
             <div class="footer_container">
                 <div class="copyright">
-                    ©2015 . All Rights Reserved by Efficacious India Limited</div>
+                    ©2015 . All Rights Reserved by vclassrooms India Limited</div>
                 <div class="privacypolicy">
                     Disclaimer | Privacy Policy | Terms & Conditions</div>
             </div>

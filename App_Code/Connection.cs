@@ -17,6 +17,7 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using context = System.Web.HttpContext;
 
 public class DBConnection : IDisposable
 {
@@ -125,7 +126,21 @@ public class DBUtility : Page
             // return msg;
         }
     }
-    
+
+    public void MessageBox1(string msg, string strCleans)
+    {
+        try
+        {
+            string script = "alert(\"" + msg + "\");";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+
+        }
+        catch (Exception)
+        {
+            // return msg;
+        }
+    }
+
     public void geturl()
     {
         try
@@ -141,6 +156,46 @@ public class DBUtility : Page
 
         }
     }
+    private static String ErrorlineNo, Errormsg, extype, exurl, ErrorText;
+    public static void LogException(Exception ex)
+    {
+        var line = Environment.NewLine;
+        ErrorlineNo = ex.StackTrace.Substring(ex.StackTrace.Length - 7, 7);
+        Errormsg = ex.GetType().Name.ToString();
+        extype = ex.GetType().ToString();
+        exurl = context.Current.Request.Url.ToString();
+        ErrorText = ex.Message.ToString();
+        try
+        {
+            string filepath = context.Current.Server.MapPath("~/Documents/Logs/");  //Text File Path
+
+            if (!Directory.Exists(filepath))
+            {
+                Directory.CreateDirectory(filepath);
+            }
+            filepath = filepath + "ErrorLog-" + DateTime.Today.ToString("dd-MM-yy") + ".txt";   //Text File Name
+            if (!File.Exists(filepath))
+            {
+                File.Create(filepath).Dispose();
+            }
+            using (StreamWriter sw = File.AppendText(filepath))
+            {
+                string error = "Log Written Date:" + " " + DateTime.Now.ToString() + line + "Error Line No :" + " " + ErrorlineNo + line + "Error Message:" + " " + Errormsg + line + "Exception Type:" + " " + extype + line + "Error Location :" + " " + ErrorText + line + "Error Page Url:" + " " + exurl + line;
+                sw.WriteLine("-----------Exception Details on " + " " + DateTime.Now.ToString() + "-----------------");
+                sw.WriteLine("-------------------------------------------------------------------------------------");
+                sw.WriteLine(error);
+                sw.WriteLine("--------------------------------*End*------------------------------------------");
+                sw.WriteLine(line);
+                sw.Flush();
+                sw.Close();
+            }
+        }
+        catch (Exception e)
+        {
+            e.ToString();
+        }
+    }
+
 
     public static bool sBindDropDownListAll(DropDownList sDdl, string sQuery, string sTextField, string sValueField)
     {
@@ -815,6 +870,30 @@ public class DBUtility : Page
         catch (Exception Excp)
         {
             
+        }
+    }
+    public void ShowSuccessMessage(string msg = "Record Saved Successfully")
+    {
+        try
+        {
+            string script = "$('#Success span i').html('');$('#Success span i').html(' " + msg + "');$('#Success').fadeIn();setTimeout(function(){ $('#Success').fadeOut(); }, 5000);";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+        }
+    }
+    public void ShowErrorMessage(string msg = "Something went wrong!")
+    {
+        try
+        {
+            string script = "$('#Error span i').html('');$('#Error span i').html(' " + msg + "');$('#Error').fadeIn();setTimeout(function(){ $('#Error').fadeOut(); }, 5000);";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
         }
     }
 
